@@ -101,7 +101,7 @@ void Mesh::fillOut(vector<Vertex> _vertices, vector<GLuint> _indices) {
 	//Normals*/
 	glBindBuffer(GL_ARRAY_BUFFER, vboNormalsID);
 	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
-	glEnableVertexAttribArray(ShaderManager::getAttribute("vertexPosition"));
+	glEnableVertexAttribArray(ShaderManager::getAttribute("vertexNormal"));
 	glVertexAttribPointer(ShaderManager::getAttribute("vertexNormal"), 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 
 	/*GLfloat* normalBuffer = static_cast<GLfloat*>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));

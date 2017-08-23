@@ -40,8 +40,10 @@ void Display::init() {
 	glutReshapeFunc(Engine::onResize);
 	glutDisplayFunc(Engine::onRender);
 
-	glClearColor(1, 0, 0, 0);
-	glDisable(GL_CULL_FACE);
+	glClearColor(0.1f, 0.2f, 0.3f, 0);
+	glEnable(GL_CULL_FACE);
+	glDepthFunc(GL_LEQUAL);
+	glEnable(GL_DEPTH_TEST);
 }
 
 void Display::destroy() {

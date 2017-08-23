@@ -88,7 +88,7 @@ void Engine::onRender() {
 
 void Engine::onResize(int nw, int nh) {
 	glViewport(0, 0, (GLsizei) nw, (GLsizei) nh);
-	GLHelper::projectionMatrix = glm::perspective(90, nw/nh, 0, 10);
+	GLHelper::projectionMatrix = glm::perspective(90.0f, (float)nw/nh, 0.01f, 100.0f);
 	cout << "Resize: "<<nw<<" "<<nh << endl;
 }
 
