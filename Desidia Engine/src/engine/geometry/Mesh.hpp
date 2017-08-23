@@ -15,10 +15,8 @@ class Mesh {
 		std::vector<GLuint> indices;
 
 		GLuint vaoID;
-		GLuint vboPositionsID;
 		GLuint vboIndicesID;
-		GLuint vboTexCoordsID;
-		GLuint vboNormalsID;
+		GLuint vboVerticesID;
 
 		void draw();
 
