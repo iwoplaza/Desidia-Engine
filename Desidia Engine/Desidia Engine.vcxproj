@@ -154,9 +154,13 @@
     <ClCompile Include="src\engine\Display.cpp" />
     <ClCompile Include="src\engine\Engine.cpp" />
     <ClCompile Include="src\engine\geometry\Mesh.cpp" />
+    <ClCompile Include="src\engine\geometry\Vertex.cpp" />
     <ClCompile Include="src\engine\GLHelper.cpp" />
+    <ClCompile Include="src\engine\loader\OBJLoader.cpp" />
     <ClCompile Include="src\engine\shader\Shader.cpp" />
     <ClCompile Include="src\engine\shader\ShaderManager.cpp" />
+    <ClCompile Include="src\engine\Time.cpp" />
+    <ClCompile Include="src\engine\Vector2.cpp" />
     <ClCompile Include="src\engine\Vector3.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
@@ -165,8 +169,11 @@
     <ClInclude Include="src\engine\Engine.hpp" />
     <ClInclude Include="src\engine\geometry\Mesh.hpp" />
     <ClInclude Include="src\engine\GLHelper.hpp" />
+    <ClInclude Include="src\engine\loader\OBJLoader.hpp" />
     <ClInclude Include="src\engine\shader\Shader.hpp" />
     <ClInclude Include="src\engine\shader\ShaderManager.hpp" />
+    <ClInclude Include="src\engine\Time.hpp" />
+    <ClInclude Include="src\engine\Vector2.hpp" />
     <ClInclude Include="src\engine\Vector3.hpp" />
     <ClInclude Include="src\engine\geometry\Vertex.hpp" />
   </ItemGroup>

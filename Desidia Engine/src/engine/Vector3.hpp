@@ -23,6 +23,8 @@ class Vector3 {
 		friend Vector3 operator-(Vector3 v1, const Vector3& v2);
 		friend Vector3 operator*(Vector3 v1, const Vector3& v2);
 		friend Vector3 operator/(Vector3 v1, const Vector3& v2);
+		friend Vector3 operator*(Vector3 v, const float& s);
+		friend Vector3 operator/(Vector3 v, const float& s);
 		friend ostream& operator<<(ostream& os, const Vector3& v);
 		friend istream& operator>>(ostream& is, Vector3& v);
 };

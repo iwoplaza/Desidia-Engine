@@ -51,9 +51,6 @@ void Shader::loadFromString(string source) {
 	else if (mode == 2)
 		fragmentShaderSource += source;
 
-	cout << "Vertex Shader Source: " << endl << vertexShaderSource << endl;
-	cout << "Fragment Shader Source: " << endl << fragmentShaderSource << endl;
-
 	GLuint vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 	GLint status;
@@ -118,6 +115,7 @@ void Shader::createAndLinkProgram() {
 	glDeleteShader(shaders[GEOMETRY_SHADER]);
 
 	attributes["vertexPosition"] = glGetAttribLocation(program, "aVertexPosition");
+	attributes["vertexNormal"] = glGetAttribLocation(program, "aVertexNormal");
 	uniforms["mMatrix"] = glGetUniformLocation(program, "uMMatrix");
 	uniforms["vMatrix"] = glGetUniformLocation(program, "uVMatrix");
 	uniforms["pMatrix"] = glGetUniformLocation(program, "uPMatrix");

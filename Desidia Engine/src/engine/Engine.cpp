@@ -4,7 +4,9 @@
 #include <iostream>
 #include "Display.hpp"
 #include "GLHelper.hpp"
+#include "Time.hpp"
 #include "geometry\Mesh.hpp"
+#include "loader/OBJLoader.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -12,7 +14,8 @@ using namespace std;
 
 Display* Engine::display;
 
-Mesh mesh;
+Mesh* testMesh;
+float ticks = 0;
 
 void Engine::init(int argc, char** argv) {
 	glutInit(&argc, argv);
@@ -22,7 +25,6 @@ void Engine::init(int argc, char** argv) {
 	glutInitContextProfile(GLUT_FORWARD_COMPATIBLE);
 
 	glutCloseFunc(onClose);
-	glutReshapeFunc(onResize);
 	glutIdleFunc(onIdle);
 	/*glutMouseFunc(OnMouseDown);
 	glutMotionFunc(OnMouseMove);
@@ -45,38 +47,49 @@ void Engine::createDisplay(char* _title, int _width, int _height) {
 	ShaderManager::loadResource("default");
 	ShaderManager::use("default");
 
-	vector<Vertex> vertices = vector<Vertex>();
-	vertices.push_back(Vertex(0, 0, 0));
-	vertices.push_back(Vertex(1, 0, 0));
-	vertices.push_back(Vertex(1, 1, 0));
-	vertices.push_back(Vertex(0, 1, 0));
+	/*vector<Vertex> vertices = vector<Vertex>();
+	vertices.push_back(Vertex(0, -1, 1));
+	vertices.push_back(Vertex(0, -1, -1));
+	vertices.push_back(Vertex(0, 1, -1));
+	vertices.push_back(Vertex(0, 1, 1));
+	vertices.push_back(Vertex(0, -1, 1));
+	vertices.push_back(Vertex(0, 1, -1));
 	vector<GLuint> indices = vector<GLuint>();
 	indices.push_back(0);
 	indices.push_back(1);
-	indices.push_back(3);
-	indices.push_back(1);
-	indices.push_back(3);
 	indices.push_back(2);
-	mesh.fillOut(vertices, indices);
+	indices.push_back(3);
+	indices.push_back(4);
+	indices.push_back(5);
+	mesh.fillOut(vertices, indices);*/
+
+	testMesh = OBJLoader::loadFromFile("res/models/car.obj");
 
 	cout << glGetError() << ": " << gluErrorString(glGetError());
 }
 
 void Engine::onIdle() {
+	Time::tick();
+	ticks += Time::delta;
 	glutPostRedisplay();
 }
 
 void Engine::onRender() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	mesh.draw();
+	GLHelper::modelMatrix = glm::mat4();
+	GLHelper::modelMatrix = glm::translate(GLHelper::modelMatrix, glm::vec3(0.1f, -0.5f, -5));
+	GLHelper::modelMatrix = glm::rotate(GLHelper::modelMatrix, ticks*2.0f, glm::vec3(0, 1, 0));
+
+	testMesh->draw();
 
 	glutSwapBuffers();
 }
 
 void Engine::onResize(int nw, int nh) {
 	glViewport(0, 0, (GLsizei) nw, (GLsizei) nh);
-	GLHelper::projectionMatrix = glm::ortho(-1, 1, -1, 1);
+	GLHelper::projectionMatrix = glm::perspective(90, nw/nh, 0, 10);
+	cout << "Resize: "<<nw<<" "<<nh << endl;
 }
 
 void Engine::onClose() {

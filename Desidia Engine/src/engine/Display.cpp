@@ -37,9 +37,11 @@ void Display::init() {
 	cout << "\tWersja OpenGL: " << glGetString(GL_VERSION) << endl;
 	cout << "\tGLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
 
+	glutReshapeFunc(Engine::onResize);
 	glutDisplayFunc(Engine::onRender);
 
 	glClearColor(1, 0, 0, 0);
+	glDisable(GL_CULL_FACE);
 }
 
 void Display::destroy() {

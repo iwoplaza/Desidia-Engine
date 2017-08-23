@@ -68,6 +68,16 @@ Vector3 operator/(Vector3 v1, const Vector3& v2) {
 	return v1;
 }
 
+Vector3 operator*(Vector3 v, const float& s) {
+	v /= s;
+	return v;
+}
+
+Vector3 operator/(Vector3 v, const float& s) {
+	v /= s;
+	return v;
+}
+
 ostream& operator<<(ostream& os, const Vector3& v) {
 	os << "{ " << v.x << ", " << v.y << ", " << v.z << " }";
 	return os;
