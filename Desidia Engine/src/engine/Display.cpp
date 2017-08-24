@@ -37,13 +37,12 @@ void Display::init() {
 	cout << "\tWersja OpenGL: " << glGetString(GL_VERSION) << endl;
 	cout << "\tGLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
 
-	glutReshapeFunc(Engine::onResize);
-	glutDisplayFunc(Engine::onRender);
-
 	glClearColor(0.1f, 0.2f, 0.3f, 0);
 	glEnable(GL_CULL_FACE);
 	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void Display::destroy() {

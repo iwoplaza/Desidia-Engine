@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Programming\SDK\glm;D:\Programming\SDK\freeglut\include;D:\Programming\SDK\glew-1.13.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Programming\SDK\freeglut\lib;D:\Programming\SDK\glew-1.13.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Programming\SDK\DevIL-SDK-x86-1.7.8\include;D:\Programming\SDK\glm;D:\Programming\SDK\freeglut\include;D:\Programming\SDK\glew-1.13.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Programming\SDK\DevIL-SDK-x86-1.7.8\lib;D:\Programming\SDK\freeglut\lib;D:\Programming\SDK\glew-1.13.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -151,27 +151,41 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\Camera.cpp" />
     <ClCompile Include="src\engine\Display.cpp" />
     <ClCompile Include="src\engine\Engine.cpp" />
+    <ClCompile Include="src\engine\gameobject\component\Component.cpp" />
+    <ClCompile Include="src\engine\gameobject\component\ComponentMesh.cpp" />
+    <ClCompile Include="src\engine\gameobject\GameObject.cpp" />
     <ClCompile Include="src\engine\geometry\Mesh.cpp" />
     <ClCompile Include="src\engine\geometry\Vertex.cpp" />
     <ClCompile Include="src\engine\GLHelper.cpp" />
+    <ClCompile Include="src\engine\InputManager.cpp" />
     <ClCompile Include="src\engine\loader\OBJLoader.cpp" />
+    <ClCompile Include="src\engine\scene\Scene.cpp" />
     <ClCompile Include="src\engine\shader\Shader.cpp" />
     <ClCompile Include="src\engine\shader\ShaderManager.cpp" />
+    <ClCompile Include="src\engine\texture\Texture.cpp" />
     <ClCompile Include="src\engine\Time.cpp" />
     <ClCompile Include="src\engine\Vector2.cpp" />
     <ClCompile Include="src\engine\Vector3.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\Camera.hpp" />
     <ClInclude Include="src\engine\Display.hpp" />
     <ClInclude Include="src\engine\Engine.hpp" />
+    <ClInclude Include="src\engine\gameobject\component\Component.hpp" />
+    <ClInclude Include="src\engine\gameobject\component\ComponentMesh.hpp" />
+    <ClInclude Include="src\engine\gameobject\GameObject.hpp" />
     <ClInclude Include="src\engine\geometry\Mesh.hpp" />
     <ClInclude Include="src\engine\GLHelper.hpp" />
+    <ClInclude Include="src\engine\InputManager.hpp" />
     <ClInclude Include="src\engine\loader\OBJLoader.hpp" />
+    <ClInclude Include="src\engine\scene\Scene.hpp" />
     <ClInclude Include="src\engine\shader\Shader.hpp" />
     <ClInclude Include="src\engine\shader\ShaderManager.hpp" />
+    <ClInclude Include="src\engine\texture\Texture.hpp" />
     <ClInclude Include="src\engine\Time.hpp" />
     <ClInclude Include="src\engine\Vector2.hpp" />
     <ClInclude Include="src\engine\Vector3.hpp" />

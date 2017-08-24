@@ -17,6 +17,9 @@ class Engine {
 		*/
 		static void onIdle();
 		static void onClose();
+		static void handleMouseMove(int x, int y);
+		static void handleMouseClicked(int button, int state, int x, int y);
+		static void handleWindowEntry(int state);
 
 		static Display* display;
 };

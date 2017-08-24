@@ -25,6 +25,8 @@ void Mesh::draw() {
 	glVertexAttribPointer(ShaderManager::getAttribute("vertexPosition"), 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(ShaderManager::getAttribute("vertexNormal"));
 	glVertexAttribPointer(ShaderManager::getAttribute("vertexNormal"), 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)offsetof(Vertex, nx));
+	//glEnableVertexAttribArray(ShaderManager::getAttribute("vertexTexCoord"));
+	//glVertexAttribPointer(ShaderManager::getAttribute("vertexTexCoord"), 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)offsetof(Vertex, u));
 
 	/*if (TextureManager.areTexturesEnabled()) {
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.textureCoordBuffer);
@@ -52,8 +54,6 @@ void Mesh::fillOut(vector<Vertex> _vertices, vector<GLuint> _indices) {
 	glBindVertexArray(vaoID);
 	glGenBuffers(1, &vboVerticesID);
 	glGenBuffers(1, &vboIndicesID);
-	//glGenBuffers(1, &vboTexCoordsID);
-	//glGenBuffers(1, &vboNormalsID);
 
 	vertices = _vertices;
 	indices = _indices;
@@ -79,7 +79,9 @@ void Mesh::fillOut(vector<Vertex> _vertices, vector<GLuint> _indices) {
 	glVertexAttribPointer(ShaderManager::getAttribute("vertexPosition"), 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 	glEnableVertexAttribArray(ShaderManager::getAttribute("vertexNormal"));
 	glVertexAttribPointer(ShaderManager::getAttribute("vertexNormal"), 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)offsetof(Vertex, nx));
-	
+	glEnableVertexAttribArray(ShaderManager::getAttribute("vertexTexCoord"));
+	glVertexAttribPointer(ShaderManager::getAttribute("vertexTexCoord"), 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)offsetof(Vertex, u));
+
 	glBindVertexArray(0);
 
 	cout << "Created a mesh with " << indices.size() / 3 << " faces." << endl;

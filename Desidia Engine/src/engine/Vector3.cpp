@@ -69,7 +69,7 @@ Vector3 operator/(Vector3 v1, const Vector3& v2) {
 }
 
 Vector3 operator*(Vector3 v, const float& s) {
-	v /= s;
+	v *= s;
 	return v;
 }
 

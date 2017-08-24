@@ -116,10 +116,12 @@ void Shader::createAndLinkProgram() {
 
 	attributes["vertexPosition"] = glGetAttribLocation(program, "aVertexPosition");
 	attributes["vertexNormal"] = glGetAttribLocation(program, "aVertexNormal");
+	attributes["vertexTexCoord"] = glGetAttribLocation(program, "aVertexTexCoord");
 	uniforms["mMatrix"] = glGetUniformLocation(program, "uMMatrix");
 	uniforms["vMatrix"] = glGetUniformLocation(program, "uVMatrix");
 	uniforms["pMatrix"] = glGetUniformLocation(program, "uPMatrix");
 	uniforms["nMatrix"] = glGetUniformLocation(program, "uNMatrix");
+	uniforms["diffuseMap"] = glGetUniformLocation(program, "uDiffuseMap");
 }
 
 void Shader::use() {

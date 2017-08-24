@@ -63,7 +63,7 @@ Vector2 operator/(Vector2 v1, const Vector2& v2) {
 }
 
 Vector2 operator*(Vector2 v, const float& s) {
-	v /= s;
+	v *= s;
 	return v;
 }
 
