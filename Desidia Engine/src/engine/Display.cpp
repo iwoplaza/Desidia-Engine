@@ -48,3 +48,19 @@ void Display::init() {
 void Display::destroy() {
 
 }
+
+void Display::setWidth(int nw) {
+	width = nw;
+}
+
+void Display::setHeight(int nh) {
+	height = nh;
+}
+
+int Display::getWidth() {
+	return width;
+}
+
+int Display::getHeight() {
+	return height;
+}

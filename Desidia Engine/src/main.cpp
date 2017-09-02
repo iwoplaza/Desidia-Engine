@@ -16,6 +16,7 @@ int main(int argc, char** argv)
 	Engine::init(argc, argv);
 	Engine::createDisplay("Desidia Engine 0.1.0", WIDTH, HEIGHT);
 	Engine::run();
+	Engine::destroy();
 
     return 0;
 }

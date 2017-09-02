@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector3.hpp"
+#include "util/Vector3.hpp"
 #include <glm\glm.hpp>
 #define PI 3.14159265359
 
@@ -14,6 +14,7 @@ class Camera {
 		float maxPitch;
 		float minPitch;
 
+		glm::mat4 viewMatrix;
 		glm::mat4 rotationMatrix;
 	public:
 		Camera();
@@ -31,4 +32,5 @@ class Camera {
 
 		Vector3 getLocation();
 		Vector3 getRotation();
+		glm::mat4 getViewMatrix();
 };

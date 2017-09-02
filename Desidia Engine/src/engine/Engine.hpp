@@ -15,10 +15,14 @@ class Engine {
 			Called everytime the cpu is free from work, so it can perform another step.
 			In other words, a tick() function
 		*/
-		static void onIdle();
+		static void update();
 		static void onClose();
+		static void handleKeyPressed(unsigned char key, int x, int y);
+		static void handleKeyReleased(unsigned char key, int x, int y);
+		static void handleSpecialPressed(int key, int x, int y);
+		static void handleSpecialReleased(int key, int x, int y);
 		static void handleMouseMove(int x, int y);
-		static void handleMouseClicked(int button, int state, int x, int y);
+		static void handleMouseAction(int button, int state, int x, int y);
 		static void handleWindowEntry(int state);
 
 		static Display* display;

@@ -9,17 +9,11 @@ Shader::Shader()
 	shaders[VERTEX_SHADER] = 0;
 	shaders[FRAGMENT_SHADER] = 0;
 	shaders[GEOMETRY_SHADER] = 0;
-	attributes = map<string, GLuint>();
-	uniforms = map<string, GLuint>();
-	attributes.clear();
-	uniforms.clear();
 }
 
 Shader::~Shader()
 {
 	destroy();
-	attributes.clear();
-	uniforms.clear();
 }
 
 void Shader::destroy() {
@@ -27,35 +21,13 @@ void Shader::destroy() {
 }
 
 void Shader::loadFromString(string source) {
-	int mode = 0;
-	string vertexShaderSource = "#version 330 core";
-	string fragmentShaderSource = "#version 330 core";
-	while (source.find('[') != -1) {
-		if (mode == 1)
-			vertexShaderSource += source.substr(0, source.find('['));
-		else if (mode == 2)
-			fragmentShaderSource += source.substr(0, source.find('['));
-		source = source.substr(source.find('[')+1);
-		string command = source.substr(0, source.find(']'));
-		cout << "Command: " << command << endl;
-		if (command == "VERTEX") {
-			mode = 1;
-		}
-		else if (command == "FRAGMENT") {
-			mode = 2;
-		}
-		source = source.substr(source.find(']')+1);
-	}
-	if (mode == 1)
-		vertexShaderSource += source;
-	else if (mode == 2)
-		fragmentShaderSource += source;
+	compile(source);
 
 	GLuint vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 	GLint status;
 
-	const char * ptmp = vertexShaderSource.c_str();
+	const char * ptmp = vertexSource.c_str();
 	glShaderSource(vertex_shader, 1, &ptmp, NULL);
 	glCompileShader(vertex_shader);
 	glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &status);
@@ -69,7 +41,7 @@ void Shader::loadFromString(string source) {
 	}
 	shaders[VERTEX_SHADER] = vertex_shader;
 
-	ptmp = fragmentShaderSource.c_str();
+	ptmp = fragmentSource.c_str();
 	glShaderSource(fragment_shader, 1, &ptmp, NULL);
 	glCompileShader(fragment_shader);
 	glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, &status);
@@ -84,6 +56,31 @@ void Shader::loadFromString(string source) {
 	shaders[FRAGMENT_SHADER] = fragment_shader;
 }
 
+void Shader::compile(string source) {
+	int mode = 0;
+	vertexSource = "#version 330 core";
+	fragmentSource = "#version 330 core";
+	string remaining = source;
+	while (remaining.find('[') != -1) {
+		if (mode == 1)
+			vertexSource += remaining.substr(0, remaining.find('['));
+		else if (mode == 2)
+			fragmentSource += remaining.substr(0, remaining.find('['));
+		remaining = remaining.substr(remaining.find('[') + 1);
+		string command = remaining.substr(0, remaining.find(']'));
+		if (command == "VERTEX") {
+			mode = 1;
+		}
+		else if (command == "FRAGMENT") {
+			mode = 2;
+		}
+		remaining = remaining.substr(remaining.find(']') + 1);
+	}
+	if (mode == 1)
+		vertexSource += remaining;
+	else if (mode == 2)
+		fragmentSource += remaining;
+}
 
 void Shader::createAndLinkProgram() {
 	program = glCreateProgram();
@@ -113,15 +110,6 @@ void Shader::createAndLinkProgram() {
 	glDeleteShader(shaders[VERTEX_SHADER]);
 	glDeleteShader(shaders[FRAGMENT_SHADER]);
 	glDeleteShader(shaders[GEOMETRY_SHADER]);
-
-	attributes["vertexPosition"] = glGetAttribLocation(program, "aVertexPosition");
-	attributes["vertexNormal"] = glGetAttribLocation(program, "aVertexNormal");
-	attributes["vertexTexCoord"] = glGetAttribLocation(program, "aVertexTexCoord");
-	uniforms["mMatrix"] = glGetUniformLocation(program, "uMMatrix");
-	uniforms["vMatrix"] = glGetUniformLocation(program, "uVMatrix");
-	uniforms["pMatrix"] = glGetUniformLocation(program, "uPMatrix");
-	uniforms["nMatrix"] = glGetUniformLocation(program, "uNMatrix");
-	uniforms["diffuseMap"] = glGetUniformLocation(program, "uDiffuseMap");
 }
 
 void Shader::use() {
@@ -133,11 +121,11 @@ void Shader::disable() {
 }
 
 GLuint Shader::getAttribute(const string& attribute) {
-	return attributes[attribute];
+	return glGetAttribLocation(program, attribute.c_str());
 }
 
 GLuint Shader::getUniform(const string& uniform) {
-	return uniforms[uniform];
+	return glGetUniformLocation(program, uniform.c_str());
 }
 
 #include <fstream>

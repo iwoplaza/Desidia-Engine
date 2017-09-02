@@ -1,7 +1,8 @@
 #include "OBJLoader.hpp"
-#include "../geometry/Mesh.hpp"
-#include "../Vector3.hpp"
-#include "../Vector2.hpp"
+#include "../rendering/geometry/Mesh.hpp"
+#include "../util/Vector3.hpp"
+#include "../util/Vector2.hpp"
+#include "../Resources.hpp"
 #include <fstream>
 #include <string>
 
@@ -15,17 +16,14 @@ Mesh* OBJLoader::loadFromFile(string filename) {
 	vector<Vertex> vertices = vector<Vertex>();
 	vector<GLuint> indices = vector<GLuint>();
 
-	ifstream in(filename);
+	ifstream in(Resources::ROOT_PATH + filename);
 	if (!in.is_open()) {
 		std::cerr << "Failed to open .obj: " << filename << endl;
 		return mesh;
 	}
 
-	cout << "Obj: " << filename << endl;
-
 	string line;
 	while (getline(in, line)) {
-		//cout << "\tLine: " << line << endl;
 		if (line.length() == 0) continue;
 
 		if (line.substr(0, 2) == "vn") {

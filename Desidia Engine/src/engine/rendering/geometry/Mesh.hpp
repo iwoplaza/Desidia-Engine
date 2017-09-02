@@ -11,18 +11,12 @@ class Mesh {
 		Mesh();
 		~Mesh();
 
-		std::vector<Vertex> vertices;
-		std::vector<GLuint> indices;
-
 		GLuint vaoID;
 		GLuint vboIndicesID;
 		GLuint vboVerticesID;
+		int totalIndices;
 
 		void draw();
 
 		void fillOut(vector<Vertex> _vertices, vector<GLuint> _indices);
-		void fillPositionBuffer(GLfloat* buffer);
-		void fillIndexBuffer(GLuint* buffer);
-		void fillTexCoordBuffer(GLfloat* buffer);
-		void fillNormalBuffer(GLfloat* buffer);
 };

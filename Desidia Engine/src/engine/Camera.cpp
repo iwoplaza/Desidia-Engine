@@ -1,5 +1,5 @@
 #include "Camera.hpp"
-#include "GLHelper.hpp"
+#include "rendering/GLHelper.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
 Camera::Camera() {
@@ -12,6 +12,7 @@ Camera::Camera() {
 	upVector = Vector3();
 	forwardVector = Vector3();
 
+	viewMatrix = glm::mat4();
 	rotationMatrix = glm::mat4();
 }
 
@@ -66,8 +67,8 @@ void Camera::updateView() {
 	rotationMatrix = glm::rotate(rotationMatrix, rotation.x, glm::vec3(1, 0, 0));
 	rotationMatrix = glm::rotate(rotationMatrix, rotation.y, glm::vec3(0, 1, 0));
 
-	GLHelper::viewMatrix = rotationMatrix;
-	GLHelper::viewMatrix = glm::translate(GLHelper::viewMatrix, glm::vec3(location.x, location.y, location.z));
+	viewMatrix = rotationMatrix;
+	viewMatrix = glm::translate(viewMatrix, glm::vec3(location.x, location.y, location.z));
 
 	glm::vec4 forward = glm::vec4(0, 0, 1, 1) * rotationMatrix;
 	forwardVector.x = forward.x;
@@ -86,4 +87,8 @@ Vector3 Camera::getLocation() {
 
 Vector3 Camera::getRotation() {
 	return rotation;
+}
+
+glm::mat4 Camera::getViewMatrix() {
+	return viewMatrix;
 }

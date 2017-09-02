@@ -5,13 +5,19 @@
 #include <IL/ilut.h>
 #include <iostream>
 #include "Display.hpp"
-#include "GLHelper.hpp"
-#include "Time.hpp"
+#include "rendering/GLHelper.hpp"
+#include "util/Time.hpp"
 #include "Camera.hpp"
-#include "texture\Texture.hpp"
+#include "rendering/texture/Texture.hpp"
 #include "InputManager.hpp"
-#include "geometry\Mesh.hpp"
+#include "rendering/geometry/Mesh.hpp"
 #include "loader/OBJLoader.hpp"
+#include "Resources.hpp"
+#include "rendering/font/FontRenderer.hpp"
+#include "debug/DebugConsole.hpp"
+#include "script/Scripts.hpp"
+#include "scene/Scene.hpp"
+#include "gameobject/component/Component.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -20,7 +26,6 @@ using namespace std;
 Display* Engine::display;
 Camera* camera = new Camera();
 
-Mesh* testMesh;
 float ticks = 0;
 
 int mouseOldX = 0, mouseOldY = 0;
@@ -36,7 +41,7 @@ void Engine::init(int argc, char** argv) {
 }
 
 void Engine::destroy() {
-
+	Scripts::destroy();
 }
 
 void Engine::run() {
@@ -48,23 +53,33 @@ void Engine::createDisplay(char* _title, int _width, int _height) {
 	display->init();
 
 	glutCloseFunc(onClose);
-	glutIdleFunc(onIdle);
-	//glutKeyboardFunc(OnKey);
+	glutIdleFunc(update);
+	glutKeyboardFunc(handleKeyPressed);
+	glutKeyboardUpFunc(handleKeyReleased);
+	glutSpecialFunc(handleSpecialPressed);
+	glutSpecialUpFunc(handleSpecialReleased);
 	glutReshapeFunc(onResize);
 	glutDisplayFunc(onRender);
 	glutPassiveMotionFunc(handleMouseMove);
 	glutMotionFunc(handleMouseMove);
-	glutMouseFunc(handleMouseClicked);
+	glutMouseFunc(handleMouseAction);
 	glutEntryFunc(handleWindowEntry);
 
-	Texture::add("textures/car.png");
-	ShaderManager::loadResource("default");
-	ShaderManager::use("default");
-	glUniform1i(ShaderManager::getUniform("diffuseMap"), 0);
+	Component::registerAll();
+	Scripts::init();
 
-	testMesh = OBJLoader::loadFromFile("res/models/car.obj");
+	Resources resourceManagerNative = Resources();
+	resourceManagerNative.loadFromFile("_native/resources.json");
+	resourceManagerNative.perform();
 
-	cout << glGetError() << ": " << gluErrorString(glGetError());
+	Resources resourceManager = Resources();
+	resourceManager.loadFromFile("resources.json");
+	resourceManager.perform();
+
+	ShaderManager::use("_native/shaders/default.shader");
+	DebugConsole::instance.init();
+
+	cout << "GL Error Code: " << glGetError() << " - " << gluErrorString(glGetError()) << endl;
 }
 
 void Engine::handleWindowEntry(int state) {
@@ -72,6 +87,22 @@ void Engine::handleWindowEntry(int state) {
 		InputManager::onWindowEntry();
 	else
 		InputManager::onWindowLeft();
+}
+
+void Engine::handleKeyPressed(unsigned char key, int x, int y) {
+	InputManager::handleKeyPressed(key);
+}
+
+void Engine::handleKeyReleased(unsigned char key, int x, int y) {
+	InputManager::handleKeyReleased(key);
+}
+
+void Engine::handleSpecialPressed(int key, int x, int y) {
+	InputManager::handleSpecialPressed(key);
+}
+
+void Engine::handleSpecialReleased(int key, int x, int y) {
+	InputManager::handleSpecialReleased(key);
 }
 
 void Engine::handleMouseMove(int x, int y)
@@ -84,7 +115,7 @@ void Engine::handleMouseMove(int x, int y)
 	}
 }
 
-void Engine::handleMouseClicked(int button, int state, int x, int y) {
+void Engine::handleMouseAction(int button, int state, int x, int y) {
 	if(state == GLUT_DOWN)
 		InputManager::handleMouseClicked(button, x, y);
 	else {
@@ -92,26 +123,30 @@ void Engine::handleMouseClicked(int button, int state, int x, int y) {
 	}
 }
 
-void Engine::onIdle() {
+void Engine::update() {
 	Time::tick();
 	ticks += Time::delta;
+	Scripts::update();
 	float moveSpeed = 15;
 
-	if (GetAsyncKeyState(0x57) & 0x8000) { // W
+	if (InputManager::isKeyDown(87) || InputManager::isKeyDown(119)) { //W
 		camera->moveForward(moveSpeed*Time::delta);
 	}
 
-	if (GetAsyncKeyState(0x53) & 0x8000) { // S
+	if (InputManager::isKeyDown(83) || InputManager::isKeyDown(115)) { //S
 		camera->moveForward(-moveSpeed*Time::delta);
 	}
 
-	if (GetAsyncKeyState(0x44) & 0x8000) { // D
+	if (InputManager::isKeyDown(65) || InputManager::isKeyDown(97)) { //A
+		camera->moveRight(-moveSpeed*Time::delta);
+	}
+
+	if (InputManager::isKeyDown(68) || InputManager::isKeyDown(100)) { //D
 		camera->moveRight(moveSpeed*Time::delta);
 	}
 
-	if (GetAsyncKeyState(0x41) & 0x8000) { // A
-		camera->moveRight(-moveSpeed*Time::delta);
-	}
+	Scene::current->update();
+	DebugConsole::instance.update();
 
 	glutPostRedisplay();
 }
@@ -119,20 +154,38 @@ void Engine::onIdle() {
 void Engine::onRender() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	GLHelper::modelMatrix = glm::mat4();
-	GLHelper::modelMatrix = glm::translate(GLHelper::modelMatrix, glm::vec3(0.1f, -0.5f, -5));
-	GLHelper::modelMatrix = glm::rotate(GLHelper::modelMatrix, 0.0f, glm::vec3(0, 1, 0));
+	GLHelper::perspective(45.0f, (float)display->getWidth() / display->getHeight(), 0.001f, 100.0f);
+	GLHelper::identityModel();
+	GLHelper::translate(0.1f, -0.5f, -5.0f);
+	GLHelper::rotate(0.0f, 0, 1, 0);
+	GLHelper::currentState.viewMatrix = camera->getViewMatrix();
 
+	ShaderManager::use("_native/shaders/default.shader");
 	Texture::bind("textures/car.png");
-	testMesh->draw();
+	//Resources::MODEL["models/car.obj"]->draw();
+	
+	Scene::current->draw();
+
+	GLHelper::ortho(0, display->getWidth(), 0, display->getHeight());
+	GLHelper::identityModel();
+	GLHelper::currentState.viewMatrix = glm::mat4();
+
+	GLHelper::saveState();
+		GLHelper::identityModel();
+		GLHelper::translate(display->getWidth()-50, display->getHeight()-20, 0);
+		FontRenderer::fontSize = 16;
+		FontRenderer::drawText("v0.1.0", "_native/fonts/Arial.fnt", "_native/shaders/text-default.shader");
+	GLHelper::loadState();
+
+	DebugConsole::instance.draw();
 
 	glutSwapBuffers();
 }
 
 void Engine::onResize(int nw, int nh) {
 	glViewport(0, 0, (GLsizei) nw, (GLsizei) nh);
-	GLHelper::projectionMatrix = glm::perspective(45.0f, (float)nw/nh, 0.001f, 100.0f);
-	cout << "Resize: "<<nw<<" "<<nh << endl;
+	display->setWidth(nw);
+	display->setHeight(nh);
 }
 
 void Engine::onClose() {

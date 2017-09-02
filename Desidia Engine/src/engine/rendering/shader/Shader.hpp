@@ -11,13 +11,15 @@ class Shader {
 		GLuint program;
 		int totalShaders;
 		GLuint shaders[3];
-		map<string, GLuint> attributes;
-		map<string, GLuint> uniforms;
+
+		string vertexSource;
+		string fragmentSource;
 	public:
 		Shader();
 		~Shader();
 		void loadFromString(string src);
 		void loadFromFile(const string& filename);
+		void compile(string source);
 		void createAndLinkProgram();
 		void use();
 		void disable();

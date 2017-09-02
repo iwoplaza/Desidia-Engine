@@ -11,5 +11,9 @@ class Display {
 
 		void init();
 		void destroy();
-		void display();
+
+		void setWidth(int);
+		void setHeight(int);
+		int getWidth();
+		int getHeight();
 };

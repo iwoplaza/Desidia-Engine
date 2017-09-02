@@ -14,7 +14,7 @@ uniform mat4 uPMatrix;
 
 void main(void) {
 	vertex = uPMatrix * uVMatrix * uMMatrix * vec4(aVertexPosition, 1.0);
-    gl_Position = vertex;
+	gl_Position = vertex;
 	normal = aVertexNormal;
 	texCoord = aVertexTexCoord;
 }
@@ -37,17 +37,5 @@ void main(void) {
 	diffuseColor = clamp(diffuseColor, 0.0, 1.0);
 
 	vec4 textureColor = texture2D(uDiffuseMap, texCoord)*vec4(diffuseColor, 1.0);
-	if (textureColor.a <= 0.1) {
-		color = vec4(textureColor.rgb, 0.5);
-	}
-	else if (textureColor.a <= 0.5) {
-		//Body
-		color = vec4(textureColor.rgb, 1);
-	}
-	else if (textureColor.a <= 0.8) {
-		color = vec4(texture2D(uDiffuseMap, texCoord).rgb, 1);
-	}
-	else {
-		color = vec4(textureColor.rgb, 1);
-	}
+	color = vec4(diffuseColor, 1);
 }

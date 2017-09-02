@@ -1,4 +1,5 @@
 #include "Texture.hpp"
+#include "../../Resources.hpp"
 #include <iostream>
 #include <IL/ilut.h>
 #include <IL/ilu.h>
@@ -21,7 +22,7 @@ Texture::~Texture() {
 }
 
 GLuint Texture::load(string filename) {
-	string path = "res/" + filename;
+	string path = Resources::ROOT_PATH + filename;
 
 	GLuint textureID;
 
@@ -77,6 +78,9 @@ bool Texture::bind(string key) {
 }
 
 bool Texture::add(string filename) {
+	if (cache.find(filename) != cache.end())
+		return false;
+
 	Texture* texture = new Texture(filename);
 	if (filename != "NULL") {
 		cache[filename] = texture;

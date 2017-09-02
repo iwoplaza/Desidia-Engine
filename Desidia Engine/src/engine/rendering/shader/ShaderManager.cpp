@@ -1,17 +1,25 @@
 #include "ShaderManager.hpp"
 #include "Shader.hpp"
+#include "../../Resources.hpp"
+#include <iostream>
 
 map<string, Shader*> ShaderManager::shaders;
 Shader* ShaderManager::current;
 
 void ShaderManager::loadResource(string name) {
+	cout << "Loading a shader: " << name << endl;
+
 	Shader* shader = new Shader();
-	shader->loadFromFile("res/shaders/"+name+".shader");
+	shader->loadFromFile(Resources::ROOT_PATH + name);
 	shader->createAndLinkProgram();
 	shaders[name] = shader;
 }
 
 void ShaderManager::use(string name) {
+	if (shaders.find(name) == shaders.end()) {
+		std::cerr << "Couldn't use shader '" << name << "'" << std::endl;
+		return;
+	}
 	current = shaders[name];
 	current->use();
 }

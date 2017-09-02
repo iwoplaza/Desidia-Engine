@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Programming\SDK\DevIL-SDK-x86-1.7.8\include;D:\Programming\SDK\glm;D:\Programming\SDK\freeglut\include;D:\Programming\SDK\glew-1.13.0\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Programming\SDK\rapidjson\include;D:\Programming\SDK\DevIL-SDK-x86-1.7.8\include;D:\Programming\SDK\glm;D:\Programming\SDK\freeglut\include;D:\Programming\SDK\glew-1.13.0\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Programming\SDK\DevIL-SDK-x86-1.7.8\lib;D:\Programming\SDK\freeglut\lib;D:\Programming\SDK\glew-1.13.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -152,47 +152,101 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\Camera.cpp" />
+    <ClCompile Include="src\engine\gameobject\component\ComponentScript.cpp" />
+    <ClCompile Include="src\engine\rendering\material\Material.cpp" />
+    <ClCompile Include="src\engine\script\Script.cpp" />
+    <ClCompile Include="src\engine\script\ScriptContext.cpp" />
+    <ClCompile Include="src\engine\util\Color.cpp" />
+    <ClCompile Include="src\engine\debug\DebugConsole.cpp" />
     <ClCompile Include="src\engine\Display.cpp" />
     <ClCompile Include="src\engine\Engine.cpp" />
     <ClCompile Include="src\engine\gameobject\component\Component.cpp" />
     <ClCompile Include="src\engine\gameobject\component\ComponentMesh.cpp" />
     <ClCompile Include="src\engine\gameobject\GameObject.cpp" />
-    <ClCompile Include="src\engine\geometry\Mesh.cpp" />
-    <ClCompile Include="src\engine\geometry\Vertex.cpp" />
-    <ClCompile Include="src\engine\GLHelper.cpp" />
     <ClCompile Include="src\engine\InputManager.cpp" />
+    <ClCompile Include="src\engine\script\ScriptNative.cpp" />
+    <ClCompile Include="src\engine\script\Scripts.cpp" />
+    <ClCompile Include="src\engine\lib\duktape\duktape.c" />
     <ClCompile Include="src\engine\loader\OBJLoader.cpp" />
+    <ClCompile Include="src\engine\rendering\font\FontCharacter.cpp" />
+    <ClCompile Include="src\engine\rendering\font\Font.cpp" />
+    <ClCompile Include="src\engine\rendering\font\FontRenderer.cpp" />
+    <ClCompile Include="src\engine\rendering\geometry\Mesh.cpp" />
+    <ClCompile Include="src\engine\rendering\geometry\Vertex.cpp" />
+    <ClCompile Include="src\engine\rendering\GLHelper.cpp" />
+    <ClCompile Include="src\engine\rendering\shader\Shader.cpp" />
+    <ClCompile Include="src\engine\rendering\shader\ShaderManager.cpp" />
+    <ClCompile Include="src\engine\rendering\texture\Texture.cpp" />
+    <ClCompile Include="src\engine\Resources.cpp" />
     <ClCompile Include="src\engine\scene\Scene.cpp" />
-    <ClCompile Include="src\engine\shader\Shader.cpp" />
-    <ClCompile Include="src\engine\shader\ShaderManager.cpp" />
-    <ClCompile Include="src\engine\texture\Texture.cpp" />
-    <ClCompile Include="src\engine\Time.cpp" />
-    <ClCompile Include="src\engine\Vector2.cpp" />
-    <ClCompile Include="src\engine\Vector3.cpp" />
+    <ClCompile Include="src\engine\scene\SceneLoader.cpp" />
+    <ClCompile Include="src\engine\util\Time.cpp" />
+    <ClCompile Include="src\engine\util\Vector2.cpp" />
+    <ClCompile Include="src\engine\util\Vector3.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\Camera.hpp" />
+    <ClInclude Include="src\engine\gameobject\component\ComponentScript.hpp" />
+    <ClInclude Include="src\engine\script\Script.hpp" />
+    <ClInclude Include="src\engine\script\ScriptContext.hpp" />
+    <ClInclude Include="src\engine\util\Color.hpp" />
+    <ClInclude Include="src\engine\debug\DebugConsole.hpp" />
     <ClInclude Include="src\engine\Display.hpp" />
     <ClInclude Include="src\engine\Engine.hpp" />
     <ClInclude Include="src\engine\gameobject\component\Component.hpp" />
     <ClInclude Include="src\engine\gameobject\component\ComponentMesh.hpp" />
     <ClInclude Include="src\engine\gameobject\GameObject.hpp" />
-    <ClInclude Include="src\engine\geometry\Mesh.hpp" />
-    <ClInclude Include="src\engine\GLHelper.hpp" />
     <ClInclude Include="src\engine\InputManager.hpp" />
+    <ClInclude Include="src\engine\rendering\material\Material.hpp" />
+    <ClInclude Include="src\engine\script\Scripts.hpp" />
+    <ClInclude Include="src\engine\script\ScriptNative.hpp" />
+    <ClInclude Include="src\engine\lib\duktape\duktape.h" />
+    <ClInclude Include="src\engine\lib\duktape\duk_config.h" />
     <ClInclude Include="src\engine\loader\OBJLoader.hpp" />
+    <ClInclude Include="src\engine\rendering\font\FontCharacter.hpp" />
+    <ClInclude Include="src\engine\rendering\font\Font.hpp" />
+    <ClInclude Include="src\engine\rendering\font\FontRenderer.hpp" />
+    <ClInclude Include="src\engine\rendering\geometry\Mesh.hpp" />
+    <ClInclude Include="src\engine\rendering\geometry\Vertex.hpp" />
+    <ClInclude Include="src\engine\rendering\GLHelper.hpp" />
+    <ClInclude Include="src\engine\rendering\shader\Shader.hpp" />
+    <ClInclude Include="src\engine\rendering\shader\ShaderManager.hpp" />
+    <ClInclude Include="src\engine\rendering\texture\Texture.hpp" />
+    <ClInclude Include="src\engine\Resources.hpp" />
     <ClInclude Include="src\engine\scene\Scene.hpp" />
-    <ClInclude Include="src\engine\shader\Shader.hpp" />
-    <ClInclude Include="src\engine\shader\ShaderManager.hpp" />
-    <ClInclude Include="src\engine\texture\Texture.hpp" />
-    <ClInclude Include="src\engine\Time.hpp" />
-    <ClInclude Include="src\engine\Vector2.hpp" />
-    <ClInclude Include="src\engine\Vector3.hpp" />
-    <ClInclude Include="src\engine\geometry\Vertex.hpp" />
+    <ClInclude Include="src\engine\scene\SceneLoader.hpp" />
+    <ClInclude Include="src\engine\util\Time.hpp" />
+    <ClInclude Include="src\engine\util\Vector2.hpp" />
+    <ClInclude Include="src\engine\util\Vector3.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\shaders\default.shader" />
+    <None Include="Release\Desidia Engine.exe" />
+    <None Include="res\fonts\impact.fnt" />
+    <None Include="res\materials\blue.mat" />
+    <None Include="res\materials\kamil.mat" />
+    <None Include="res\materials\town.mat" />
+    <None Include="res\resources.json" />
+    <None Include="res\scenes\town.scene" />
+    <None Include="res\scripts\test.js" />
+    <None Include="res\shaders\kamil.shader" />
+    <None Include="res\shaders\environment.shader" />
+    <None Include="res\_native\fonts\Arial.fnt" />
+    <None Include="res\_native\fonts\Courier-New.fnt" />
+    <None Include="res\_native\resources.json" />
+    <None Include="res\_native\scripts\engine.js" />
+    <None Include="res\_native\shaders\default.shader" />
+    <None Include="res\_native\shaders\text-default.shader" />
+    <None Include="res\_native\shaders\ui-notexture.shader" />
+    <None Include="src\engine\lib\duktape\duk_source_meta.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\fonts\impact.png" />
+    <Image Include="res\textures\car.png" />
+    <Image Include="res\textures\checkerboard.png" />
+    <Image Include="res\textures\interior.png" />
+    <Image Include="res\_native\fonts\Arial.png" />
+    <Image Include="res\_native\fonts\Courier-New.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
