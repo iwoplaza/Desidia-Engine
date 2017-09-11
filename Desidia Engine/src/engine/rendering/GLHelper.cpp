@@ -12,7 +12,7 @@ GLState::GLState() {
 	modelMatrix = glm::mat4();
 	viewMatrix = glm::mat4();
 	projectionMatrix = glm::mat4();
-	normalMatrix = glm::mat4();
+	normalMatrix = glm::mat3();
 }
 
 void GLHelper::identityProjection() {
@@ -21,14 +21,17 @@ void GLHelper::identityProjection() {
 
 void GLHelper::identityModel() {
 	currentState.modelMatrix = glm::mat4();
-	currentState.normalMatrix = glm::mat4();
+	currentState.normalMatrix = glm::mat3();
 }
 
 void GLHelper::publishMatrixUniforms() {
+	currentState.normalMatrix = glm::mat3(currentState.modelMatrix);
 	glUniformMatrix4fv(ShaderManager::getUniform("uPMatrix"), 1, GL_FALSE, glm::value_ptr(currentState.projectionMatrix));
 	glUniformMatrix4fv(ShaderManager::getUniform("uMMatrix"), 1, GL_FALSE, glm::value_ptr(currentState.modelMatrix));
 	glUniformMatrix4fv(ShaderManager::getUniform("uVMatrix"), 1, GL_FALSE, glm::value_ptr(currentState.viewMatrix));
-	glUniformMatrix4fv(ShaderManager::getUniform("uNMatrix"), 1, GL_FALSE, glm::value_ptr(currentState.normalMatrix));
+	glUniformMatrix3fv(ShaderManager::getUniform("uNMatrix"), 1, GL_FALSE, glm::value_ptr(currentState.normalMatrix));
+	glUniformMatrix4fv(ShaderManager::getUniform("uMVPMatrix"), 1, GL_FALSE, glm::value_ptr(currentState.projectionMatrix * currentState.viewMatrix * currentState.modelMatrix));
+	glUniformMatrix3fv(ShaderManager::getUniform("uMV3x3Matrix"), 1, GL_FALSE, glm::value_ptr(glm::mat3(currentState.viewMatrix * currentState.modelMatrix)));
 }
 
 void GLHelper::saveState() {
@@ -58,5 +61,4 @@ void GLHelper::scale(float x, float y, float z) {
 
 void GLHelper::rotate(float angle, float x, float y, float z) {
 	currentState.modelMatrix = glm::rotate(currentState.modelMatrix, angle, glm::vec3(x, y, z));
-	currentState.normalMatrix = glm::rotate(currentState.normalMatrix, angle, glm::vec3(x, y, z));
 }

@@ -15,7 +15,7 @@ out vec3 vBitangent;
 uniform mat4 uMMatrix;
 uniform mat4 uVMatrix;
 uniform mat4 uPMatrix;
-uniform mat4 uNMatrix;
+uniform mat3 uNMatrix;
 
 void main(void) {
 	vVertex = uPMatrix * uVMatrix * uMMatrix * vec4(aPosition, 1.0);

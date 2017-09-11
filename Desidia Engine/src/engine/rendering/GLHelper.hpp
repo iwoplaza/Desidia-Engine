@@ -11,7 +11,7 @@ struct GLState {
 	glm::mat4 modelMatrix;
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
-	glm::mat4 normalMatrix;
+	glm::mat3 normalMatrix;
 };
 
 class GLHelper {
