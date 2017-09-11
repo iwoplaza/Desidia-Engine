@@ -111,6 +111,12 @@ Mesh* OBJLoader::loadFromFile(string filename) {
 		float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
 		Vector3 tangent = (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y) * r;
 		Vector3 bitangent = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x) * r;
+		Vector3 normal = Vector3(v0.nx + v1.nx + v2.nx, v0.ny + v1.ny + v2.ny, v0.nz + v1.nz + v2.nz).normalize();
+
+		tangent = tangent - normal * normal.dot(tangent);
+		if (normal.cross(tangent).dot(bitangent) < 0.0f) {
+			tangent *= -1.0f;
+		}
 
 		vertices[index0].addTangent(tangent);
 		vertices[index1].addTangent(tangent);

@@ -29,7 +29,6 @@ void GLHelper::publishMatrixUniforms() {
 	glUniformMatrix4fv(ShaderManager::getUniform("uPMatrix"), 1, GL_FALSE, glm::value_ptr(currentState.projectionMatrix));
 	glUniformMatrix4fv(ShaderManager::getUniform("uMMatrix"), 1, GL_FALSE, glm::value_ptr(currentState.modelMatrix));
 	glUniformMatrix4fv(ShaderManager::getUniform("uVMatrix"), 1, GL_FALSE, glm::value_ptr(currentState.viewMatrix));
-	glUniformMatrix3fv(ShaderManager::getUniform("uNMatrix"), 1, GL_FALSE, glm::value_ptr(currentState.normalMatrix));
 	glUniformMatrix4fv(ShaderManager::getUniform("uMVPMatrix"), 1, GL_FALSE, glm::value_ptr(currentState.projectionMatrix * currentState.viewMatrix * currentState.modelMatrix));
 	glUniformMatrix3fv(ShaderManager::getUniform("uMV3x3Matrix"), 1, GL_FALSE, glm::value_ptr(glm::mat3(currentState.viewMatrix * currentState.modelMatrix)));
 }

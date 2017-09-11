@@ -21,5 +21,7 @@ class Texture {
 		static void unloadCache();
 		static Texture* get(std::string key);
 		static bool bind(std::string key);
+		static bool bind(std::string key, int index);
 		static bool add(std::string key);
+		static void chooseActiveTexture(int index);
 };

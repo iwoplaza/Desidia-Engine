@@ -13,6 +13,11 @@ class Vector3 {
 		Vector3(float _x, float _y, float _z)
 			: x(_x), y(_y), z(_z) {}
 
+		float length();
+		Vector3 normalize();
+		Vector3 cross(const Vector3& v);
+		float dot(const Vector3& v);
+
 		Vector3& operator+=(const Vector3& v);
 		Vector3& operator-=(const Vector3& v);
 		Vector3& operator*=(const Vector3& v);

@@ -77,6 +77,11 @@ bool Texture::bind(string key) {
 	return true;
 }
 
+bool Texture::bind(std::string key, int index) {
+	chooseActiveTexture(index);
+	return bind(key);
+}
+
 bool Texture::add(string filename) {
 	if (cache.find(filename) != cache.end())
 		return false;
@@ -87,4 +92,8 @@ bool Texture::add(string filename) {
 		return true;
 	}
 	return false;
+}
+
+void Texture::chooseActiveTexture(int index) {
+	glActiveTexture(GL_TEXTURE0 + index);
 }

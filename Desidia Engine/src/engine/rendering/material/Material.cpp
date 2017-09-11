@@ -12,13 +12,20 @@ Material::Material() {
 	shader = "_native/shaders/default.shader";
 	diffuseColor = Color(1, 1, 1, 1);
 	diffuseMap = "";
+	normalMap = "";
+	shininess = 1;
 }
 
 void Material::use() {
 	ShaderManager::use(shader);
-	Texture::bind(diffuseMap);
+	Texture::bind(diffuseMap, 0);
+	Texture::bind(normalMap, 1);
+	Texture::chooseActiveTexture(0);
 	glUniform1i(ShaderManager::getUniform("uMaterial.diffuseMap"), 0);
-	glUniform1i(ShaderManager::getUniform("uMaterial.diffuseTextured"), diffuseMap != "");
+	glUniform1i(ShaderManager::getUniform("uMaterial.normalMap"), 1);
+	glUniform1i(ShaderManager::getUniform("uMaterial.diffuseMapped"), diffuseMap != "");
+	glUniform1i(ShaderManager::getUniform("uMaterial.normalMapped"), normalMap != "");
+	glUniform1i(ShaderManager::getUniform("uMaterial.shininess"), shininess);
 	glUniform4f(ShaderManager::getUniform("uMaterial.diffuseColor"), diffuseColor.r, diffuseColor.g, diffuseColor.b, diffuseColor.a);
 }
 
@@ -34,6 +41,10 @@ void Material::setDiffuseMap(std::string _texture) {
 	diffuseMap = _texture;
 }
 
+void Material::setNormalMap(std::string _texture) {
+	normalMap = _texture;
+}
+
 std::string Material::getShader() {
 	return shader;
 }
@@ -44,6 +55,10 @@ Color Material::getDiffuseColor() {
 
 std::string Material::getDiffuseMap() {
 	return diffuseMap;
+}
+
+std::string Material::getNormalMap() {
+	return normalMap;
 }
 
 Material* Material::loadResource(std::string _path) {
@@ -74,13 +89,21 @@ Material* Material::loadFromString(std::string _code) {
 		material->shader = document["shader"].GetString();
 		Resources::loadShader(material->shader);
 	}
-	if (document.HasMember("color")) {
-		const Value& color = document["color"];
+	if (document.HasMember("diffuseColor")) {
+		const Value& color = document["diffuseColor"];
 		material->diffuseColor = Color(color[0].GetFloat(), color[1].GetFloat(), color[2].GetFloat(), color[3].GetFloat());
 	}
 	if (document.HasMember("diffuseMap")) {
 		material->diffuseMap = document["diffuseMap"].GetString();
 		Texture::add(material->diffuseMap);
+	}
+	if (document.HasMember("normalMap")) {
+		material->normalMap = document["normalMap"].GetString();
+		Texture::add(material->normalMap);
+	}
+	if (document.HasMember("shininess")) {
+		material->shininess = document["shininess"].GetInt();
+		if (material->shininess < 0) material->shininess = 0;
 	}
 	return material;
 }
