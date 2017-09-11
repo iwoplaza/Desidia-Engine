@@ -5,6 +5,8 @@
 #include "../Resources.hpp"
 #include <fstream>
 #include <string>
+#include <set>
+#include <algorithm>
 
 Mesh* OBJLoader::loadFromFile(string filename) {
 	Mesh* mesh = new Mesh();
@@ -59,14 +61,63 @@ Mesh* OBJLoader::loadFromFile(string filename) {
 			int t3 = atoi(v3.substr(v3.find('/') + 1, v3.find_last_of('/') - v3.find('/') - 1).c_str());
 			int n3 = atoi(v3.substr(v3.find_last_of('/') + 1).c_str());
 
-			vertices.push_back(Vertex(positions[p1 - 1], normals[n1 - 1], texCoords[t1 - 1]));
-			vertices.push_back(Vertex(positions[p2 - 1], normals[n2 - 1], texCoords[t2 - 1]));
-			vertices.push_back(Vertex(positions[p3 - 1], normals[n3 - 1], texCoords[t3 - 1]));
+			Vertex vertex0 = Vertex(positions[p1 - 1], normals[n1 - 1], texCoords[t1 - 1]);
+			Vertex vertex1 = Vertex(positions[p2 - 1], normals[n2 - 1], texCoords[t2 - 1]);
+			Vertex vertex2 = Vertex(positions[p3 - 1], normals[n3 - 1], texCoords[t3 - 1]);
 
-			indices.push_back(vertices.size() - 3);
-			indices.push_back(vertices.size() - 2);
-			indices.push_back(vertices.size() - 1);
+			vector<Vertex>::iterator vertex0I = std::find(vertices.begin(), vertices.end(), vertex0);
+			if (vertex0I != vertices.end()) { //There is already a vertex like that in the buffer.
+				indices.push_back(vertex0I - vertices.begin());
+			}
+			else {
+				vertices.push_back(vertex0);
+				indices.push_back((GLuint)vertices.size() - 1);
+			}
+
+			vector<Vertex>::iterator vertex1I = std::find(vertices.begin(), vertices.end(), vertex1);
+			if (vertex1I != vertices.end()) { //There is already a vertex like that in the buffer.
+				indices.push_back(vertex1I - vertices.begin());
+			}
+			else {
+				vertices.push_back(vertex1);
+				indices.push_back(vertices.size() - 1);
+			}
+
+			vector<Vertex>::iterator vertex2I = std::find(vertices.begin(), vertices.end(), vertex2);
+			if (vertex2I != vertices.end()) { //There is already a vertex like that in the buffer.
+				indices.push_back(vertex2I - vertices.begin());
+			}
+			else {
+				vertices.push_back(vertex2);
+				indices.push_back(vertices.size() - 1);
+			}
 		}
+	}
+
+	for (int i = 0; i < indices.size(); i+=3) {
+		int index0 = indices[i];
+		int index1 = indices[i + 1];
+		int index2 = indices[i + 2];
+
+		Vertex v0 = vertices[index0];
+		Vertex v1 = vertices[index1];
+		Vertex v2 = vertices[index2];
+
+		Vector3 deltaPos1 = Vector3(v1.x - v0.x, v1.y - v0.y, v1.z - v0.z);
+		Vector3 deltaPos2 = Vector3(v2.x - v0.x, v2.y - v0.y, v2.z - v0.z);
+		Vector2 deltaUV1 = Vector2(v1.u - v0.u, v1.v - v0.v);
+		Vector2 deltaUV2 = Vector2(v2.u - v0.u, v2.v - v0.v);
+
+		float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
+		Vector3 tangent = (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y) * r;
+		Vector3 bitangent = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x) * r;
+
+		vertices[index0].addTangent(tangent);
+		vertices[index1].addTangent(tangent);
+		vertices[index2].addTangent(tangent);
+		vertices[index0].addBitangent(bitangent);
+		vertices[index1].addBitangent(bitangent);
+		vertices[index2].addBitangent(bitangent);
 	}
 
 	mesh->fillOut(vertices, indices);

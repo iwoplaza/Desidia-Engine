@@ -1,0 +1,5 @@
+{
+  "shaders": [ "_native/shaders/default.shader", "_native/shaders/text-default.shader", "_native/shaders/ui-notexture.shader" ],
+  "fonts": [ "_native/fonts/Arial.fnt", "_native/fonts/Courier-New.fnt" ],
+  "scripts": [ "_native/scripts/engine.js" ]
+}

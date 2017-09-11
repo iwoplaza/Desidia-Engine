@@ -1,0 +1,5 @@
+{
+  "shader":  "shaders/kamil.shader",
+  "color": [ 1.0, 1.0, 1.0, 1.0 ],
+  "diffuseMap": "textures/kamil-normal.png"
+}

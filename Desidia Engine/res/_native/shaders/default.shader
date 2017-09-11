@@ -54,10 +54,7 @@ void main(void) {
 	if (uMaterial.diffuseTextured) {
 		vec4 textureColor = texture2D(uMaterial.diffuseMap, vTexCoord)*vec4(diffuseColor, 1.0);
 		color = textureColor * uMaterial.diffuseColor;
-	}
-	else {
+	} else {
 		color = vec4(diffuseColor, 1)  * uMaterial.diffuseColor;
 	}
-
-	color = vec4(normalize(vTangent)*0.5 + 0.5, 1.0);
 }

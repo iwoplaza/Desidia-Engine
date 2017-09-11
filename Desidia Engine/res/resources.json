@@ -1,0 +1,4 @@
+{
+  "textures": [ "textures/car.png" ],
+  "scene": "scenes/town.scene"
+}

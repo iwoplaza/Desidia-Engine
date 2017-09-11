@@ -1,0 +1,58 @@
+{
+    "name": "Town",
+    "objects": [
+        {
+            "name": "testObject",
+            "location": [6, 2, 0],
+            "needsUpdates": true,
+            "components": {
+              "ComponentMesh": [
+                {
+                  "model": "models/kamil.obj",
+                  "material": "materials/kamil.mat"
+                }
+              ],
+              "ComponentScript": [
+                {
+                  "script": "scripts/test.js"
+                }
+              ],
+
+              "ComponentLight": [
+                {
+                  "range": 20,
+                  "ambientColor": [ 0, 0, 0 ],
+                  "diffuseColor": [ 0.1, 0.5, 1 ]
+                }
+              ]
+            }
+        },
+        {
+            "name": "town",
+            "location": [0, 0, 0],
+            "needsUpdate": false,
+            "components": {
+                "ComponentMesh": [
+                    {
+                        "model": "models/town.obj",
+                        "material": "materials/town.mat"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "sun",
+            "location": [1, 2, 0.5],
+            "needsUpdates": false,
+            "components": {
+                "ComponentLight": [
+                    {
+                        "range": -1,
+                        "ambientColor": [0.2, 0.2, 0.2],
+                        "diffuseColor": [0.7, 0.65, 0.6]
+                    }
+                ]
+            }
+        }
+    ]
+}
