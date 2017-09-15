@@ -1,4 +1,5 @@
 #include "ComponentScript.hpp"
+#include "../GameObject.hpp"
 #include "../../script/Scripts.hpp"
 #include <iostream>
 
@@ -13,7 +14,8 @@ void ComponentScript::init() {
 }
 
 void ComponentScript::update() {
-	Scripts::execute(("if("+ holderObject +".eventListeners['update']) "+ holderObject +".eventListeners['update']()").c_str());
+	std::string eventObject = "{ gameObject: '" + gameObject->getName() + "' }";
+	Scripts::execute(("if("+ holderObject +".eventListeners['update']) "+ holderObject +".eventListeners['update']("+ eventObject +")").c_str());
 }
 
 const char* ComponentScript::getType() {

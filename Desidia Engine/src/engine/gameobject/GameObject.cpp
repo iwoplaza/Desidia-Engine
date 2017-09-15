@@ -61,6 +61,10 @@ bool GameObject::doesNeedUpdates() {
 	return needsUpdates;
 }
 
+Vector3 GameObject::getLocation() {
+	return location;
+}
+
 void GameObject::setLocation(const Vector3& _location) {
 	location = _location;
 }

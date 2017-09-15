@@ -24,6 +24,7 @@ class GameObject {
 		
 		string getName();
 		bool doesNeedUpdates();
+		Vector3 getLocation();
 		void setLocation(const Vector3& _location);
 
 		friend ostream& operator<<(ostream& os, const GameObject& v);
