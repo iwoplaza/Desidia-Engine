@@ -51,3 +51,8 @@ void Scene::addGameObject(GameObject* _gameObject) {
 		updatable.push_back(_gameObject);
 	}
 }
+
+GameObject* Scene::getGameObject(std::string name) {
+	if (gameObjects.find(name) == gameObjects.end()) return nullptr;
+	return gameObjects[name];
+}

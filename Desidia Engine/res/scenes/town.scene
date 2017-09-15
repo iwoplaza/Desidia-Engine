@@ -3,13 +3,13 @@
     "objects": [
         {
             "name": "testObject",
-            "location": [6, 2, 0],
+            "location": [0, 0, -5],
             "needsUpdates": true,
             "components": {
               "ComponentMesh": [
                 {
-                  "model": "models/kamil.obj",
-                  "material": "materials/kamil.mat"
+                  "model": "models/susanne.obj",
+                  "material": "materials/red.mat"
                 }
               ],
               "ComponentScript": [
@@ -25,19 +25,6 @@
                   "diffuseColor": [ 0.1, 0.5, 1 ]
                 }
               ]
-            }
-        },
-        {
-            "name": "town",
-            "location": [0, 0, 0],
-            "needsUpdate": false,
-            "components": {
-                "ComponentMesh": [
-                    {
-                        "model": "models/town.obj",
-                        "material": "materials/town.mat"
-                    }
-                ]
             }
         },
         {

@@ -1,4 +1,3 @@
-Engine.Handler.update = function() {
-    //Engine.print("Update..." + Engine.Time.delta);
-    //Context.gameObject.setLocation();
-}
+Engine.registerEventListener('update', function (e) {
+    Engine.print("WORKS!");
+});

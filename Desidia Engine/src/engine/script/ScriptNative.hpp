@@ -19,5 +19,5 @@ namespace ScriptNative {
 	extern std::vector<Function> functions;
 
 	duk_ret_t print(duk_context* context);
-	duk_ret_t gameObject_setLocation(duk_context* context);
+	duk_ret_t registerEventListener(duk_context* context);
 }

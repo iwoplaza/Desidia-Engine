@@ -20,6 +20,7 @@ class Scene {
 		void update();
 		void draw();
 		void addGameObject(GameObject* _gameObject);
+		GameObject* getGameObject(std::string name);
 
 		static Scene* current;
 };

@@ -154,6 +154,8 @@
     <ClCompile Include="src\engine\Camera.cpp" />
     <ClCompile Include="src\engine\gameobject\component\ComponentScript.cpp" />
     <ClCompile Include="src\engine\rendering\material\Material.cpp" />
+    <ClCompile Include="src\engine\script\native\duk_GameObject.cpp" />
+    <ClCompile Include="src\engine\script\native\duk_Vector3.cpp" />
     <ClCompile Include="src\engine\script\Script.cpp" />
     <ClCompile Include="src\engine\script\ScriptContext.cpp" />
     <ClCompile Include="src\engine\util\Color.cpp" />
@@ -188,6 +190,8 @@
   <ItemGroup>
     <ClInclude Include="src\engine\Camera.hpp" />
     <ClInclude Include="src\engine\gameobject\component\ComponentScript.hpp" />
+    <ClInclude Include="src\engine\script\native\duk_GameObject.hpp" />
+    <ClInclude Include="src\engine\script\native\duk_Vector3.hpp" />
     <ClInclude Include="src\engine\script\Script.hpp" />
     <ClInclude Include="src\engine\script\ScriptContext.hpp" />
     <ClInclude Include="src\engine\util\Color.hpp" />
@@ -223,7 +227,7 @@
   <ItemGroup>
     <None Include="Release\Desidia Engine.exe" />
     <None Include="res\fonts\impact.fnt" />
-    <None Include="res\materials\blue.mat" />
+    <None Include="res\materials\red.mat" />
     <None Include="res\materials\kamil.mat" />
     <None Include="res\materials\town.mat" />
     <None Include="res\resources.json" />

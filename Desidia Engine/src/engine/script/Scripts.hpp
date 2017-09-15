@@ -10,6 +10,7 @@ class Scripts {
 		static void init();
 		static void execute(const char* command);
 		static void executeScript(std::string path);
+		static void realiseScript(Script* script);
 		static void destroy();
 		static void update();
 		static void loadResource(std::string _path);

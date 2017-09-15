@@ -9,13 +9,11 @@ ComponentScript::ComponentScript(std::string _script)
 }
 
 void ComponentScript::init() {
-	Scripts::execute("Engine.Handler = {}");
-	Scripts::executeScript(script);
-	Scripts::execute((holderObject + " = {};" + holderObject + ".update = Engine.Handler.update;").c_str());
+	Scripts::realiseScript(Scripts::database[script]);
 }
 
 void ComponentScript::update() {
-	Scripts::execute(("if("+ holderObject +" != undefined && "+ holderObject +".update != undefined) "+ holderObject +".update()").c_str());
+	Scripts::execute(("if("+ holderObject +".eventListeners['update']) "+ holderObject +".eventListeners['update']()").c_str());
 }
 
 const char* ComponentScript::getType() {
