@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 class GameObject;
 class Script;
 
@@ -11,4 +13,5 @@ class ScriptContext {
 		static Script* workScript;
 
 		static void setWorkScript(Script* script);
+		static std::string handleEventCallback(std::string scriptPath, std::string eventName, std::string eventObject);
 };

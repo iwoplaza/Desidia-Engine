@@ -1,5 +1,5 @@
 /*
-This is the duk representation of a GameObject
+This is an object that handles all the GameObject operations through JS code.
 */
 
 #pragma once

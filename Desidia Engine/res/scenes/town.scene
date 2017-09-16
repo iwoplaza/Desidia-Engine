@@ -1,45 +1,63 @@
 {
-    "name": "Town",
-    "objects": [
-        {
-            "name": "testObject",
-            "location": [0, 0, -5],
-            "needsUpdates": true,
-            "components": {
-              "ComponentMesh": [
-                {
-                  "model": "models/susanne.obj",
-                  "material": "materials/red.mat"
-                }
-              ],
-              "ComponentScript": [
-                {
-                  "script": "scripts/test.js"
-                }
-              ],
+  "name": "Town",
+  "objects": [
+    {
+      "name": "testObject",
+      "location": [ 0, 0, -5 ],
+      "needsUpdates": true,
+      "components": {
+        "ComponentMesh": [
+          {
+            "model": "models/susanne.obj",
+            "material": "materials/red.mat"
+          }
+        ],
+        "ComponentScript": [
+          {
+            "script": "scripts/test.js"
+          }
+        ],
 
-              "ComponentLight": [
-                {
-                  "range": 20,
-                  "ambientColor": [ 0, 0, 0 ],
-                  "diffuseColor": [ 0.1, 0.5, 1 ]
-                }
-              ]
-            }
-        },
-        {
-            "name": "sun",
-            "location": [1, 2, 0.5],
-            "needsUpdates": false,
-            "components": {
-                "ComponentLight": [
-                    {
-                        "range": -1,
-                        "ambientColor": [0.2, 0.2, 0.2],
-                        "diffuseColor": [0.7, 0.65, 0.6]
-                    }
-                ]
-            }
-        }
-    ]
+        "ComponentLight": [
+          {
+            "range": 20,
+            "ambientColor": [ 0, 0, 0 ],
+            "diffuseColor": [ 0.1, 0.5, 1 ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "plane",
+      "location": [ 0, 0, 0],
+      "needsUpdates": true,
+      "components": {
+        "ComponentMesh": [
+          {
+            "model": "models/box.obj",
+            "material": "materials/red.mat"
+          }
+        ],
+        "ComponentScript": [
+          {
+            "script": "scripts/test.js"
+          }
+        ]
+      }
+    },
+    {
+      "name": "sun",
+      "location": [ 1, 2, 0.5 ],
+      "needsUpdates": false,
+      "components": {
+        "ComponentLight": [
+          {
+            "range": -1,
+            "ambientColor": [ 0.2, 0.2, 0.2 ],
+            "diffuseColor": [ 0.7, 0.65, 0.6 ]
+          }
+        ]
+      }
+    }
+  ]
 }

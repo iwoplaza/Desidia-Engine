@@ -90,9 +90,6 @@
     <ClCompile Include="src\engine\script\Scripts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\script\ScriptNative.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\util\Vector2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -121,6 +118,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\script\native\duk_GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\script\native\duk_Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -197,9 +197,6 @@
     <ClInclude Include="src\engine\script\Scripts.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\script\ScriptNative.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\engine\rendering\material\Material.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -228,6 +225,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\script\native\duk_GameObject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\script\native\duk_Engine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

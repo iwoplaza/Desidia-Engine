@@ -1,7 +1,7 @@
 #include "Scripts.hpp"
-#include "ScriptNative.hpp"
 #include "Script.hpp"
 #include "ScriptContext.hpp"
+#include "native/duk_Engine.hpp"
 #include "native/duk_Vector3.hpp"
 #include "native/duk_GameObject.hpp"
 #include "../Resources.hpp"
@@ -36,12 +36,7 @@ void Scripts::init() {
 		abort();
 	}
 
-	duk_eval_string(context, "Engine = {}; Engine.Scripts = {}");
-	for (ScriptNative::Function f : ScriptNative::functions) {
-		pushNativeFunction(f.name, f.function, f.nargs);
-		duk_eval_string(context, ("Engine."+f.name+" = native_"+f.name).c_str());
-	}
-
+	duk_Engine::init(context);
 	duk_Vector3::init(context);
 	duk_GameObject::init(context);
 

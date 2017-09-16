@@ -1,21 +1,30 @@
 #include "ComponentScript.hpp"
 #include "../GameObject.hpp"
 #include "../../script/Scripts.hpp"
+#include "../../script/ScriptContext.hpp"
 #include <iostream>
 
 ComponentScript::ComponentScript(std::string _script)
-	: Component(), script(_script) {
+	: Component(), script(_script), metadata("{}") {
 	holderObject = "Engine.Scripts['" + script + "']";
 	Scripts::loadResource(script);
 }
 
 void ComponentScript::init() {
 	Scripts::realiseScript(Scripts::database[script]);
+	std::string eventObject = string("{") +
+		"\"metadata\": " + metadata + ", " +
+		"\"gameObject\": \"" + gameObject->getName() + "\"" +
+		"}";
+	metadata = ScriptContext::handleEventCallback(script, "create", eventObject);
 }
 
 void ComponentScript::update() {
-	std::string eventObject = "{ gameObject: '" + gameObject->getName() + "' }";
-	Scripts::execute(("if("+ holderObject +".eventListeners['update']) "+ holderObject +".eventListeners['update']("+ eventObject +")").c_str());
+	std::string eventObject = string("{") +
+		"\"metadata\": " + metadata + ", " +
+		"\"gameObject\": \"" + gameObject->getName() + "\"" +
+		"}";
+	metadata = ScriptContext::handleEventCallback(script, "update", eventObject);
 }
 
 const char* ComponentScript::getType() {

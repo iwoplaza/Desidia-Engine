@@ -154,6 +154,7 @@
     <ClCompile Include="src\engine\Camera.cpp" />
     <ClCompile Include="src\engine\gameobject\component\ComponentScript.cpp" />
     <ClCompile Include="src\engine\rendering\material\Material.cpp" />
+    <ClCompile Include="src\engine\script\native\duk_Engine.cpp" />
     <ClCompile Include="src\engine\script\native\duk_GameObject.cpp" />
     <ClCompile Include="src\engine\script\native\duk_Vector3.cpp" />
     <ClCompile Include="src\engine\script\Script.cpp" />
@@ -166,7 +167,6 @@
     <ClCompile Include="src\engine\gameobject\component\ComponentMesh.cpp" />
     <ClCompile Include="src\engine\gameobject\GameObject.cpp" />
     <ClCompile Include="src\engine\InputManager.cpp" />
-    <ClCompile Include="src\engine\script\ScriptNative.cpp" />
     <ClCompile Include="src\engine\script\Scripts.cpp" />
     <ClCompile Include="src\engine\lib\duktape\duktape.c" />
     <ClCompile Include="src\engine\loader\OBJLoader.cpp" />
@@ -190,6 +190,7 @@
   <ItemGroup>
     <ClInclude Include="src\engine\Camera.hpp" />
     <ClInclude Include="src\engine\gameobject\component\ComponentScript.hpp" />
+    <ClInclude Include="src\engine\script\native\duk_Engine.hpp" />
     <ClInclude Include="src\engine\script\native\duk_GameObject.hpp" />
     <ClInclude Include="src\engine\script\native\duk_Vector3.hpp" />
     <ClInclude Include="src\engine\script\Script.hpp" />
@@ -204,7 +205,6 @@
     <ClInclude Include="src\engine\InputManager.hpp" />
     <ClInclude Include="src\engine\rendering\material\Material.hpp" />
     <ClInclude Include="src\engine\script\Scripts.hpp" />
-    <ClInclude Include="src\engine\script\ScriptNative.hpp" />
     <ClInclude Include="src\engine\lib\duktape\duktape.h" />
     <ClInclude Include="src\engine\lib\duktape\duk_config.h" />
     <ClInclude Include="src\engine\loader\OBJLoader.hpp" />

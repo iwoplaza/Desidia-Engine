@@ -7,6 +7,7 @@ class ComponentScript : public Component {
 	protected:
 		std::string script;
 		std::string holderObject;
+		std::string metadata;
 	public:
 		ComponentScript(std::string _script);
 
