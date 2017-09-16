@@ -5,6 +5,9 @@
 #include <GL\glew.h>
 #include <vector>
 
+class Vector3;
+class Quaternion;
+
 struct GLState {
 	GLState();
 
@@ -28,6 +31,8 @@ class GLHelper {
 		static void ortho(float left, float right, float bottom, float top);
 		static void perspective(float fov, float ratio, float near, float far);
 		static void translate(float x, float y, float z);
+		static void translate(Vector3 vector);
 		static void scale(float x, float y, float z);
 		static void rotate(float angle, float x, float y, float z);
+		static void rotate(Quaternion quat);
 };

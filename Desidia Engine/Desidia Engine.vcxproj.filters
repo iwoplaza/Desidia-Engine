@@ -123,6 +123,12 @@
     <ClCompile Include="src\engine\script\native\duk_Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\gameobject\component\ComponentCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\util\Quaternion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\gameobject\component\Component.hpp">
@@ -230,6 +236,12 @@
     <ClInclude Include="src\engine\script\native\duk_Engine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\engine\gameobject\component\ComponentCamera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\util\Quaternion.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Release\Desidia Engine.exe" />
@@ -245,11 +257,11 @@
     <None Include="res\_native\shaders\text-default.shader" />
     <None Include="res\_native\fonts\Arial.fnt" />
     <None Include="res\_native\fonts\Courier-New.fnt" />
-    <None Include="res\scripts\test.js" />
     <None Include="res\_native\scripts\engine.js" />
     <None Include="res\materials\kamil.mat" />
     <None Include="res\shaders\kamil.shader" />
     <None Include="res\materials\red.mat" />
+    <None Include="res\scripts\bobbing.js" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\fonts\impact.png">

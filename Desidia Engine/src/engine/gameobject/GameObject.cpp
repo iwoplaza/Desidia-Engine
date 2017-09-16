@@ -3,6 +3,8 @@
 
 GameObject::GameObject(string _name) {
 	name = _name;
+	location = Vector3();
+	orientation = Quaternion();
 
 	componentGroups = map<string, vector<Component*>>();
 }
@@ -28,6 +30,7 @@ void GameObject::update() {
 void GameObject::draw() {
 	GLHelper::saveState();
 		GLHelper::translate(location.x, location.y, location.z);
+		GLHelper::rotate(orientation);
 		for (pair<string, vector<Component*>> p : componentGroups){
 			for (Component* component : p.second) {
 				GLHelper::saveState();
@@ -67,6 +70,34 @@ Vector3 GameObject::getLocation() {
 
 void GameObject::setLocation(const Vector3& _location) {
 	location = _location;
+}
+
+Quaternion GameObject::getOrientation() {
+	return orientation;
+}
+
+void GameObject::setOrientation(const Quaternion& _orientation) {
+	orientation = _orientation;
+}
+
+void GameObject::setOrientation(const Vector3& _orientation) {
+	orientation = Quaternion(_orientation);
+}
+
+void GameObject::rotate(const Vector3& r) {
+	orientation = Quaternion(orientation * glm::dquat(glm::vec3(r.x, r.y, r.z)));
+}
+
+void GameObject::rotateX(float _x) {
+	orientation = Quaternion(orientation * glm::dquat(glm::vec3(_x, 0, 0)));
+}
+
+void GameObject::rotateY(float _y) {
+	orientation = Quaternion(orientation * glm::dquat(glm::vec3(0, _y, 0)));
+}
+
+void GameObject::rotateZ(float _z) {
+	orientation = Quaternion(orientation * glm::dquat(glm::vec3(0, 0, _z)));
 }
 
 ostream& operator<<(ostream& os, const GameObject& o) {

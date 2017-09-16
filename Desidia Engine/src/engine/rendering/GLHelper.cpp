@@ -1,4 +1,6 @@
 #include "GLHelper.hpp"
+#include "../util/Vector3.hpp"
+#include "../util/Quaternion.hpp"
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
@@ -54,10 +56,18 @@ void GLHelper::translate(float x, float y, float z) {
 	currentState.modelMatrix = glm::translate(currentState.modelMatrix, glm::vec3(x, y, z));
 }
 
+void GLHelper::translate(Vector3 vector) {
+	translate(vector.x, vector.y, vector.z);
+}
+
 void GLHelper::scale(float x, float y, float z) {
 	currentState.modelMatrix = glm::scale(currentState.modelMatrix, glm::vec3(x, y, z));
 }
 
 void GLHelper::rotate(float angle, float x, float y, float z) {
 	currentState.modelMatrix = glm::rotate(currentState.modelMatrix, angle, glm::vec3(x, y, z));
+}
+
+void GLHelper::rotate(Quaternion quat) {
+	currentState.modelMatrix = currentState.modelMatrix * glm::mat4(glm::toMat4(quat));
 }
