@@ -19,10 +19,12 @@ std::string ScriptContext::handleEventCallback(std::string scriptPath, std::stri
 	duk_get_prop_string(context, -1, scriptPath.c_str());
 	duk_get_prop_string(context, -1, "eventListeners");
 	duk_get_prop_string(context, -1, eventName.c_str());
-	//cout << "OUTPUT: " << duk_safe_to_string(context, -1) << endl;
+	bool flag = duk_is_undefined(context, -1); //Does a listener for this event exist?
 	duk_push_string(context, eventObject.c_str());
 	duk_json_decode(context, -1);
-	duk_call(context, 1);
+	if (!flag) {
+		duk_call(context, 1);
+	}
 	duk_get_prop_string(context, -1, "metadata");
 	duk_json_encode(context, -1);
 	std::string metadata = duk_get_string(context, -1);
@@ -31,7 +33,6 @@ std::string ScriptContext::handleEventCallback(std::string scriptPath, std::stri
 	duk_pop(context);
 	duk_pop(context);
 	duk_pop(context);
-
 
 	return metadata;
 }

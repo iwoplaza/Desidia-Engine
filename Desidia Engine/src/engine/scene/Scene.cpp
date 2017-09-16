@@ -39,6 +39,12 @@ void Scene::draw() {
 	}
 }
 
+void Scene::onMouseMove() {
+	for (GameObject* gameObject : updatable) {
+		gameObject->onMouseMove();
+	}
+}
+
 void Scene::addGameObject(GameObject* _gameObject) {
 	if (gameObjects.find(_gameObject->getName()) != gameObjects.end()) {
 		cerr << "Tried to add a duplicate by the name of '" << _gameObject->getName() << "' to the scene." << endl;

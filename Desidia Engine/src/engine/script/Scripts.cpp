@@ -2,6 +2,7 @@
 #include "Script.hpp"
 #include "ScriptContext.hpp"
 #include "native/duk_Engine.hpp"
+#include "native/duk_Input.hpp"
 #include "native/duk_Vector3.hpp"
 #include "native/duk_GameObject.hpp"
 #include "../Resources.hpp"
@@ -37,6 +38,7 @@ void Scripts::init() {
 	}
 
 	duk_Engine::init(context);
+	duk_Input::init(context);
 	duk_Vector3::init(context);
 	duk_GameObject::init(context);
 

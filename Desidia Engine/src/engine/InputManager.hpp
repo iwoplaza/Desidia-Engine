@@ -25,4 +25,5 @@ class InputManager {
 		static void onWindowLeft();
 
 		static bool isKeyDown(unsigned char key);
+		static bool isKeyDownCase(unsigned char key);
 };

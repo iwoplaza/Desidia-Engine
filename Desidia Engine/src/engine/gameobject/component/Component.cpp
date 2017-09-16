@@ -46,3 +46,4 @@ Component* Component::setGameObject(GameObject* _gameObject) {
 void Component::init() {}
 void Component::update() {}
 void Component::draw() {}
+void Component::onMouseMove() {}

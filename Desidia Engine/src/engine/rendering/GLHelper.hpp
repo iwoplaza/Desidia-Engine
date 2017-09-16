@@ -34,5 +34,6 @@ class GLHelper {
 		static void translate(Vector3 vector);
 		static void scale(float x, float y, float z);
 		static void rotate(float angle, float x, float y, float z);
+		static void transform(glm::mat4 mat);
 		static void rotate(Quaternion quat);
 };

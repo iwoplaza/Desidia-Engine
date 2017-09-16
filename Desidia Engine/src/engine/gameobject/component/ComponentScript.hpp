@@ -13,6 +13,7 @@ class ComponentScript : public Component {
 
 		void init();
 		void update();
+		void onMouseMove();
 		const char* getType();
 
 		static Component* parseJSON(const Value&);

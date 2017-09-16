@@ -96,3 +96,7 @@ void InputManager::handleMouseReleased(int button, int x, int y) {
 bool InputManager::isKeyDown(unsigned char key) {
 	return keyStates[key];
 }
+
+bool InputManager::isKeyDownCase(unsigned char key) {
+	return isKeyDown(key) || isKeyDown(key + 32);
+}

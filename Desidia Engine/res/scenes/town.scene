@@ -53,6 +53,23 @@
           }
         ]
       }
+    },
+    {
+      "name": "mainCamera",
+      "location": [ 0, 0, 0 ],
+      "needsUpdates": true,
+      "components": {
+        "ComponentCamera": [
+          {
+
+          }
+        ],
+        "ComponentScript": [
+          {
+            "script": "scripts/fpsCamera.js"
+          }
+        ]
+      }
     }
   ]
 }

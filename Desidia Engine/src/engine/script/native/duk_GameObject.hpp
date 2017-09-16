@@ -9,8 +9,10 @@ class duk_GameObject {
 public:
 	static void init(duk_context *ctx);
 	static duk_ret_t getLocation(duk_context *ctx);
-	static duk_ret_t setLocation(duk_context *ctx);
 	static duk_ret_t getOrientation(duk_context *ctx);
+	static duk_ret_t getForwardVector(duk_context *ctx);
+	static duk_ret_t getRightVector(duk_context *ctx);
+	static duk_ret_t setLocation(duk_context *ctx);
 	static duk_ret_t setOrientation(duk_context *ctx);
 	static duk_ret_t setOrientationEuler(duk_context *ctx);
 	static duk_ret_t rotate(duk_context *ctx);

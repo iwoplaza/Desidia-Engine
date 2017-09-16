@@ -27,6 +27,14 @@ void ComponentScript::update() {
 	metadata = ScriptContext::handleEventCallback(script, "update", eventObject);
 }
 
+void ComponentScript::onMouseMove() {
+	std::string eventObject = string("{") +
+		"\"metadata\": " + metadata + ", " +
+		"\"gameObject\": \"" + gameObject->getName() + "\"" +
+		"}";
+	metadata = ScriptContext::handleEventCallback(script, "mouseMove", eventObject);
+}
+
 const char* ComponentScript::getType() {
 	return "ComponentScript";
 }

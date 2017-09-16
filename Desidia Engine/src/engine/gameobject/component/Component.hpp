@@ -24,6 +24,7 @@ class Component {
 		virtual void init();
 		virtual void update();
 		virtual void draw();
+		virtual void onMouseMove();
 		virtual const char* getType() = 0;
 
 		static map<string, FUNCTION_COMPONENT_PARSE> callbackMap;

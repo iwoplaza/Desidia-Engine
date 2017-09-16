@@ -157,6 +157,7 @@
     <ClCompile Include="src\engine\rendering\material\Material.cpp" />
     <ClCompile Include="src\engine\script\native\duk_Engine.cpp" />
     <ClCompile Include="src\engine\script\native\duk_GameObject.cpp" />
+    <ClCompile Include="src\engine\script\native\duk_Input.cpp" />
     <ClCompile Include="src\engine\script\native\duk_Vector3.cpp" />
     <ClCompile Include="src\engine\script\Script.cpp" />
     <ClCompile Include="src\engine\script\ScriptContext.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="src\engine\gameobject\component\ComponentScript.hpp" />
     <ClInclude Include="src\engine\script\native\duk_Engine.hpp" />
     <ClInclude Include="src\engine\script\native\duk_GameObject.hpp" />
+    <ClInclude Include="src\engine\script\native\duk_Input.hpp" />
     <ClInclude Include="src\engine\script\native\duk_Vector3.hpp" />
     <ClInclude Include="src\engine\script\Script.hpp" />
     <ClInclude Include="src\engine\script\ScriptContext.hpp" />
@@ -237,6 +239,7 @@
     <None Include="res\resources.json" />
     <None Include="res\scenes\town.scene" />
     <None Include="res\scripts\bobbing.js" />
+    <None Include="res\scripts\fpsCamera.js" />
     <None Include="res\shaders\kamil.shader" />
     <None Include="res\shaders\environment.shader" />
     <None Include="res\_native\fonts\Arial.fnt" />

@@ -9,5 +9,10 @@ Engine.registerEventListener('update', function (e) {
     location.y = Math.sin(e.metadata.time * 4) * 0.5;
     GameObject.setLocation(e.gameObject, location);
     GameObject.rotateY(e.gameObject, Engine.Time.delta);
+
+    if(Input.isKeyDown(32)) {
+        GameObject.rotateY(e.gameObject, Engine.Time.delta);
+    }
+
     return e;
 });

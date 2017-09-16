@@ -71,3 +71,7 @@ void GLHelper::rotate(float angle, float x, float y, float z) {
 void GLHelper::rotate(Quaternion quat) {
 	currentState.modelMatrix = currentState.modelMatrix * glm::mat4(glm::toMat4(quat));
 }
+
+void GLHelper::transform(glm::mat4 mat) {
+	currentState.modelMatrix = currentState.modelMatrix * mat;
+}

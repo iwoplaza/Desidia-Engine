@@ -18,6 +18,7 @@
 #include "script/Scripts.hpp"
 #include "scene/Scene.hpp"
 #include "gameobject/component/Component.hpp"
+#include "gameobject/component/ComponentCamera.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -113,6 +114,8 @@ void Engine::handleMouseMove(int x, int y)
 	if (InputManager::mouseState[0]) {
 		camera->rotate(-InputManager::mouseMoveY*mouseSensitivity, InputManager::mouseMoveX*mouseSensitivity, 0);
 	}
+
+	Scene::current->onMouseMove();
 }
 
 void Engine::handleMouseAction(int button, int state, int x, int y) {
@@ -126,25 +129,8 @@ void Engine::handleMouseAction(int button, int state, int x, int y) {
 void Engine::update() {
 	Time::tick();
 	ticks += Time::delta;
+
 	Scripts::update();
-	float moveSpeed = 15;
-
-	if (InputManager::isKeyDown(87) || InputManager::isKeyDown(119)) { //W
-		camera->moveForward(moveSpeed*Time::delta);
-	}
-
-	if (InputManager::isKeyDown(83) || InputManager::isKeyDown(115)) { //S
-		camera->moveForward(-moveSpeed*Time::delta);
-	}
-
-	if (InputManager::isKeyDown(65) || InputManager::isKeyDown(97)) { //A
-		camera->moveRight(-moveSpeed*Time::delta);
-	}
-
-	if (InputManager::isKeyDown(68) || InputManager::isKeyDown(100)) { //D
-		camera->moveRight(moveSpeed*Time::delta);
-	}
-
 	Scene::current->update();
 	DebugConsole::instance.update();
 
@@ -156,13 +142,14 @@ void Engine::onRender() {
 
 	GLHelper::perspective(45.0f, (float)display->getWidth() / display->getHeight(), 0.001f, 100.0f);
 	GLHelper::identityModel();
-	GLHelper::translate(0.1f, -0.5f, -5.0f);
-	GLHelper::rotate(0.0f, 0, 1, 0);
-	GLHelper::currentState.viewMatrix = camera->getViewMatrix();
+	//GLHelper::currentState.viewMatrix = camera->getViewMatrix();
+
+	if (ComponentCamera::activeCamera != nullptr)
+		GLHelper::currentState.viewMatrix = ComponentCamera::activeCamera->getViewMatrix();
+	else
+		GLHelper::currentState.viewMatrix = glm::mat4();
 
 	ShaderManager::use("_native/shaders/default.shader");
-	Texture::bind("textures/car.png");
-	//Resources::MODEL["models/car.obj"]->draw();
 	
 	Scene::current->draw();
 

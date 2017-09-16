@@ -12,6 +12,7 @@ class GameObject {
 		string name;
 		Vector3 location;
 		Quaternion orientation;
+		glm::mat4 transform;
 		bool needsUpdates = false;
 		map<string, vector<Component*>> componentGroups;
 	public:
@@ -21,14 +22,18 @@ class GameObject {
 		void init();
 		void update();
 		void draw();
+		void onMouseMove();
 		GameObject* addComponent(Component* _component);
 		GameObject* markUpdatable();
 		
 		string getName();
 		bool doesNeedUpdates();
 		Vector3 getLocation();
-		void setLocation(const Vector3& _location);
 		Quaternion getOrientation();
+		glm::mat4 getTransform();
+		Vector3 getForwardVector();
+		Vector3 getRightVector();
+		void setLocation(const Vector3& _location);
 		void setOrientation(const Quaternion& _orientation);
 		void setOrientation(const Vector3& _orientation);
 		void rotate(const Vector3& _rotation);

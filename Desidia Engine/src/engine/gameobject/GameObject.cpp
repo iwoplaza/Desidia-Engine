@@ -1,10 +1,15 @@
 #include "GameObject.hpp"
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/glm.hpp>
+#include <glm/vec3.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include "../rendering/GLHelper.hpp"
 
 GameObject::GameObject(string _name) {
 	name = _name;
 	location = Vector3();
 	orientation = Quaternion();
+	transform = glm::mat4();
 
 	componentGroups = map<string, vector<Component*>>();
 }
@@ -25,12 +30,15 @@ void GameObject::update() {
 	for (pair<string, vector<Component*>> p : componentGroups)
 		for (Component* component : p.second)
 			component->update();
+
+	transform = glm::mat4();
+	transform = glm::translate(transform, glm::vec3(location.x, location.y, location.z));
+	transform = transform * glm::mat4(glm::toMat4(orientation));
 }
 
 void GameObject::draw() {
 	GLHelper::saveState();
-		GLHelper::translate(location.x, location.y, location.z);
-		GLHelper::rotate(orientation);
+		GLHelper::transform(transform);
 		for (pair<string, vector<Component*>> p : componentGroups){
 			for (Component* component : p.second) {
 				GLHelper::saveState();
@@ -39,6 +47,12 @@ void GameObject::draw() {
 			}
 		}
 	GLHelper::loadState();
+}
+
+void GameObject::onMouseMove() {
+	for (pair<string, vector<Component*>> p : componentGroups)
+		for (Component* component : p.second)
+			component->onMouseMove();
 }
 
 GameObject* GameObject::addComponent(Component* _component) {
@@ -68,12 +82,30 @@ Vector3 GameObject::getLocation() {
 	return location;
 }
 
-void GameObject::setLocation(const Vector3& _location) {
-	location = _location;
-}
-
 Quaternion GameObject::getOrientation() {
 	return orientation;
+}
+
+glm::mat4 GameObject::getTransform() {
+	return transform;
+}
+
+Vector3 GameObject::getForwardVector() {
+	glm::vec3 vector = glm::vec3(0, 0, -1);
+	vector = glm::quat(orientation) * vector;
+	Vector3 vec3 = Vector3(-vector.x, vector.y, vector.z);
+	return vec3;
+}
+
+Vector3 GameObject::getRightVector() {
+	glm::vec3 vector = glm::vec3(1, 0, 0);
+	vector = glm::quat(orientation) * vector;
+	Vector3 vec3 = Vector3(-vector.x, vector.y, vector.z);
+	return vec3;
+}
+
+void GameObject::setLocation(const Vector3& _location) {
+	location = _location;
 }
 
 void GameObject::setOrientation(const Quaternion& _orientation) {
