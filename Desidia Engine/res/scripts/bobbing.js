@@ -1,4 +1,4 @@
-Engine.registerEventListener('create', function (e) {
+Engine.registerEventListener('init', function (e) {
     e.metadata.time = 0;
     return e;
 });

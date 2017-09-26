@@ -16,7 +16,15 @@ void ComponentScript::init() {
 		"\"metadata\": " + metadata + ", " +
 		"\"gameObject\": \"" + gameObject->getName() + "\"" +
 		"}";
-	metadata = ScriptContext::handleEventCallback(script, "create", eventObject);
+	metadata = ScriptContext::handleEventCallback(script, "init", eventObject);
+}
+
+void ComponentScript::postInit() {
+	std::string eventObject = string("{") +
+		"\"metadata\": " + metadata + ", " +
+		"\"gameObject\": \"" + gameObject->getName() + "\"" +
+		"}";
+	metadata = ScriptContext::handleEventCallback(script, "postInit", eventObject);
 }
 
 void ComponentScript::update() {

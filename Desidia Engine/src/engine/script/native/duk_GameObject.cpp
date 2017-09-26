@@ -1,4 +1,5 @@
 #include "duk_GameObject.hpp"
+#include "duk_Component.hpp"
 #include "../../util/Vector3.hpp"
 #include "../../scene/Scene.hpp"
 #include "../../gameobject/GameObject.hpp"
@@ -23,6 +24,8 @@ void duk_GameObject::init(duk_context *ctx) {
 	duk_put_prop_string(ctx, -2, "setOrientation");
 	duk_push_c_function(ctx, duk_GameObject::setOrientationEuler, 2);
 	duk_put_prop_string(ctx, -2, "setOrientationEuler");
+	duk_push_c_function(ctx, duk_GameObject::resetOrientation, 1);
+	duk_put_prop_string(ctx, -2, "resetOrientation");
 	duk_push_c_function(ctx, duk_GameObject::rotate, 2);
 	duk_put_prop_string(ctx, -2, "rotate");
 	duk_push_c_function(ctx, duk_GameObject::rotateX, 2);
@@ -31,6 +34,10 @@ void duk_GameObject::init(duk_context *ctx) {
 	duk_put_prop_string(ctx, -2, "rotateY");
 	duk_push_c_function(ctx, duk_GameObject::rotateZ, 2);
 	duk_put_prop_string(ctx, -2, "rotateZ");
+	duk_push_c_function(ctx, duk_GameObject::getComponents, 2);
+	duk_put_prop_string(ctx, -2, "getComponents");
+	duk_push_c_function(ctx, duk_GameObject::getComponent, 2);
+	duk_put_prop_string(ctx, -2, "getComponent");
 	duk_put_global_string(ctx, "GameObject");
 }
 
@@ -118,6 +125,14 @@ duk_ret_t duk_GameObject::setOrientationEuler(duk_context *ctx) {
 	return 0;
 }
 
+duk_ret_t duk_GameObject::resetOrientation(duk_context *ctx) {
+	string gameObjectName = duk_safe_to_string(ctx, 0);
+	GameObject* gameObject = Scene::current->getGameObject(gameObjectName);
+	gameObject->setOrientation(Quaternion());
+
+	return 0;
+}
+
 duk_ret_t duk_GameObject::rotate(duk_context *ctx) {
 	string gameObjectName = duk_safe_to_string(ctx, 0);
 
@@ -163,4 +178,14 @@ duk_ret_t duk_GameObject::rotateZ(duk_context *ctx) {
 	gameObject->rotateZ(z);
 
 	return 0;
+}
+
+duk_ret_t duk_GameObject::getComponents(duk_context *ctx) {
+	duk_Component::pushComponents(ctx, duk_safe_to_string(ctx, 0), duk_safe_to_string(ctx, 1));
+	return 1;
+}
+
+duk_ret_t duk_GameObject::getComponent(duk_context *ctx) {
+	duk_Component::pushComponent(ctx, duk_safe_to_string(ctx, 0), duk_safe_to_string(ctx, 1), 0);
+	return 1;
 }

@@ -25,6 +25,13 @@ void Scene::init() {
 	for (std::pair<string, GameObject*> pair : gameObjects) {
 		pair.second->init();
 	}
+	postInit();
+}
+
+void Scene::postInit() {
+	for (std::pair<string, GameObject*> pair : gameObjects) {
+		pair.second->postInit();
+	}
 }
 
 void Scene::update() {

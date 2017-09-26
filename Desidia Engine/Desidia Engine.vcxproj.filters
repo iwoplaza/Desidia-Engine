@@ -132,6 +132,12 @@
     <ClCompile Include="src\engine\script\native\duk_Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\script\native\duk_ComponentCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\script\native\duk_Component.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\gameobject\component\Component.hpp">
@@ -248,6 +254,15 @@
     <ClInclude Include="src\engine\script\native\duk_Input.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\engine\script\native\duk_ComponentCamera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\script\native\duk_Component.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Base.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Release\Desidia Engine.exe" />
@@ -269,6 +284,8 @@
     <None Include="res\materials\red.mat" />
     <None Include="res\scripts\bobbing.js" />
     <None Include="res\scripts\fpsCamera.js" />
+    <None Include="res\scripts\bouncingBall.js" />
+    <None Include="res\materials\green.mat" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\fonts\impact.png">

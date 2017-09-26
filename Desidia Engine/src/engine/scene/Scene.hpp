@@ -17,6 +17,7 @@ class Scene {
 		~Scene();
 
 		void init();
+		void postInit();
 		void update();
 		void draw();
 		void onMouseMove();

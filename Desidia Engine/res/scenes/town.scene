@@ -28,6 +28,24 @@
       }
     },
     {
+      "name": "sphere",
+      "location": [ 0, 1, 0 ],
+      "needsUpdates": true,
+      "components": {
+        "ComponentMesh": [
+          {
+            "model": "models/sphere.obj",
+            "material": "materials/green.mat"
+          }
+        ],
+        "ComponentScript": [
+          {
+            "script": "scripts/bouncingBall.js"
+          }
+        ]
+      }
+    },
+    {
       "name": "plane",
       "location": [ 0, 0, 0],
       "needsUpdates": true,

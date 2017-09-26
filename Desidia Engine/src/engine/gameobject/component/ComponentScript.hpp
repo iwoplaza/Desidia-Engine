@@ -12,6 +12,7 @@ class ComponentScript : public Component {
 		ComponentScript(std::string _script);
 
 		void init();
+		void postInit();
 		void update();
 		void onMouseMove();
 		const char* getType();

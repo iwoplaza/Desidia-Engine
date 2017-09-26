@@ -27,10 +27,6 @@ using namespace std;
 Display* Engine::display;
 Camera* camera = new Camera();
 
-float ticks = 0;
-
-int mouseOldX = 0, mouseOldY = 0;
-
 void Engine::init(int argc, char** argv) {
 	ilInit();
 
@@ -128,7 +124,6 @@ void Engine::handleMouseAction(int button, int state, int x, int y) {
 
 void Engine::update() {
 	Time::tick();
-	ticks += Time::delta;
 
 	Scripts::update();
 	Scene::current->update();
@@ -142,12 +137,14 @@ void Engine::onRender() {
 
 	GLHelper::perspective(45.0f, (float)display->getWidth() / display->getHeight(), 0.001f, 100.0f);
 	GLHelper::identityModel();
-	//GLHelper::currentState.viewMatrix = camera->getViewMatrix();
 
-	if (ComponentCamera::activeCamera != nullptr)
+	if (ComponentCamera::activeCamera != nullptr) {
 		GLHelper::currentState.viewMatrix = ComponentCamera::activeCamera->getViewMatrix();
-	else
+		GLHelper::currentState.projectionMatrix = ComponentCamera::activeCamera->getProjectionMatrix();
+	}
+	else {
 		GLHelper::currentState.viewMatrix = glm::mat4();
+	}
 
 	ShaderManager::use("_native/shaders/default.shader");
 	
@@ -159,9 +156,9 @@ void Engine::onRender() {
 
 	GLHelper::saveState();
 		GLHelper::identityModel();
-		GLHelper::translate(display->getWidth()-50, display->getHeight()-20, 0);
+		GLHelper::translate(display->getWidth()-62, display->getHeight()-20, 0);
 		FontRenderer::fontSize = 16;
-		FontRenderer::drawText("v0.1.0", "_native/fonts/Arial.fnt", "_native/shaders/text-default.shader");
+		FontRenderer::drawText("v0.1.0", DebugConsole::CODE_FONT, "_native/shaders/text-default.shader");
 	GLHelper::loadState();
 
 	DebugConsole::instance.draw();
@@ -173,8 +170,10 @@ void Engine::onResize(int nw, int nh) {
 	glViewport(0, 0, (GLsizei) nw, (GLsizei) nh);
 	display->setWidth(nw);
 	display->setHeight(nh);
+
+	if (ComponentCamera::activeCamera != nullptr)
+		ComponentCamera::activeCamera->updateProjection();
 }
 
 void Engine::onClose() {
-
 }

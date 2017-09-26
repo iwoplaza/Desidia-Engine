@@ -1,23 +1,30 @@
-Engine.registerEventListener('create', function (e) {
-    Engine.print("CAMERA");
+Engine.registerEventListener('init', function (e) {
+    e.metadata.yaw = 0;
+    e.metadata.pitch = 0;
+    return e;
+});
+
+Engine.registerEventListener('postInit', function (e) {
     return e;
 });
 
 Engine.registerEventListener('mouseMove', function (e) {
     var mouseSensitivity = 0.004;
     if (Input.isMouseButtonDown(0)) {
-        GameObject.rotateY(e.gameObject, Input.getMouseMoveX() * mouseSensitivity);
-        GameObject.rotateY(e.gameObject, Input.getMouseMoveX() * mouseSensitivity);
+        e.metadata.yaw += Input.getMouseMoveX() * mouseSensitivity;
+        e.metadata.pitch -= Input.getMouseMoveY() * mouseSensitivity;
+
+        GameObject.resetOrientation(e.gameObject);
+        GameObject.rotateX(e.gameObject, e.metadata.pitch);
+        GameObject.rotateY(e.gameObject, e.metadata.yaw);
     }
     return e;
 });
 
 Engine.registerEventListener('update', function (e) {
     var location = GameObject.getLocation(e.gameObject);
-    e.metadata.time += Engine.Time.delta;
 
     var moveSpeed = 6;
-    var cameraSpeed = 6;
     var forwardVector = GameObject.getForwardVector(e.gameObject);
     var rightVector = GameObject.getRightVector(e.gameObject);
 
@@ -33,6 +40,13 @@ Engine.registerEventListener('update', function (e) {
         location = location.addVec(forwardVector.multiply(Engine.Time.delta * moveSpeed));
     if (Input.isKeyDownCase('S'.charCodeAt(0))) //S
         location = location.addVec(forwardVector.multiply(Engine.Time.delta * -moveSpeed));
+
+    var cameraComponent = GameObject.getComponent(e.gameObject, 'ComponentCamera');
+
+    if (Input.isKeyDownCase('X'.charCodeAt(0))) //X
+        ComponentCamera.setFOV(cameraComponent, ComponentCamera.getFOV(cameraComponent) - 0.5);
+    if (Input.isKeyDownCase('C'.charCodeAt(0))) //C
+        ComponentCamera.setFOV(cameraComponent, ComponentCamera.getFOV(cameraComponent) + 0.5);
 
     GameObject.setLocation(e.gameObject, location);
 

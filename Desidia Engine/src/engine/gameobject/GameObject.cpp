@@ -9,6 +9,7 @@ GameObject::GameObject(string _name) {
 	name = _name;
 	location = Vector3();
 	orientation = Quaternion();
+	scale = Vector3();
 	transform = glm::mat4();
 
 	componentGroups = map<string, vector<Component*>>();
@@ -24,6 +25,12 @@ void GameObject::init() {
 	for (pair<string, vector<Component*>> p : componentGroups)
 		for (Component* component : p.second)
 			component->init();
+}
+
+void GameObject::postInit() {
+	for (pair<string, vector<Component*>> p : componentGroups)
+		for (Component* component : p.second)
+			component->postInit();
 }
 
 void GameObject::update() {
@@ -86,6 +93,10 @@ Quaternion GameObject::getOrientation() {
 	return orientation;
 }
 
+Vector3 GameObject::getScale() {
+	return scale;
+}
+
 glm::mat4 GameObject::getTransform() {
 	return transform;
 }
@@ -93,15 +104,31 @@ glm::mat4 GameObject::getTransform() {
 Vector3 GameObject::getForwardVector() {
 	glm::vec3 vector = glm::vec3(0, 0, -1);
 	vector = glm::quat(orientation) * vector;
-	Vector3 vec3 = Vector3(-vector.x, vector.y, vector.z);
+	Vector3 vec3 = Vector3(-vector.x, -vector.y, vector.z);
 	return vec3;
 }
 
 Vector3 GameObject::getRightVector() {
 	glm::vec3 vector = glm::vec3(1, 0, 0);
 	vector = glm::quat(orientation) * vector;
-	Vector3 vec3 = Vector3(-vector.x, vector.y, vector.z);
+	Vector3 vec3 = Vector3(-vector.x, -vector.y, vector.z);
 	return vec3;
+}
+
+vector<Component*> GameObject::getComponents(string groupName) {
+	if (componentGroups.find(groupName) == componentGroups.end())
+		return vector<Component*>();
+	return componentGroups[groupName];
+}
+
+Component* GameObject::getComponent(string groupName, int index) {
+	vector<Component*> group = getComponents(groupName);
+	if (group.size() <= index) return nullptr;
+	return group[index];
+}
+
+Component* GameObject::getComponent(string groupName) {
+	return getComponent(groupName, 0);
 }
 
 void GameObject::setLocation(const Vector3& _location) {
@@ -130,6 +157,10 @@ void GameObject::rotateY(float _y) {
 
 void GameObject::rotateZ(float _z) {
 	orientation = Quaternion(orientation * glm::dquat(glm::vec3(0, 0, _z)));
+}
+
+void GameObject::setScale(const Vector3& _scale) {
+	scale = _scale;
 }
 
 ostream& operator<<(ostream& os, const GameObject& o) {

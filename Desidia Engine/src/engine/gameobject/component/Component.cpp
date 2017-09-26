@@ -19,7 +19,6 @@ void Component::registerComponent(string type, FUNCTION_COMPONENT_PARSE callback
 }
 
 Component* Component::parseJSON(string type, const Value& value) {
-	//cout << "Parsing a component of type: " << (callbackMap.find(type) == callbackMap.end() ? "Unknown" : "Success") << endl;
 	if (callbackMap.find(type) == callbackMap.end())
 		return nullptr;
 
@@ -34,6 +33,10 @@ Component::~Component() {
 
 }
 
+GameObject* Component::getGameObject() {
+	return gameObject;
+}
+
 Component* Component::setGameObject(GameObject* _gameObject) {
 	if (gameObject == nullptr)
 		gameObject = _gameObject;
@@ -44,6 +47,7 @@ Component* Component::setGameObject(GameObject* _gameObject) {
 }
 
 void Component::init() {}
+void Component::postInit() {}
 void Component::update() {}
 void Component::draw() {}
 void Component::onMouseMove() {}

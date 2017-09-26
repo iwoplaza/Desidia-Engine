@@ -4,6 +4,8 @@
 #include <map>
 #include <rapidjson\document.h>
 
+typedef unsigned long int COMPONENT_UID;
+
 class GameObject;
 class Component;
 
@@ -19,9 +21,11 @@ class Component {
 		Component();
 		~Component();
 
+		GameObject* getGameObject();
 		Component* setGameObject(GameObject* _gameObject);
 
 		virtual void init();
+		virtual void postInit();
 		virtual void update();
 		virtual void draw();
 		virtual void onMouseMove();

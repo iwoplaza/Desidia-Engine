@@ -6,6 +6,7 @@
 #include <iostream>
 
 int FontRenderer::fontSize = 17;
+int FontRenderer::letterSpacing = 0;
 
 void FontRenderer::drawText(std::string _text, std::string _font, std::string _shader) {
 	ShaderManager::use(_shader);
@@ -20,7 +21,7 @@ void FontRenderer::drawText(std::string _text, std::string _font, std::string _s
 		FontCharacter* character = font->findCharacter(c);
 		if (character != nullptr) {
 			character->draw();
-			GLHelper::translate(character->advanceX, 0 , 0);
+			GLHelper::translate(character->advanceX + letterSpacing, 0 , 0);
 		}
 	}
 	GLHelper::loadState();
@@ -33,7 +34,7 @@ int FontRenderer::getTextWidth(std::string _text, std::string _font) {
 	for (char c : _text) {
 		FontCharacter* character = font->findCharacter(c);
 		if (character != nullptr) {
-			width += character->advanceX;
+			width += character->advanceX + letterSpacing;
 		}
 	}
 	return width*scale;
