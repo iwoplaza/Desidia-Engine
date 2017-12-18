@@ -11,7 +11,7 @@ Engine.registerEventListener('update', function (e) {
     GameObject.rotateY(e.gameObject, Engine.Time.delta);
 
     if(Input.isKeyDown(32)) {
-        GameObject.rotateY(e.gameObject, Engine.Time.delta);
+        GameObject.rotateX(e.gameObject, Engine.Time.delta);
     }
 
     return e;

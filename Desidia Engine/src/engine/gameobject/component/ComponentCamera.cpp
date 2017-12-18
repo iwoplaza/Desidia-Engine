@@ -56,7 +56,7 @@ glm::mat4 ComponentCamera::getRotationMatrix() {
 glm::mat4 ComponentCamera::getViewMatrix() {
 	glm::mat4 transform = glm::mat4();
 	transform = glm::translate(transform, glm::vec3(-gameObject->getLocation().x, -gameObject->getLocation().y, -gameObject->getLocation().z));
-	return getRotationMatrix() * transform;
+	return glm::inverse(getRotationMatrix()) * transform;
 }
 
 glm::mat4 ComponentCamera::getProjectionMatrix() {

@@ -15,8 +15,8 @@ Engine.registerEventListener('mouseMove', function (e) {
         e.metadata.pitch -= Input.getMouseMoveY() * mouseSensitivity;
 
         GameObject.resetOrientation(e.gameObject);
-        GameObject.rotateX(e.gameObject, e.metadata.pitch);
-        GameObject.rotateY(e.gameObject, e.metadata.yaw);
+        GameObject.rotateY(e.gameObject, -e.metadata.yaw);
+        GameObject.rotateX(e.gameObject, -e.metadata.pitch);
     }
     return e;
 });

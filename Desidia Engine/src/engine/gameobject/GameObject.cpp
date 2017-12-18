@@ -104,14 +104,14 @@ glm::mat4 GameObject::getTransform() {
 Vector3 GameObject::getForwardVector() {
 	glm::vec3 vector = glm::vec3(0, 0, -1);
 	vector = glm::quat(orientation) * vector;
-	Vector3 vec3 = Vector3(-vector.x, -vector.y, vector.z);
+	Vector3 vec3 = Vector3(vector.x, vector.y, vector.z);
 	return vec3;
 }
 
 Vector3 GameObject::getRightVector() {
-	glm::vec3 vector = glm::vec3(1, 0, 0);
+	glm::vec3 vector = glm::vec3(-1, 0, 0);
 	vector = glm::quat(orientation) * vector;
-	Vector3 vec3 = Vector3(-vector.x, -vector.y, vector.z);
+	Vector3 vec3 = Vector3(vector.x, vector.y, vector.z);
 	return vec3;
 }
 
