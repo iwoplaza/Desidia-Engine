@@ -5,67 +5,77 @@
 Scene* Scene::current;
 
 Scene::Scene() {
-	gameObjects = map<string, GameObject*>();
-	updatable = vector<GameObject*>();
+	m_gameObjects = map<string, GameObject*>();
+	m_updatable = vector<GameObject*>();
+	m_physicsSpace = PhysicsSpace();
 }
 
 Scene::Scene(string _name) : Scene() {
-	name = _name;
+	m_name = _name;
 }
 
 Scene::~Scene() {
-	for (pair<string, GameObject*> p : gameObjects) {
+	for (pair<string, GameObject*> p : m_gameObjects) {
 		delete p.second;
 	}
-	gameObjects.clear();
-	updatable.clear();
+	m_gameObjects.clear();
+	m_updatable.clear();
 }
 
 void Scene::init() {
-	for (std::pair<string, GameObject*> pair : gameObjects) {
+	for (std::pair<string, GameObject*> pair : m_gameObjects) {
 		pair.second->init();
 	}
 	postInit();
 }
 
 void Scene::postInit() {
-	for (std::pair<string, GameObject*> pair : gameObjects) {
+	for (std::pair<string, GameObject*> pair : m_gameObjects) {
 		pair.second->postInit();
 	}
+	m_physicsSpace.init();
 }
 
 void Scene::update() {
-	for (GameObject* gameObject : updatable) {
+	for (GameObject* gameObject : m_updatable) {
 		gameObject->update();
 	}
+
+	m_physicsSpace.update();
 }
 
 void Scene::draw() {
-	for (std::pair<string, GameObject*> pair : gameObjects) {
+	for (std::pair<string, GameObject*> pair : m_gameObjects) {
 		pair.second->draw();
 	}
+
+	m_physicsSpace.drawGizmos();
 }
 
 void Scene::onMouseMove() {
-	for (GameObject* gameObject : updatable) {
+	for (GameObject* gameObject : m_updatable) {
 		gameObject->onMouseMove();
 	}
 }
 
 void Scene::addGameObject(GameObject* _gameObject) {
-	if (gameObjects.find(_gameObject->getName()) != gameObjects.end()) {
+	if (m_gameObjects.find(_gameObject->getName()) != m_gameObjects.end()) {
 		cerr << "Tried to add a duplicate by the name of '" << _gameObject->getName() << "' to the scene." << endl;
 		return;
 	}
 
-	gameObjects[_gameObject->getName()] = _gameObject;
+	m_gameObjects[_gameObject->getName()] = _gameObject;
 
 	if (_gameObject->doesNeedUpdates()) {
-		updatable.push_back(_gameObject);
+		m_updatable.push_back(_gameObject);
 	}
 }
 
 GameObject* Scene::getGameObject(std::string name) {
-	if (gameObjects.find(name) == gameObjects.end()) return nullptr;
-	return gameObjects[name];
+	if (m_gameObjects.find(name) == m_gameObjects.end()) return nullptr;
+	return m_gameObjects[name];
+}
+
+PhysicsSpace* Scene::getPhysicsSpace() {
+	return &m_physicsSpace;
 }

@@ -153,7 +153,17 @@
   <ItemGroup>
     <ClCompile Include="src\engine\Camera.cpp" />
     <ClCompile Include="src\engine\gameobject\component\ComponentCamera.cpp" />
+    <ClCompile Include="src\engine\gameobject\component\ComponentRigidbody.cpp" />
     <ClCompile Include="src\engine\gameobject\component\ComponentScript.cpp" />
+    <ClCompile Include="src\engine\physics\collider\Collider.cpp" />
+    <ClCompile Include="src\engine\physics\collider\MeshCollider.cpp" />
+    <ClCompile Include="src\engine\physics\collider\PolygonCollider.cpp" />
+    <ClCompile Include="src\engine\physics\collider\SphereCollider.cpp" />
+    <ClCompile Include="src\engine\physics\PhysicsBody.cpp" />
+    <ClCompile Include="src\engine\physics\PhysicsSpace.cpp" />
+    <ClCompile Include="src\engine\physics\PolygonUtils.cpp" />
+    <ClCompile Include="src\engine\rendering\geometry\DynamicMesh.cpp" />
+    <ClCompile Include="src\engine\rendering\geometry\Polygon.cpp" />
     <ClCompile Include="src\engine\rendering\material\Material.cpp" />
     <ClCompile Include="src\engine\script\native\duk_Component.cpp" />
     <ClCompile Include="src\engine\script\native\duk_ComponentCamera.cpp" />
@@ -190,13 +200,25 @@
     <ClCompile Include="src\engine\util\Time.cpp" />
     <ClCompile Include="src\engine\util\Vector2.cpp" />
     <ClCompile Include="src\engine\util\Vector3.cpp" />
+    <ClCompile Include="src\engine\windows\PopUp.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\Base.hpp" />
     <ClInclude Include="src\engine\Camera.hpp" />
     <ClInclude Include="src\engine\gameobject\component\ComponentCamera.hpp" />
+    <ClInclude Include="src\engine\gameobject\component\ComponentRigidbody.hpp" />
     <ClInclude Include="src\engine\gameobject\component\ComponentScript.hpp" />
+    <ClInclude Include="src\engine\physics\collider\Collider.hpp" />
+    <ClInclude Include="src\engine\physics\collider\MeshCollider.hpp" />
+    <ClInclude Include="src\engine\physics\collider\PolygonCollider.hpp" />
+    <ClInclude Include="src\engine\physics\collider\SphereCollider.hpp" />
+    <ClInclude Include="src\engine\physics\PhysicsBody.hpp" />
+    <ClInclude Include="src\engine\physics\PhysicsSpace.hpp" />
+    <ClInclude Include="src\engine\physics\PhysicsUtils.hpp" />
+    <ClInclude Include="src\engine\rendering\geometry\DynamicMesh.hpp" />
+    <ClInclude Include="src\engine\rendering\geometry\MeshData.hpp" />
+    <ClInclude Include="src\engine\rendering\geometry\Polygon.hpp" />
     <ClInclude Include="src\engine\script\native\duk_Component.hpp" />
     <ClInclude Include="src\engine\script\native\duk_ComponentCamera.hpp" />
     <ClInclude Include="src\engine\script\native\duk_Engine.hpp" />
@@ -234,26 +256,30 @@
     <ClInclude Include="src\engine\util\Time.hpp" />
     <ClInclude Include="src\engine\util\Vector2.hpp" />
     <ClInclude Include="src\engine\util\Vector3.hpp" />
+    <ClInclude Include="src\engine\windows\PopUp.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Release\Desidia Engine.exe" />
     <None Include="res\fonts\impact.fnt" />
+    <None Include="res\materials\camera_gizmo.mat" />
     <None Include="res\materials\green.mat" />
     <None Include="res\materials\red.mat" />
     <None Include="res\materials\kamil.mat" />
     <None Include="res\materials\town.mat" />
     <None Include="res\resources.json" />
     <None Include="res\scenes\town.scene" />
-    <None Include="res\scripts\bobbing.js" />
+    <None Include="res\scripts\character.js" />
     <None Include="res\scripts\bouncingBall.js" />
     <None Include="res\scripts\fpsCamera.js" />
     <None Include="res\shaders\kamil.shader" />
     <None Include="res\shaders\environment.shader" />
     <None Include="res\_native\fonts\Arial.fnt" />
     <None Include="res\_native\fonts\Courier-New.fnt" />
+    <None Include="res\_native\materials\gizmo.mat" />
     <None Include="res\_native\resources.json" />
     <None Include="res\_native\scripts\engine.js" />
     <None Include="res\_native\shaders\default.shader" />
+    <None Include="res\_native\shaders\shadeless.shader" />
     <None Include="res\_native\shaders\text-default.shader" />
     <None Include="res\_native\shaders\ui-notexture.shader" />
     <None Include="src\engine\lib\duktape\duk_source_meta.json" />

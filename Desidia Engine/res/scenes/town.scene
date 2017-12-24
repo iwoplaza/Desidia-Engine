@@ -1,9 +1,9 @@
 {
-  "name": "Town",
+  "name": "Test",
   "objects": [
     {
-      "name": "testObject",
-      "location": [ 0, 0, -5 ],
+      "name": "character",
+      "location": [ 0, 0, 2 ],
       "needsUpdates": true,
       "components": {
         "ComponentMesh": [
@@ -14,46 +14,37 @@
         ],
         "ComponentScript": [
           {
-            "script": "scripts/bobbing.js"
+            "script": "scripts/character.js"
           }
         ],
-
         "ComponentLight": [
           {
             "range": 20,
             "ambientColor": [ 0, 0, 0 ],
             "diffuseColor": [ 0.1, 0.5, 1 ]
           }
-        ]
-      }
-    },
-    {
-      "name": "sphere",
-      "location": [ 0, 1, 0 ],
-      "needsUpdates": true,
-      "components": {
-        "ComponentMesh": [
-          {
-            "model": "models/sphere.obj",
-            "material": "materials/green.mat"
-          }
         ],
-        "ComponentScript": [
+        "ComponentRigidbody": [
           {
-            "script": "scripts/bouncingBall.js"
+            "mass": 2,
+            "collider": {
+              "type": "SphereCollider",
+              "origin": [ 0, 0, 0 ],
+              "radius": 5
+            }
           }
         ]
       }
     },
     {
-      "name": "plane",
-      "location": [ 0, 0, 0],
-      "needsUpdates": true,
+      "name": "terrain",
+      "location": [ 0, 0, 0 ],
+      "needsUpdates": false,
       "components": {
         "ComponentMesh": [
           {
-            "model": "models/box.obj",
-            "material": "materials/red.mat"
+            "model": "models/cube.obj",
+            "material": "materials/green.mat"
           }
         ]
       }
@@ -74,13 +65,11 @@
     },
     {
       "name": "mainCamera",
-      "location": [ 0, 0, 0 ],
+      "location": [ 1, 1, 8 ],
       "needsUpdates": true,
       "components": {
         "ComponentCamera": [
-          {
-
-          }
+          {}
         ],
         "ComponentScript": [
           {

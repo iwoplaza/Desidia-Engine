@@ -54,7 +54,7 @@ uniform Material uMaterial;
 uniform mat3 uMV3x3Matrix;
 
 void main(void) {
-	vec3 lightSource = vec3(5, 10, 2);
+	vec3 lightSource = (uMV3x3Matrix * vec3(5, 10, 2)).xyz;
 	vec3 lightColor = vec3(1, 1, 1);
 	vec3 L = normalize(lightSource.xyz);
 	vec3 normal = vNormal;

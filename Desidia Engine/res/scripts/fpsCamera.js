@@ -24,22 +24,24 @@ Engine.registerEventListener('mouseMove', function (e) {
 Engine.registerEventListener('update', function (e) {
     var location = GameObject.getLocation(e.gameObject);
 
-    var moveSpeed = 6;
+    var moveSpeed = 9;
     var forwardVector = GameObject.getForwardVector(e.gameObject);
     var rightVector = GameObject.getRightVector(e.gameObject);
 
-    if (Input.isKeyDownCase('A'.charCodeAt(0))) //A
-        location = location.addVec(rightVector.multiply(Engine.Time.delta * moveSpeed));
-    if (Input.isKeyDownCase('D'.charCodeAt(0))) //D
-        location = location.addVec(rightVector.multiply(Engine.Time.delta * -moveSpeed));
-    if (Input.isKeyDownCase('Q'.charCodeAt(0))) //Q
-        location.y += Engine.Time.delta * moveSpeed;
-    if (Input.isKeyDownCase('Z'.charCodeAt(0))) //Z
-        location.y -= Engine.Time.delta * moveSpeed;
-    if (Input.isKeyDownCase('W'.charCodeAt(0))) //W
-        location = location.addVec(forwardVector.multiply(Engine.Time.delta * moveSpeed));
-    if (Input.isKeyDownCase('S'.charCodeAt(0))) //S
-        location = location.addVec(forwardVector.multiply(Engine.Time.delta * -moveSpeed));
+    if (!Input.isKeyDown(32)) {
+        if (Input.isKeyDownCase('A'.charCodeAt(0))) //A
+            location = location.addVec(rightVector.multiply(Engine.Time.delta * moveSpeed));
+        if (Input.isKeyDownCase('D'.charCodeAt(0))) //D
+            location = location.addVec(rightVector.multiply(Engine.Time.delta * -moveSpeed));
+        if (Input.isKeyDownCase('Q'.charCodeAt(0))) //Q
+            location.y += Engine.Time.delta * moveSpeed;
+        if (Input.isKeyDownCase('Z'.charCodeAt(0))) //Z
+            location.y -= Engine.Time.delta * moveSpeed;
+        if (Input.isKeyDownCase('W'.charCodeAt(0))) //W
+            location = location.addVec(forwardVector.multiply(Engine.Time.delta * moveSpeed));
+        if (Input.isKeyDownCase('S'.charCodeAt(0))) //S
+            location = location.addVec(forwardVector.multiply(Engine.Time.delta * -moveSpeed));
+    }
 
     var cameraComponent = GameObject.getComponent(e.gameObject, 'ComponentCamera');
 

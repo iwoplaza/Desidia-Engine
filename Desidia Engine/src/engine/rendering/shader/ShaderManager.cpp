@@ -2,6 +2,7 @@
 #include "Shader.hpp"
 #include "../../Resources.hpp"
 #include <iostream>
+#include "../../windows/PopUp.hpp"
 
 map<string, Shader*> ShaderManager::shaders;
 Shader* ShaderManager::current;
@@ -17,7 +18,9 @@ void ShaderManager::loadResource(string name) {
 
 void ShaderManager::use(string name) {
 	if (shaders.find(name) == shaders.end()) {
+		PopUp::error((L"Couldn't use shader '" + std::wstring(name.begin(), name.end()) + L"'").c_str());
 		std::cerr << "Couldn't use shader '" << name << "'" << std::endl;
+		exit(EXIT_FAILURE);
 		return;
 	}
 	current = shaders[name];

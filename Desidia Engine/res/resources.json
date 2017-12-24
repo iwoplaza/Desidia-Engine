@@ -1,4 +1,5 @@
 {
   "textures": [ "textures/car.png" ],
+  "models": [ "models/camera_gizmo.obj", "models/terrain.obj" ],
   "scene": "scenes/town.scene"
 }

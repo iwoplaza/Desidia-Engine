@@ -1,9 +1,9 @@
 #include "Color.hpp"
 
-Color::Color() : r(0), g(0), b(0), a(0) {}
-
-Color::Color(float _r, float _g, float _b, float _a = 1.0f) 
+Color::Color(float _r, float _g, float _b, float _a) 
 	: r(_r), g(_g), b(_b), a(_a) {}
+Color::Color(float _r, float _g, float _b) : Color(_r, _g, _b, 1.0f) {}
+Color::Color() : Color(0, 0, 0) {}
 
 unsigned int Color::asHex() {
 	int red = (int)(r * 255);

@@ -8,13 +8,15 @@
 
 using namespace rapidjson;
 
-Material::Material() {
-	shader = "_native/shaders/default.shader";
-	diffuseColor = Color(1, 1, 1, 1);
-	diffuseMap = "";
-	normalMap = "";
-	shininess = 1;
+Material::Material(std::string _shader, Color _diffuseColor, std::string _diffuseMap, std::string _normalMap, int _shininess) {
+	shader = _shader;
+	diffuseColor = _diffuseColor;
+	diffuseMap = _diffuseMap;
+	normalMap = _normalMap;
+	shininess = _shininess;
 }
+Material::Material(std::string _shader, Color _diffuseColor) : Material(_shader, _diffuseColor, "", "", 1) {}
+Material::Material() : Material("_native/shaders/default.shader", Color(1, 1, 1, 1), "", "", 1) {}
 
 void Material::use() {
 	ShaderManager::use(shader);

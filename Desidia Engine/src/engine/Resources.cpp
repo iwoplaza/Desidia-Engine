@@ -128,7 +128,7 @@ void Resources::perform() {
 
 void Resources::loadModel(std::string key) {
 	if(Resources::MODEL.find(key) == Resources::MODEL.end())
-		Resources::MODEL[key] = OBJLoader::loadFromFile(key);
+		Resources::MODEL[key] = OBJLoader::loadMeshFromFile(key);
 }
 
 void Resources::loadFont(std::string key) {

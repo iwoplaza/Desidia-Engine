@@ -1,4 +1,4 @@
-#include "Mesh.hpp"
+#include "DynamicMesh.hpp"
 #include "../shader/ShaderManager.hpp"
 #include "../GLHelper.hpp"
 #include <glm/glm.hpp>
@@ -6,21 +6,21 @@
 
 using namespace std;
 
-Mesh::Mesh() {
+DynamicMesh::DynamicMesh() {
 	m_totalIndices = 0;
 }
 
-Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices) : Mesh() {
+DynamicMesh::DynamicMesh(vector<Vertex> vertices, vector<GLuint> indices) : DynamicMesh() {
 	fillOut(vertices, indices);
 }
 
-Mesh::~Mesh() {
+DynamicMesh::~DynamicMesh() {
 	glDeleteBuffers(1, &m_vboVerticesID);
 	glDeleteBuffers(1, &m_vboIndicesID);
 	glDeleteVertexArrays(1, &m_vaoID);
 }
 
-void Mesh::draw() {
+void DynamicMesh::draw() {
 	glBindVertexArray(m_vaoID);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vboVerticesID);
@@ -40,12 +40,12 @@ void Mesh::draw() {
 	glBindVertexArray(0);
 }
 
-void Mesh::fillOut(MeshData meshData) {
+void DynamicMesh::fillOut(MeshData meshData) {
 	fillOut(meshData.vertices, meshData.indices);
 	m_meshData = meshData;
 }
 
-void Mesh::fillOut(vector<Vertex> vertices, vector<GLuint> indices) {
+void DynamicMesh::fillOut(vector<Vertex> vertices, vector<GLuint> indices) {
 	glGenVertexArrays(1, &m_vaoID);
 	glBindVertexArray(m_vaoID);
 	glGenBuffers(1, &m_vboVerticesID);
@@ -54,14 +54,21 @@ void Mesh::fillOut(vector<Vertex> vertices, vector<GLuint> indices) {
 	m_totalIndices = indices.size();
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vboIndicesID);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vboVerticesID);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
 	glBindVertexArray(0);
 
 	cout << "Created a mesh with " << vertices.size() << " vertices,  " << indices.size() << " indices." << endl;
 }
 
-MeshData Mesh::getMeshData() {
+void DynamicMesh::update(MeshData meshData) {
+	glBindBuffer(GL_ARRAY_BUFFER, m_vboIndicesID);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, meshData.indices.size() * sizeof(GLuint), &meshData.indices[0]);
+	glBindBuffer(GL_ARRAY_BUFFER, m_vboVerticesID);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, meshData.vertices.size() * sizeof(Vertex), &meshData.vertices[0]);
+}
+
+MeshData DynamicMesh::getMeshData() {
 	return m_meshData;
 }

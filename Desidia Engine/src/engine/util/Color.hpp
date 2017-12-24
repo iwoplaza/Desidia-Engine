@@ -2,8 +2,9 @@
 
 class Color {
 	public:
-		Color();
 		Color(float, float, float, float);
+		Color(float, float, float);
+		Color();
 
 		float r, g, b, a;
 

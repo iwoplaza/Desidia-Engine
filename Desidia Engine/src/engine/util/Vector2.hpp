@@ -26,5 +26,5 @@ public:
 	friend Vector2 operator*(Vector2 v, const float& s);
 	friend Vector2 operator/(Vector2 v, const float& s);
 	friend ostream& operator<<(ostream& os, const Vector2& v);
-	friend istream& operator>>(ostream& is, Vector2& v);
+	friend istream& operator>>(istream& is, Vector2& v);
 };

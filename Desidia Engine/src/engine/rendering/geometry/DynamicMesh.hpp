@@ -5,7 +5,7 @@
 #include "Vertex.hpp"
 #include "MeshData.hpp"
 
-class Mesh {
+class DynamicMesh {
 	protected:
 		GLuint m_vaoID;
 		GLuint m_vboIndicesID;
@@ -16,11 +16,13 @@ class Mesh {
 
 		void fillOut(std::vector<Vertex> _vertices, std::vector<GLuint> _indices);
 	public:
-		Mesh();
-		Mesh(std::vector<Vertex> _vertices, std::vector<GLuint> _indices);
-		~Mesh();
+		DynamicMesh();
+		DynamicMesh(std::vector<Vertex> _vertices, std::vector<GLuint> _indices);
+		~DynamicMesh();
 
 		void draw();
 		void fillOut(MeshData meshData);
+		void update(MeshData meshData);
+		//void append(MeshData meshData);
 		MeshData getMeshData();
 };

@@ -2,8 +2,12 @@
 
 #include "Vector3.hpp"
 
-float Vector3::length() {
-	return sqrt(x*x + y*y + z*z);
+inline float Vector3::lengthSquared() {
+	return x*x + y*y + z*z;
+}
+
+inline float Vector3::length() {
+	return sqrt(lengthSquared());
 }
 
 Vector3 Vector3::normalize() {
@@ -20,7 +24,7 @@ Vector3 Vector3::cross(const Vector3& v) {
 }
 
 float Vector3::dot(const Vector3& v) {
-	return x*v.x + y*v.y;
+	return x * v.x + y * v.y + z * v.z;
 }
 
 Vector3& Vector3::operator+=(const Vector3& v) {

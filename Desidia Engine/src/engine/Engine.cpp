@@ -1,26 +1,27 @@
 #include "Engine.hpp"
+#include "Display.hpp"
+#include "Camera.hpp"
+#include "Resources.hpp"
+#include "InputManager.hpp"
+#include "gameobject/component/Component.hpp"
+#include "gameobject/component/ComponentCamera.hpp"
+#include "rendering/GLHelper.hpp"
+#include "rendering/texture/Texture.hpp"
+#include "rendering/geometry/Mesh.hpp"
+#include "rendering/font/FontRenderer.hpp"
+#include "physics/collider/Collider.hpp"
+#include "script/Scripts.hpp"
+#include "loader/OBJLoader.hpp"
+#include "debug/DebugConsole.hpp"
+#include "scene/Scene.hpp"
+#include "util/Time.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <Windows.h>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <IL/ilut.h>
 #include <iostream>
-#include "Display.hpp"
-#include "rendering/GLHelper.hpp"
-#include "util/Time.hpp"
-#include "Camera.hpp"
-#include "rendering/texture/Texture.hpp"
-#include "InputManager.hpp"
-#include "rendering/geometry/Mesh.hpp"
-#include "loader/OBJLoader.hpp"
-#include "Resources.hpp"
-#include "rendering/font/FontRenderer.hpp"
-#include "debug/DebugConsole.hpp"
-#include "script/Scripts.hpp"
-#include "scene/Scene.hpp"
-#include "gameobject/component/Component.hpp"
-#include "gameobject/component/ComponentCamera.hpp"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 using namespace std;
 
@@ -63,6 +64,7 @@ void Engine::createDisplay(char* _title, int _width, int _height) {
 	glutEntryFunc(handleWindowEntry);
 
 	Component::registerAll();
+	Collider::registerAll();
 	Scripts::init();
 
 	Resources resourceManagerNative = Resources();

@@ -1,5 +1,15 @@
 {
-  "shaders": [ "_native/shaders/default.shader", "_native/shaders/text-default.shader", "_native/shaders/ui-notexture.shader" ],
-  "fonts": [ "_native/fonts/Arial.fnt", "_native/fonts/Courier-New.fnt", "_native/fonts/Courier-New_16.fnt" ],
+  "shaders": [
+    "_native/shaders/default.shader",
+    "_native/shaders/shadeless.shader",
+    "_native/shaders/text-default.shader",
+    "_native/shaders/ui-notexture.shader"
+  ],
+  "fonts": [
+    "_native/fonts/Arial.fnt",
+    "_native/fonts/Courier-New.fnt",
+    "_native/fonts/Courier-New_16.fnt"
+  ],
+  "models": [ "_native/models/icosphere.obj" ],
   "scripts": [ "_native/scripts/engine.js" ]
 }

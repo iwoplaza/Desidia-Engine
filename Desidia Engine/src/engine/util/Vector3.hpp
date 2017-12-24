@@ -13,7 +13,8 @@ class Vector3 {
 		Vector3(float _x, float _y, float _z)
 			: x(_x), y(_y), z(_z) {}
 
-		float length();
+		inline float lengthSquared();
+		inline float length();
 		Vector3 normalize();
 		Vector3 cross(const Vector3& v);
 		float dot(const Vector3& v);
@@ -31,5 +32,5 @@ class Vector3 {
 		friend Vector3 operator*(Vector3 v, const float& s);
 		friend Vector3 operator/(Vector3 v, const float& s);
 		friend ostream& operator<<(ostream& os, const Vector3& v);
-		friend istream& operator>>(ostream& is, Vector3& v);
+		friend istream& operator>>(istream& is, Vector3& v);
 };

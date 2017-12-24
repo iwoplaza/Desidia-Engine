@@ -12,6 +12,8 @@ class Material {
 		std::string normalMap;
 		int shininess;
 	public:
+		Material(std::string _shader, Color _diffuseColor, std::string _diffuseMap, std::string _normalMap, int _shininess);
+		Material(std::string _shader, Color _diffuseColor);
 		Material();
 
 		void use();
