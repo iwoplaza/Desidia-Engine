@@ -3,27 +3,28 @@ Engine.registerEventListener('init', function (e) {
 });
 
 Engine.registerEventListener('update', function (e) {
-    var location = GameObject.getLocation(e.gameObject);
+    var transform = GameObject.getTransform(e.gameObject);
+    var location = Transform.getLocation(transform);
 
     var rigidbody = GameObject.getComponent(e.gameObject, 'ComponentRigidbody');
 
     if (Input.isKeyDown(32)) {
         var moveSpeed = 45;
-        var forwardVector = GameObject.getForwardVector(e.gameObject);
-        var rightVector = GameObject.getRightVector(e.gameObject);
+        var forwardVector = Transform.getForwardVector(transform);
+        var rightVector = Transform.getRightVector(transform);
 
         if (Input.isKeyDownCase('A'.charCodeAt(0))) //A
-            GameObject.rotateY(e.gameObject, Engine.Time.delta * 4);
+            Transform.rotateY(transform, Engine.Time.delta * 4);
         if (Input.isKeyDownCase('D'.charCodeAt(0))) //D
-            GameObject.rotateY(e.gameObject, -Engine.Time.delta * 4);
+            Transform.rotateY(transform, -Engine.Time.delta * 4);
         if (Input.isKeyDownCase('W'.charCodeAt(0))) //W
             ComponentRigidbody.addForce(rigidbody, forwardVector.multiply(Engine.Time.delta * -moveSpeed));
         if (Input.isKeyDownCase('S'.charCodeAt(0))) //S
             ComponentRigidbody.addForce(rigidbody, forwardVector.multiply(Engine.Time.delta * moveSpeed));
 
-        /*if (Input.isKeyDownCase('Q'.charCodeAt(0))) //Q
-            location.y += Engine.Time.delta * moveSpeed;
-        if (Input.isKeyDownCase('Z'.charCodeAt(0))) //Z
+        if (Input.isKeyDownCase('Q'.charCodeAt(0))) //Q
+            ComponentRigidbody.addForce(rigidbody, new Vector3(0, Engine.Time.delta * moveSpeed, 0));
+        /*if (Input.isKeyDownCase('Z'.charCodeAt(0))) //Z
             location.y -= Engine.Time.delta * moveSpeed;*/
     }
 
@@ -32,7 +33,7 @@ Engine.registerEventListener('update', function (e) {
     velocity.z *= 0.9;
     ComponentRigidbody.setVelocity(rigidbody, velocity);
 
-    GameObject.setLocation(e.gameObject, location);
+    Transform.setLocation(transform, location);
 
     return e;
 });

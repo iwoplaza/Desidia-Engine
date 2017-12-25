@@ -11,22 +11,25 @@ Engine.registerEventListener('postInit', function (e) {
 Engine.registerEventListener('mouseMove', function (e) {
     var mouseSensitivity = 0.004;
     if (Input.isMouseButtonDown(0)) {
+        var transform = GameObject.getTransform(e.gameObject);
+
         e.metadata.yaw += Input.getMouseMoveX() * mouseSensitivity;
         e.metadata.pitch -= Input.getMouseMoveY() * mouseSensitivity;
 
-        GameObject.resetOrientation(e.gameObject);
-        GameObject.rotateY(e.gameObject, -e.metadata.yaw);
-        GameObject.rotateX(e.gameObject, -e.metadata.pitch);
+        Transform.resetOrientation(transform);
+        Transform.rotateY(transform, -e.metadata.yaw);
+        Transform.rotateX(transform, -e.metadata.pitch);
     }
     return e;
 });
 
 Engine.registerEventListener('update', function (e) {
-    var location = GameObject.getLocation(e.gameObject);
+    var transform = GameObject.getTransform(e.gameObject);
+    var location = Transform.getLocation(transform);
 
     var moveSpeed = 9;
-    var forwardVector = GameObject.getForwardVector(e.gameObject);
-    var rightVector = GameObject.getRightVector(e.gameObject);
+    var forwardVector = Transform.getForwardVector(transform);
+    var rightVector = Transform.getRightVector(transform);
 
     if (!Input.isKeyDown(32)) {
         if (Input.isKeyDownCase('A'.charCodeAt(0))) //A
@@ -50,7 +53,7 @@ Engine.registerEventListener('update', function (e) {
     if (Input.isKeyDownCase('C'.charCodeAt(0))) //C
         ComponentCamera.setFOV(cameraComponent, ComponentCamera.getFOV(cameraComponent) + 0.5);
 
-    GameObject.setLocation(e.gameObject, location);
+    Transform.setLocation(transform, location);
 
     return e;
 });

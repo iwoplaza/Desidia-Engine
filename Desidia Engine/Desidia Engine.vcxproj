@@ -155,6 +155,7 @@
     <ClCompile Include="src\engine\gameobject\component\ComponentCamera.cpp" />
     <ClCompile Include="src\engine\gameobject\component\ComponentRigidbody.cpp" />
     <ClCompile Include="src\engine\gameobject\component\ComponentScript.cpp" />
+    <ClCompile Include="src\engine\gameobject\Transform.cpp" />
     <ClCompile Include="src\engine\physics\collider\Collider.cpp" />
     <ClCompile Include="src\engine\physics\collider\MeshCollider.cpp" />
     <ClCompile Include="src\engine\physics\collider\PolygonCollider.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="src\engine\script\native\duk_Engine.cpp" />
     <ClCompile Include="src\engine\script\native\duk_GameObject.cpp" />
     <ClCompile Include="src\engine\script\native\duk_Input.cpp" />
+    <ClCompile Include="src\engine\script\native\duk_Transform.cpp" />
     <ClCompile Include="src\engine\script\native\duk_Vector3.cpp" />
     <ClCompile Include="src\engine\script\Script.cpp" />
     <ClCompile Include="src\engine\script\ScriptContext.cpp" />
@@ -210,6 +212,7 @@
     <ClInclude Include="src\engine\gameobject\component\ComponentCamera.hpp" />
     <ClInclude Include="src\engine\gameobject\component\ComponentRigidbody.hpp" />
     <ClInclude Include="src\engine\gameobject\component\ComponentScript.hpp" />
+    <ClInclude Include="src\engine\gameobject\Transform.hpp" />
     <ClInclude Include="src\engine\physics\collider\Collider.hpp" />
     <ClInclude Include="src\engine\physics\collider\MeshCollider.hpp" />
     <ClInclude Include="src\engine\physics\collider\PolygonCollider.hpp" />
@@ -226,6 +229,7 @@
     <ClInclude Include="src\engine\script\native\duk_Engine.hpp" />
     <ClInclude Include="src\engine\script\native\duk_GameObject.hpp" />
     <ClInclude Include="src\engine\script\native\duk_Input.hpp" />
+    <ClInclude Include="src\engine\script\native\duk_Transform.hpp" />
     <ClInclude Include="src\engine\script\native\duk_Vector3.hpp" />
     <ClInclude Include="src\engine\script\Script.hpp" />
     <ClInclude Include="src\engine\script\ScriptContext.hpp" />

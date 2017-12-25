@@ -47,15 +47,6 @@ void PhysicsSpace::removeBody(PhysicsBody* _physicsBody) {
 }
 
 void PhysicsSpace::simulate() {
-	GameObject* gameObject = Scene::current->getGameObject("character");
-	Vector3 velocity = m_physicsBodies[1]->getVelocity();
-	velocity.x += gameObject->getLocation().x - m_physicsBodies[1]->getLocation().x;
-	velocity.z += gameObject->getLocation().z - m_physicsBodies[1]->getLocation().z;
-	float dampen = 0.7f;
-	velocity.x *= dampen;
-	velocity.z *= dampen;
-	m_physicsBodies[1]->setVelocity(velocity);
-
 	for (PhysicsBody* physicsBody : m_physicsBodies) {
 		physicsBody->update();
 	}

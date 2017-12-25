@@ -5,6 +5,7 @@
 #include "native/duk_Input.hpp"
 #include "native/duk_Vector3.hpp"
 #include "native/duk_GameObject.hpp"
+#include "native/duk_Transform.hpp"
 #include "native/duk_ComponentCamera.hpp"
 #include "native/duk_ComponentRigidbody.hpp"
 #include "../Resources.hpp"
@@ -43,6 +44,7 @@ void Scripts::init() {
 	duk_Input::init(context);
 	duk_Vector3::init(context);
 	duk_GameObject::init(context);
+	duk_Transform::init(context);
 	duk_ComponentCamera::init(context);
 	duk_ComponentRigidbody::init(context);
 

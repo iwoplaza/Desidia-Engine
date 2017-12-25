@@ -17,11 +17,11 @@ ComponentRigidbody::~ComponentRigidbody() {
 
 void ComponentRigidbody::init() {
 	PhysicsSpace* physicsSpace = Scene::current->getPhysicsSpace();
-	m_physicsBody = new PhysicsBody(physicsSpace, m_gameObject->getLocation(), m_mass, m_collider);
+	m_physicsBody = new PhysicsBody(physicsSpace, m_gameObject->getTransform()->getLocation(), m_mass, m_collider);
 }
 
 void ComponentRigidbody::update() {
-	m_gameObject->setLocation(m_physicsBody->getLocation());
+	m_gameObject->getTransform()->setLocation(m_physicsBody->getLocation());
 }
 
 void ComponentRigidbody::addForce(Vector3 _force) {
