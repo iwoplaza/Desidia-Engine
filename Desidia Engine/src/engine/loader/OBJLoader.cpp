@@ -73,7 +73,7 @@ void processMeshData(vector<Vertex> &vertices, vector<GLuint> &indices) {
 
 vector<OBJObject*> OBJLoader::loadSceneFromFile(string filename) {
 	vector<OBJObject*> objects = vector<OBJObject*>();
-	OBJObject* object = nullptr;
+	OBJObject* object = new OBJObject("");
 
 	vector<Vector3> positions = {}, normals = {};
 	vector<Vector2> texCoords = {};
@@ -92,14 +92,14 @@ vector<OBJObject*> OBJLoader::loadSceneFromFile(string filename) {
 		if (line.length() == 0) continue;
 
 		if (line.substr(0, 1) == "o") {
-			if (object != nullptr) {
+			if (object != nullptr && indices.size() > 0) {
 				processMeshData(vertices, indices);
 				object->setMeshData({ vertices, indices });
 				objects.push_back(object);
 				vertices.clear();
 				indices.clear();
+				object = new OBJObject(line.substr(2).c_str());
 			}
-			object = new OBJObject(line.substr(2).c_str());
 		} else if (line.substr(0, 2) == "vn") {
 			string x = line.substr(line.find(' ') + 1);
 			string y = x.substr(x.find(' ') + 1);

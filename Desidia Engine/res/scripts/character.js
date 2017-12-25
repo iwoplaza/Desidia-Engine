@@ -5,6 +5,12 @@ Engine.registerEventListener('init', function (e) {
         return e;
     }
 
+    var transform = GameObject.getTransform(e.gameObject);
+    e.metadata.yaw = 0.9;
+    e.metadata.pitch = 0;
+    Transform.resetOrientation(transform);
+    Transform.rotateY(transform, -e.metadata.yaw);
+
     return e;
 });
 

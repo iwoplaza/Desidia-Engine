@@ -5,6 +5,9 @@ Engine.registerEventListener('init', function (e) {
     var transform = GameObject.getTransform(e.gameObject);
     Transform.setParent(transform, "character");
 
+    var cameraComponent = GameObject.getComponent(e.gameObject, 'ComponentCamera');
+    ComponentCamera.setFOV(cameraComponent, 70);
+
     return e;
 });
 

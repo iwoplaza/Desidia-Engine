@@ -3,7 +3,7 @@
   "objects": [
     {
       "name": "character",
-      "location": [ 0, 1, 2 ],
+      "location": [ -2, 1, 3 ],
       "needsUpdates": true,
       "components": {
         "ComponentScript": [
@@ -19,6 +19,21 @@
               "origin": [ 0, 0, 0 ],
               "radius": 1
             }
+          }
+        ]
+      }
+    },
+    {
+      "name": "mainCamera",
+      "location": [ 0, 2.85, 0 ],
+      "needsUpdates": true,
+      "components": {
+        "ComponentCamera": [
+          {}
+        ],
+        "ComponentScript": [
+          {
+            "script": "scripts/fpsCamera.js"
           }
         ]
       }
@@ -58,7 +73,7 @@
             "mass": 0,
             "collider": {
               "type": "MeshCollider",
-              "model": "models/room.obj"
+              "model": "models/room_collider.obj"
             }
           }
         ]
@@ -74,21 +89,6 @@
             "range": -1,
             "ambientColor": [ 0.2, 0.2, 0.2 ],
             "diffuseColor": [ 0.7, 0.65, 0.6 ]
-          }
-        ]
-      }
-    },
-    {
-      "name": "mainCamera",
-      "location": [ 0, 3, 0 ],
-      "needsUpdates": true,
-      "components": {
-        "ComponentCamera": [
-          {}
-        ],
-        "ComponentScript": [
-          {
-            "script": "scripts/fpsCamera.js"
           }
         ]
       }
