@@ -6,10 +6,6 @@ Engine.registerEventListener('init', function (e) {
 Engine.registerEventListener('update', function (e) {
     var gravity = new Vector3(0, -0.5, 0);
     var location = GameObject.getLocation(e.gameObject);
-    var camera = 
-    //location.addVec(gravity.multiply(Engine.Time.delta));
-
-
 
     GameObject.setLocation(e.gameObject, location);
 

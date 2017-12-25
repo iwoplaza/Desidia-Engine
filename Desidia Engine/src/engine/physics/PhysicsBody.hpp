@@ -8,6 +8,7 @@ class Collider;
 
 class PhysicsBody {
 	protected:
+		Vector3 m_prevLocation;
 		Vector3 m_location;
 		Vector3 m_velocity;
 		float m_mass;
@@ -28,6 +29,7 @@ class PhysicsBody {
 		void drawGizmos();
 		Collider* getCollider();
 		glm::mat4 getTransform();
+		Vector3 getPreviousLocation();
 		Vector3 getLocation();
 		Vector3 getVelocity();
 		void setLocation(Vector3 _location);

@@ -274,6 +274,7 @@
     <None Include="res\materials\town.mat" />
     <None Include="res\resources.json" />
     <None Include="res\scenes\town.scene" />
+    <None Include="res\scripts\ball.js" />
     <None Include="res\scripts\character.js" />
     <None Include="res\scripts\bouncingBall.js" />
     <None Include="res\scripts\fpsCamera.js" />

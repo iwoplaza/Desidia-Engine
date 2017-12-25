@@ -14,22 +14,20 @@ Material gizmoMaterial = Material("_native/shaders/shadeless.shader", Color(0.2,
 
 PhysicsSpace::PhysicsSpace() {
 	m_physicsBodies = std::vector<PhysicsBody*>();
-	m_gravity = Vector3(0, -0.1f, 0);
+	m_gravity = Vector3(0, -1.0f, 0);
 	m_timer = 0;
-	m_stepSize = 1.0F;
+	m_stepSize = 0.01F;
 }
 
 void PhysicsSpace::init() {
-	m_physicsBodies.push_back(new PhysicsBody(this, Vector3(0, 0, 0), 0, new MeshCollider(Resources::MODEL["models/cube.obj"]->getMeshData())));
-	//m_physicsBodies.push_back(new PhysicsBody(this, Vector3(0, 1, 2), 1, new SphereCollider(Vector3(0, 0, 0), 1)));
 }
 
 void PhysicsSpace::update() {
 	m_timer += Time::delta;
 
-	while (m_timer >= m_stepSize * Time::fixedDelta) {
+	while (m_timer >= m_stepSize) {
 		simulate();
-		m_timer -= m_stepSize * Time::delta;
+		m_timer -= m_stepSize;
 	}
 }
 
@@ -94,6 +92,10 @@ Vector3 PhysicsSpace::getGravity() {
 
 std::vector<PhysicsBody*> PhysicsSpace::getBodies() {
 	return m_physicsBodies;
+}
+
+float PhysicsSpace::getPartialTicks() {
+	return m_timer / m_stepSize;
 }
 
 void PhysicsSpace::setGravity(Vector3 _gravity) {

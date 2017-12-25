@@ -1,39 +1,65 @@
 Engine.registerEventListener('init', function (e) {
+    e.metadata.cameraTransform = GameObject.getTransform("mainCamera");
+    if (!e.metadata.cameraTransform) {
+        Engine.print("The \"mainCamera\" couldn't be found in the scene.");
+        return e;
+    }
+
+    return e;
+});
+
+function processInput(e, transform, rigidbody) {
+    var moveSpeed = 4.45;
+    var forwardVector = Transform.getForwardVector(transform);
+    var rightVector = Transform.getRightVector(transform);
+
+    if (Input.isKeyDownCase('A'.charCodeAt(0))) // A
+        ComponentRigidbody.addForce(rigidbody, rightVector.multiply(moveSpeed));
+    if (Input.isKeyDownCase('D'.charCodeAt(0))) // D
+        ComponentRigidbody.addForce(rigidbody, rightVector.multiply(-moveSpeed));
+    if (Input.isKeyDownCase('W'.charCodeAt(0))) // W
+        ComponentRigidbody.addForce(rigidbody, forwardVector.multiply(moveSpeed));
+    if (Input.isKeyDownCase('S'.charCodeAt(0))) // S
+        ComponentRigidbody.addForce(rigidbody, forwardVector.multiply(-moveSpeed));
+
+    if (Input.isKeyDown(32)) // Space
+        ComponentRigidbody.addForce(rigidbody, new Vector3(0, 2, 0));
+}
+
+Engine.registerEventListener('mouseMove', function (e) {
+    var mouseSensitivity = 0.004;
+    if (Input.isMouseButtonDown(0)) {
+        var transform = GameObject.getTransform(e.gameObject);
+        if (!transform) {
+            Engine.print("The \"mainCamera\" couldn't be found in the scene.");
+            return e;
+        }
+
+        e.metadata.yaw += Input.getMouseMoveX() * mouseSensitivity;
+        e.metadata.pitch -= Input.getMouseMoveY() * mouseSensitivity;
+        if (e.metadata.pitch > 1.5)
+            e.metadata.pitch = 1.5;
+        if (e.metadata.pitch < -1.5)
+            e.metadata.pitch = -1.5;
+
+        Transform.resetOrientation(transform);
+        Transform.resetOrientation(e.metadata.cameraTransform);
+        Transform.rotateY(transform, -e.metadata.yaw);
+        Transform.rotateX(e.metadata.cameraTransform, -e.metadata.pitch);
+    }
     return e;
 });
 
 Engine.registerEventListener('update', function (e) {
     var transform = GameObject.getTransform(e.gameObject);
-    var location = Transform.getLocation(transform);
-
     var rigidbody = GameObject.getComponent(e.gameObject, 'ComponentRigidbody');
 
-    if (Input.isKeyDown(32)) {
-        var moveSpeed = 45;
-        var forwardVector = Transform.getForwardVector(transform);
-        var rightVector = Transform.getRightVector(transform);
-
-        if (Input.isKeyDownCase('A'.charCodeAt(0))) //A
-            Transform.rotateY(transform, Engine.Time.delta * 4);
-        if (Input.isKeyDownCase('D'.charCodeAt(0))) //D
-            Transform.rotateY(transform, -Engine.Time.delta * 4);
-        if (Input.isKeyDownCase('W'.charCodeAt(0))) //W
-            ComponentRigidbody.addForce(rigidbody, forwardVector.multiply(Engine.Time.delta * -moveSpeed));
-        if (Input.isKeyDownCase('S'.charCodeAt(0))) //S
-            ComponentRigidbody.addForce(rigidbody, forwardVector.multiply(Engine.Time.delta * moveSpeed));
-
-        if (Input.isKeyDownCase('Q'.charCodeAt(0))) //Q
-            ComponentRigidbody.addForce(rigidbody, new Vector3(0, Engine.Time.delta * moveSpeed, 0));
-        /*if (Input.isKeyDownCase('Z'.charCodeAt(0))) //Z
-            location.y -= Engine.Time.delta * moveSpeed;*/
-    }
+    processInput(e, transform, rigidbody);
 
     var velocity = ComponentRigidbody.getVelocity(rigidbody);
     velocity.x *= 0.9;
     velocity.z *= 0.9;
     ComponentRigidbody.setVelocity(rigidbody, velocity);
-
-    Transform.setLocation(transform, location);
 
     return e;
 });

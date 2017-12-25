@@ -4,6 +4,8 @@
 
 void duk_Transform::init(duk_context *ctx) {
 	duk_push_object(ctx);
+	duk_push_c_function(ctx, duk_Transform::getParent, 1);
+	duk_put_prop_string(ctx, -2, "getParent");
 	duk_push_c_function(ctx, duk_Transform::getLocation, 1);
 	duk_put_prop_string(ctx, -2, "getLocation");
 	duk_push_c_function(ctx, duk_Transform::getOrientation, 1);
@@ -28,6 +30,8 @@ void duk_Transform::init(duk_context *ctx) {
 	duk_put_prop_string(ctx, -2, "rotateY");
 	duk_push_c_function(ctx, duk_Transform::rotateZ, 2);
 	duk_put_prop_string(ctx, -2, "rotateZ");
+	duk_push_c_function(ctx, duk_Transform::setParent, 2);
+	duk_put_prop_string(ctx, -2, "setParent");
 	duk_put_global_string(ctx, "Transform");
 }
 
@@ -39,10 +43,23 @@ Transform* duk_Transform::parseTransform(duk_context *ctx, duk_idx_t obj_idx) {
 	return gameObject->getTransform();
 }
 
-void duk_Transform::pushTransform(duk_context *ctx, const char* gameObjectName) {
+bool duk_Transform::pushTransform(duk_context *ctx, const char* gameObjectName) {
+	if (Scene::current->getGameObject(gameObjectName) == nullptr)
+		return false;
 	duk_push_object(ctx);
 	duk_push_string(ctx, gameObjectName);
 	duk_put_prop_string(ctx, -2, "gameObject");
+	return true;
+}
+
+duk_ret_t duk_Transform::getParent(duk_context *ctx) {
+	Transform* transform = parseTransform(ctx, 0);
+	Transform* parent = transform->getParent();
+	if (parent == nullptr)
+		return 0;
+
+	pushTransform(ctx, parent->getGameObject()->getName().c_str());
+	return 1;
 }
 
 duk_ret_t duk_Transform::getLocation(duk_context *ctx) {
@@ -87,6 +104,15 @@ duk_ret_t duk_Transform::getRightVector(duk_context *ctx) {
 	duk_new(ctx, 3);
 
 	return 1;
+}
+
+duk_ret_t duk_Transform::setParent(duk_context *ctx) {
+	Transform* transform = parseTransform(ctx, 0);
+	const char* gameObjectName = duk_safe_to_string(ctx, 1);
+	GameObject* parent = Scene::current->getGameObject(gameObjectName);
+	transform->setParent(parent->getTransform());
+
+	return 0;
 }
 
 duk_ret_t duk_Transform::setLocation(duk_context *ctx) {

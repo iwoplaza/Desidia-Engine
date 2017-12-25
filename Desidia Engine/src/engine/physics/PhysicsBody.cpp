@@ -12,6 +12,7 @@
 
 PhysicsBody::PhysicsBody(PhysicsSpace* _physicsSpace, Vector3 _location, float _mass, Collider* _collider) {
 	m_physicsSpace = _physicsSpace;
+	m_prevLocation = _location;
 	m_location = _location;
 	m_collider = _collider;
 	m_velocity = Vector3();
@@ -27,6 +28,7 @@ PhysicsBody::~PhysicsBody() {
 }
 
 void PhysicsBody::update() {
+	m_prevLocation = m_location;
 	m_velocity += m_physicsSpace->getGravity() * (m_mass * m_gravityInfluence);
 	m_location += m_velocity * Time::fixedDelta;
 
@@ -48,7 +50,7 @@ void PhysicsBody::resolve(PhysicsBody* other) {
 
 	if (m_collider->getTypeName() == "SphereCollider")
 	if (otherCollider->getTypeName() == "MeshCollider") {
-		SphereCollider* sphere = (SphereCollider*)m_collider;
+		SphereCollider* sphere = (SphereCollider*) m_collider;
 		MeshCollider* meshCollider = (MeshCollider*) otherCollider;
 		float minimalDistance = 0;
 		Vector3 nearest = Vector3();
@@ -91,6 +93,10 @@ void PhysicsBody::addForce(Vector3 _force) {
 
 Collider* PhysicsBody::getCollider() {
 	return m_collider;
+}
+
+Vector3 PhysicsBody::getPreviousLocation() {
+	return m_prevLocation;
 }
 
 Vector3 PhysicsBody::getLocation() {

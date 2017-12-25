@@ -12,5 +12,7 @@ class duk_Vector3 {
 		static duk_ret_t addVec(duk_context *ctx);
 		static duk_ret_t multiplyVec(duk_context *ctx);
 		static duk_ret_t multiply(duk_context *ctx);
+		static duk_ret_t length(duk_context *ctx);
+		static duk_ret_t normalize(duk_context *ctx);
 		static duk_ret_t toString(duk_context *ctx);
 };

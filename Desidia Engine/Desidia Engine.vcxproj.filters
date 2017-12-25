@@ -376,6 +376,7 @@
     <None Include="res\materials\camera_gizmo.mat" />
     <None Include="res\_native\materials\gizmo.mat" />
     <None Include="res\scripts\character.js" />
+    <None Include="res\scripts\ball.js" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\fonts\impact.png">

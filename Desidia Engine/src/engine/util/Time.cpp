@@ -7,7 +7,7 @@ using namespace std;
 int Time::lastTime;
 float Time::delta;
 float Time::deltaCap = 1.0f / 60.0f;
-float Time::fixedDelta = 0.01f;
+float Time::fixedDelta = 0.001f;
 
 void Time::tick() {
 	int now = glutGet(GLUT_ELAPSED_TIME);

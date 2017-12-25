@@ -21,7 +21,9 @@ void ComponentRigidbody::init() {
 }
 
 void ComponentRigidbody::update() {
-	m_gameObject->getTransform()->setLocation(m_physicsBody->getLocation());
+	Vector3 prev = m_physicsBody->getPreviousLocation();
+	Vector3 loc = prev + (m_physicsBody->getLocation() - prev) * Scene::current->getPhysicsSpace()->getPartialTicks();
+	m_gameObject->getTransform()->setLocation(loc);
 }
 
 void ComponentRigidbody::addForce(Vector3 _force) {

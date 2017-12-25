@@ -15,6 +15,10 @@ void duk_Vector3::init(duk_context *ctx) {
 	duk_put_prop_string(ctx, -2, "multiplyVec");
 	duk_push_c_function(ctx, duk_Vector3::multiply, 1);
 	duk_put_prop_string(ctx, -2, "multiply");
+	duk_push_c_function(ctx, duk_Vector3::length, 0);
+	duk_put_prop_string(ctx, -2, "length");
+	duk_push_c_function(ctx, duk_Vector3::normalize, 0);
+	duk_put_prop_string(ctx, -2, "normalize");
 	duk_put_prop_string(ctx, -2, "prototype");
 	duk_put_global_string(ctx, "Vector3");
 }
@@ -129,6 +133,54 @@ duk_ret_t duk_Vector3::multiply(duk_context *ctx) {
 	duk_push_number(ctx, y * a);
 	duk_push_number(ctx, z * a);
 	duk_new(ctx, 3);
+
+	return 1;
+}
+
+duk_ret_t duk_Vector3::length(duk_context *ctx) {
+	duk_push_this(ctx);
+	duk_get_prop_string(ctx, -1, "x");
+	double x = duk_get_number(ctx, -1);
+	duk_pop(ctx);
+	duk_get_prop_string(ctx, -1, "y");
+	double y = duk_get_number(ctx, -1);
+	duk_pop(ctx);
+	duk_get_prop_string(ctx, -1, "z");
+	double z = duk_get_number(ctx, -1);
+	duk_pop(ctx);
+
+	duk_push_number(ctx, sqrt(x * x + y * y + z * z));
+
+	return 1;
+}
+
+duk_ret_t duk_Vector3::normalize(duk_context *ctx) {
+	duk_push_this(ctx);
+	duk_get_prop_string(ctx, -1, "x");
+	double x = duk_get_number(ctx, -1);
+	duk_pop(ctx);
+	duk_get_prop_string(ctx, -1, "y");
+	double y = duk_get_number(ctx, -1);
+	duk_pop(ctx);
+	duk_get_prop_string(ctx, -1, "z");
+	double z = duk_get_number(ctx, -1);
+	duk_pop(ctx);
+
+	float length = sqrt(x*x + y*y + z*z);
+	if (length == 0) {
+		duk_get_global_string(ctx, "Vector3");
+		duk_push_number(ctx, 0);
+		duk_push_number(ctx, 0);
+		duk_push_number(ctx, 0);
+		duk_new(ctx, 3);
+	}
+	else {
+		duk_get_global_string(ctx, "Vector3");
+		duk_push_number(ctx, x / length);
+		duk_push_number(ctx, y / length);
+		duk_push_number(ctx, z / length);
+		duk_new(ctx, 3);
+	}
 
 	return 1;
 }

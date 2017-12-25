@@ -27,5 +27,6 @@ class PhysicsSpace {
 
 		Vector3 getGravity();
 		std::vector<PhysicsBody*> getBodies();
+		float getPartialTicks();
 		void setGravity(Vector3 _gravity);
 };

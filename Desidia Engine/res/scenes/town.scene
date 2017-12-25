@@ -3,25 +3,12 @@
   "objects": [
     {
       "name": "character",
-      "location": [ 0, 3, 2 ],
+      "location": [ 0, 1, 2 ],
       "needsUpdates": true,
       "components": {
-        "ComponentMesh": [
-          {
-            "model": "models/susanne.obj",
-            "material": "materials/red.mat"
-          }
-        ],
         "ComponentScript": [
           {
             "script": "scripts/character.js"
-          }
-        ],
-        "ComponentLight": [
-          {
-            "range": 20,
-            "ambientColor": [ 0, 0, 0 ],
-            "diffuseColor": [ 0.1, 0.5, 1 ]
           }
         ],
         "ComponentRigidbody": [
@@ -37,14 +24,42 @@
       }
     },
     {
-      "name": "terrain",
+      "name": "ball",
+      "location": [ 0, 0, -4 ],
+      "needsUpdated": true,
+      "components": {
+        "ComponentMesh": [
+          {
+            "model": "_native/models/icosphere.obj",
+            "material": "materials/red.mat"
+          }
+        ],
+
+        "ComponentScript": [
+          {
+            "script": "scripts/ball.js"
+          }
+        ]
+      }
+    },
+    {
+      "name": "room",
       "location": [ 0, 0, 0 ],
       "needsUpdates": false,
       "components": {
         "ComponentMesh": [
           {
-            "model": "models/cube.obj",
+            "model": "models/room.obj",
             "material": "materials/green.mat"
+          }
+        ],
+        "ComponentRigidbody": [
+          {
+            "mass": 0,
+            "collider": {
+              "type": "MeshCollider",
+              "model": "models/room.obj"
+            }
           }
         ]
       }
@@ -65,7 +80,7 @@
     },
     {
       "name": "mainCamera",
-      "location": [ 1, 1, 8 ],
+      "location": [ 0, 3, 0 ],
       "needsUpdates": true,
       "components": {
         "ComponentCamera": [

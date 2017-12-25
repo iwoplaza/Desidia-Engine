@@ -3,7 +3,7 @@
 
 GameObject::GameObject(string _name) {
 	name = _name;
-	m_transform = Transform();
+	m_transform = Transform(this);
 
 	componentGroups = map<string, vector<Component*>>();
 }
@@ -30,13 +30,11 @@ void GameObject::update() {
 	for (pair<string, vector<Component*>> p : componentGroups)
 		for (Component* component : p.second)
 			component->update();
-
-	m_transform.updateMatrix();
 }
 
 void GameObject::draw() {
 	GLHelper::saveState();
-		GLHelper::transform(m_transform.getMatrix());
+		GLHelper::transform(m_transform.getInheritedMatrix());
 		for (pair<string, vector<Component*>> p : componentGroups){
 			for (Component* component : p.second) {
 				GLHelper::saveState();
@@ -139,5 +137,6 @@ GameObject* GameObject::parseJSON(const Value& value) {
 			}
 		}
 	}
+	cout << "Parsing: " << *gameObject << endl;
 	return gameObject;
 }
