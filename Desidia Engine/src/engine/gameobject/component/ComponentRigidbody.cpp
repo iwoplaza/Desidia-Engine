@@ -11,9 +11,33 @@ ComponentRigidbody::ComponentRigidbody(float _mass, Collider* _collider) : Compo
 	m_collider = _collider;
 }
 
+ComponentRigidbody::~ComponentRigidbody() {
+	delete m_physicsBody;
+}
+
 void ComponentRigidbody::init() {
 	PhysicsSpace* physicsSpace = Scene::current->getPhysicsSpace();
-	m_physicsBody = new PhysicsBody(physicsSpace, Vector3(), m_mass, m_collider);
+	m_physicsBody = new PhysicsBody(physicsSpace, m_gameObject->getLocation(), m_mass, m_collider);
+}
+
+void ComponentRigidbody::update() {
+	m_gameObject->setLocation(m_physicsBody->getLocation());
+}
+
+void ComponentRigidbody::addForce(Vector3 _force) {
+	m_physicsBody->addForce(_force);
+}
+
+void ComponentRigidbody::setVelocity(Vector3 _velocity) {
+	m_physicsBody->setVelocity(_velocity);
+}
+
+PhysicsBody* ComponentRigidbody::getPhysicsBody() {
+	return m_physicsBody;
+}
+
+Vector3 ComponentRigidbody::getVelocity() {
+	return m_physicsBody->getVelocity();
 }
 
 const char* ComponentRigidbody::getType() {

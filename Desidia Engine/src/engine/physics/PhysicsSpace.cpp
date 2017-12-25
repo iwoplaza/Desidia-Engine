@@ -20,9 +20,8 @@ PhysicsSpace::PhysicsSpace() {
 }
 
 void PhysicsSpace::init() {
-	m_physicsBodies = {};
 	m_physicsBodies.push_back(new PhysicsBody(this, Vector3(0, 0, 0), 0, new MeshCollider(Resources::MODEL["models/cube.obj"]->getMeshData())));
-	m_physicsBodies.push_back(new PhysicsBody(this, Vector3(0, 1, 2), 1, new SphereCollider(Vector3(0, 0, 0), 1)));
+	//m_physicsBodies.push_back(new PhysicsBody(this, Vector3(0, 1, 2), 1, new SphereCollider(Vector3(0, 0, 0), 1)));
 }
 
 void PhysicsSpace::update() {
@@ -32,6 +31,19 @@ void PhysicsSpace::update() {
 		simulate();
 		m_timer -= m_stepSize * Time::delta;
 	}
+}
+
+void PhysicsSpace::addBody(PhysicsBody* _physicsBody) {
+	m_physicsBodies.push_back(_physicsBody);
+}
+
+void PhysicsSpace::removeBody(PhysicsBody* _physicsBody) {
+	std::vector<PhysicsBody*>::iterator it = m_physicsBodies.begin();
+	while (it != m_physicsBodies.end())
+		if (*it == _physicsBody)
+			it = m_physicsBodies.erase(it);
+		else
+			it++;
 }
 
 void PhysicsSpace::simulate() {

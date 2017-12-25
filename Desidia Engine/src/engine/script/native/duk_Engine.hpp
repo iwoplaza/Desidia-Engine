@@ -11,5 +11,4 @@ class duk_Engine {
 		static duk_ret_t print(duk_context *ctx);
 		//Used to append a callback to the current script object being worked on.
 		static duk_ret_t registerEventHandler(duk_context *ctx);
-		static duk_ret_t handleEventCallback(duk_context *ctx);
 };

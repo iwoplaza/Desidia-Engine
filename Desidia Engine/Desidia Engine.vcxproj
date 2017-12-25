@@ -167,6 +167,7 @@
     <ClCompile Include="src\engine\rendering\material\Material.cpp" />
     <ClCompile Include="src\engine\script\native\duk_Component.cpp" />
     <ClCompile Include="src\engine\script\native\duk_ComponentCamera.cpp" />
+    <ClCompile Include="src\engine\script\native\duk_ComponentRigidbody.cpp" />
     <ClCompile Include="src\engine\script\native\duk_Engine.cpp" />
     <ClCompile Include="src\engine\script\native\duk_GameObject.cpp" />
     <ClCompile Include="src\engine\script\native\duk_Input.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="src\engine\rendering\geometry\Polygon.hpp" />
     <ClInclude Include="src\engine\script\native\duk_Component.hpp" />
     <ClInclude Include="src\engine\script\native\duk_ComponentCamera.hpp" />
+    <ClInclude Include="src\engine\script\native\duk_ComponentRigidbody.hpp" />
     <ClInclude Include="src\engine\script\native\duk_Engine.hpp" />
     <ClInclude Include="src\engine\script\native\duk_GameObject.hpp" />
     <ClInclude Include="src\engine\script\native\duk_Input.hpp" />

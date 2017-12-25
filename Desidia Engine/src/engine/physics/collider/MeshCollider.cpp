@@ -38,7 +38,8 @@ Collider* MeshCollider::parseJSON(const Value& value) {
 	}
 
 	std::string model = value["model"].GetString();
-	
+	Resources::loadModel(model);
+
 	Collider* component = new MeshCollider(Resources::MODEL[model]->getMeshData());
 	return component;
 }

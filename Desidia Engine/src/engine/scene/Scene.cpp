@@ -52,6 +52,14 @@ void Scene::draw() {
 	m_physicsSpace.drawGizmos();
 }
 
+void Scene::reload() {
+	cout << "[SCENE] Reloading \"" << m_name << "\"..." << endl;
+
+	for (std::pair<string, GameObject*> pair : m_gameObjects) {
+		pair.second->reload();
+	}
+}
+
 void Scene::onMouseMove() {
 	for (GameObject* gameObject : m_updatable) {
 		gameObject->onMouseMove();

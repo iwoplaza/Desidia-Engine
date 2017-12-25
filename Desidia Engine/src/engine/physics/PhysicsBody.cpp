@@ -17,8 +17,13 @@ PhysicsBody::PhysicsBody(PhysicsSpace* _physicsSpace, Vector3 _location, float _
 	m_velocity = Vector3();
 	m_mass = _mass;
 	m_gravityInfluence = 1.0F;
+	_physicsSpace->addBody(this);
 
 	updateTransform();
+}
+
+PhysicsBody::~PhysicsBody() {
+	m_physicsSpace->removeBody(this);
 }
 
 void PhysicsBody::update() {
@@ -30,8 +35,6 @@ void PhysicsBody::update() {
 		if(body != this)
 			resolve(body);
 	}
-
-	cout << m_velocity << endl;
 
 	updateTransform();
 }
@@ -80,6 +83,10 @@ void PhysicsBody::resolve(PhysicsBody* other) {
 		*	}
 		*/
 	}
+}
+
+void PhysicsBody::addForce(Vector3 _force) {
+	m_velocity += _force;
 }
 
 Collider* PhysicsBody::getCollider() {

@@ -171,6 +171,9 @@
     <ClCompile Include="src\engine\physics\collider\Collider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\script\native\duk_ComponentRigidbody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\gameobject\component\Component.hpp">
@@ -330,6 +333,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\gameobject\component\ComponentRigidbody.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\script\native\duk_ComponentRigidbody.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

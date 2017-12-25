@@ -24,6 +24,7 @@ class GameObject {
 		void postInit();
 		void update();
 		void draw();
+		void reload();
 		void onMouseMove();
 		GameObject* addComponent(Component* _component);
 		GameObject* markUpdatable();

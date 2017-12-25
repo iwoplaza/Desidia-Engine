@@ -72,11 +72,6 @@ bool Font::loadFromFile(const char* _path) {
 		}
 	}
 
-	std::cout << "Loading font: { ";
-	std::cout << "path: '"<< _path << "', ";
-	std::cout << "texturePath: '" << texturePath << "'";
-	std::cout << " }" << endl;
-
 	textureAtlas = Texture::load(texturePath);
 	return false;
 }

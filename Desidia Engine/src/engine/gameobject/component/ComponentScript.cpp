@@ -14,7 +14,7 @@ void ComponentScript::init() {
 	Scripts::realiseScript(Scripts::database[script]);
 	std::string eventObject = string("{") +
 		"\"metadata\": " + metadata + ", " +
-		"\"gameObject\": \"" + gameObject->getName() + "\"" +
+		"\"gameObject\": \"" + m_gameObject->getName() + "\"" +
 		"}";
 	metadata = ScriptContext::handleEventCallback(script, "init", eventObject);
 }
@@ -22,7 +22,7 @@ void ComponentScript::init() {
 void ComponentScript::postInit() {
 	std::string eventObject = string("{") +
 		"\"metadata\": " + metadata + ", " +
-		"\"gameObject\": \"" + gameObject->getName() + "\"" +
+		"\"gameObject\": \"" + m_gameObject->getName() + "\"" +
 		"}";
 	metadata = ScriptContext::handleEventCallback(script, "postInit", eventObject);
 }
@@ -30,15 +30,20 @@ void ComponentScript::postInit() {
 void ComponentScript::update() {
 	std::string eventObject = string("{") +
 		"\"metadata\": " + metadata + ", " +
-		"\"gameObject\": \"" + gameObject->getName() + "\"" +
+		"\"gameObject\": \"" + m_gameObject->getName() + "\"" +
 		"}";
 	metadata = ScriptContext::handleEventCallback(script, "update", eventObject);
+}
+
+void ComponentScript::reload() {
+	Scripts::loadResource(script);
+	Scripts::realiseScript(Scripts::database[script]);
 }
 
 void ComponentScript::onMouseMove() {
 	std::string eventObject = string("{") +
 		"\"metadata\": " + metadata + ", " +
-		"\"gameObject\": \"" + gameObject->getName() + "\"" +
+		"\"gameObject\": \"" + m_gameObject->getName() + "\"" +
 		"}";
 	metadata = ScriptContext::handleEventCallback(script, "mouseMove", eventObject);
 }

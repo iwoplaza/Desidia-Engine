@@ -36,20 +36,14 @@ Component::~Component() {
 }
 
 GameObject* Component::getGameObject() {
-	return gameObject;
+	return m_gameObject;
 }
 
 Component* Component::setGameObject(GameObject* _gameObject) {
-	if (gameObject == nullptr)
-		gameObject = _gameObject;
+	if (m_gameObject == nullptr)
+		m_gameObject = _gameObject;
 	else
 		cerr << "Tried to set a parent GameObject to an already established Component.";
 
 	return this;
 }
-
-void Component::init() {}
-void Component::postInit() {}
-void Component::update() {}
-void Component::draw() {}
-void Component::onMouseMove() {}

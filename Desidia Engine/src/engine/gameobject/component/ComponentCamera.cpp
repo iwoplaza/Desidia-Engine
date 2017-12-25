@@ -50,12 +50,12 @@ void ComponentCamera::updateProjection() {
 }
 
 glm::mat4 ComponentCamera::getRotationMatrix() {
-	return glm::mat4(glm::toMat4(gameObject->getOrientation()));
+	return glm::mat4(glm::toMat4(m_gameObject->getOrientation()));
 }
 
 glm::mat4 ComponentCamera::getViewMatrix() {
 	glm::mat4 transform = glm::mat4();
-	transform = glm::translate(transform, glm::vec3(-gameObject->getLocation().x, -gameObject->getLocation().y, -gameObject->getLocation().z));
+	transform = glm::translate(transform, glm::vec3(-m_gameObject->getLocation().x, -m_gameObject->getLocation().y, -m_gameObject->getLocation().z));
 	return glm::inverse(getRotationMatrix()) * transform;
 }
 

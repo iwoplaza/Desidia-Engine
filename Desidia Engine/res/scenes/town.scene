@@ -3,7 +3,7 @@
   "objects": [
     {
       "name": "character",
-      "location": [ 0, 0, 2 ],
+      "location": [ 0, 3, 2 ],
       "needsUpdates": true,
       "components": {
         "ComponentMesh": [
@@ -26,11 +26,11 @@
         ],
         "ComponentRigidbody": [
           {
-            "mass": 2,
+            "mass": 1,
             "collider": {
               "type": "SphereCollider",
               "origin": [ 0, 0, 0 ],
-              "radius": 5
+              "radius": 1
             }
           }
         ]

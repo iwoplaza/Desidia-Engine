@@ -21,6 +21,8 @@ class PhysicsSpace {
 
 		void init();
 		void update();
+		void addBody(PhysicsBody* _physicsBody);
+		void removeBody(PhysicsBody* _physicsBody);
 		void drawGizmos();
 
 		Vector3 getGravity();

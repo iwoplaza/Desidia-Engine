@@ -22,6 +22,7 @@ class Scene {
 		void postInit();
 		void update();
 		void draw();
+		void reload();
 		void onMouseMove();
 		void addGameObject(GameObject* _gameObject);
 		GameObject* getGameObject(std::string name);

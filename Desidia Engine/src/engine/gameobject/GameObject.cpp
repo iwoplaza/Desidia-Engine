@@ -56,6 +56,12 @@ void GameObject::draw() {
 	GLHelper::loadState();
 }
 
+void GameObject::reload() {
+	for (pair<string, vector<Component*>> p : componentGroups)
+		for (Component* component : p.second)
+			component->reload();
+}
+
 void GameObject::onMouseMove() {
 	for (pair<string, vector<Component*>> p : componentGroups)
 		for (Component* component : p.second)
@@ -200,6 +206,5 @@ GameObject* GameObject::parseJSON(const Value& value) {
 			}
 		}
 	}
-	cout << "Parsing a GameObject: " << *gameObject << endl;
 	return gameObject;
 }

@@ -1,5 +1,6 @@
 #include "InputManager.hpp"
 #include "debug/DebugConsole.hpp"
+#include "scene/Scene.hpp"
 #include <iostream>
 #include <GL/freeglut.h>
 
@@ -55,6 +56,10 @@ void InputManager::handleSpecialPressed(int key) {
 
 	if (key == GLUT_KEY_F2) {
 		DebugConsole::instance.open();
+	}
+
+	if (key == GLUT_KEY_F3) {
+		Scene::current->reload();
 	}
 }
 

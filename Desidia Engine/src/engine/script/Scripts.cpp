@@ -6,6 +6,7 @@
 #include "native/duk_Vector3.hpp"
 #include "native/duk_GameObject.hpp"
 #include "native/duk_ComponentCamera.hpp"
+#include "native/duk_ComponentRigidbody.hpp"
 #include "../Resources.hpp"
 #include "../util/Time.hpp"
 #include "../gameobject/GameObject.hpp"
@@ -43,6 +44,7 @@ void Scripts::init() {
 	duk_Vector3::init(context);
 	duk_GameObject::init(context);
 	duk_ComponentCamera::init(context);
+	duk_ComponentRigidbody::init(context);
 
 	//duk_eval_string(context, "GameObject.setLocation('test', new Vector3(1, 2, 3))");
 }
@@ -99,5 +101,8 @@ void Scripts::loadResource(std::string _path) {
 		std::istreambuf_iterator<char>());
 
 	Script* script = new Script(_path, code);
+	if (database.find(_path) != database.end())
+		delete database[_path];
+
 	database[_path] = script;
 }

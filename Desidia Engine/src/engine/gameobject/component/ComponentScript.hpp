@@ -14,6 +14,7 @@ class ComponentScript : public Component {
 		void init();
 		void postInit();
 		void update();
+		void reload();
 		void onMouseMove();
 		const char* getType();
 

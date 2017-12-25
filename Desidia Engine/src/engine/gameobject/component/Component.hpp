@@ -16,7 +16,7 @@ typedef Component*(*FUNCTION_COMPONENT_PARSE)(const rapidjson::Value &);
 
 class Component {
 	protected:
-		GameObject* gameObject;
+		GameObject* m_gameObject;
 	public:
 		Component();
 		~Component();
@@ -24,11 +24,12 @@ class Component {
 		GameObject* getGameObject();
 		Component* setGameObject(GameObject* _gameObject);
 
-		virtual void init();
-		virtual void postInit();
-		virtual void update();
-		virtual void draw();
-		virtual void onMouseMove();
+		virtual void init() {};
+		virtual void postInit() {};
+		virtual void update() {};
+		virtual void reload() {};
+		virtual void draw() {};
+		virtual void onMouseMove() {};
 		virtual const char* getType() = 0;
 
 		static map<string, FUNCTION_COMPONENT_PARSE> callbackMap;

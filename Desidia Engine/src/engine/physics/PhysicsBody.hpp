@@ -19,9 +19,11 @@ class PhysicsBody {
 		PhysicsSpace* m_physicsSpace;
 	public:
 		PhysicsBody(PhysicsSpace*, Vector3, float, Collider*);
+		~PhysicsBody();
 
 		void update();
 		void resolve(PhysicsBody* other);
+		void addForce(Vector3 _force);
 		void updateTransform();
 		void drawGizmos();
 		Collider* getCollider();

@@ -58,8 +58,6 @@ void DynamicMesh::fillOut(vector<Vertex> vertices, vector<GLuint> indices) {
 	glBindBuffer(GL_ARRAY_BUFFER, m_vboVerticesID);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
 	glBindVertexArray(0);
-
-	cout << "Created a mesh with " << vertices.size() << " vertices,  " << indices.size() << " indices." << endl;
 }
 
 void DynamicMesh::update(MeshData meshData) {
