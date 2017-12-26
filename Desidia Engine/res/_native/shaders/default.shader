@@ -43,7 +43,9 @@ in vec3 vNormal;
 in vec3 vTangent;
 in vec3 vBitangent;
 in mat3 vTBNMatrix;
+uniform mat3 uMV3x3Matrix;
 
+// Material
 struct Material {
 	bool diffuseMapped;
 	bool normalMapped;
@@ -54,6 +56,7 @@ struct Material {
 };
 uniform Material uMaterial;
 
+// Lights
 const int MAX_LIGHTS = 10;
 struct LightSource {
 	vec3 location;
@@ -62,16 +65,11 @@ struct LightSource {
 uniform LightSource uLightSources[MAX_LIGHTS];
 uniform int uLightCount;
 
-uniform mat3 uMV3x3Matrix;
-
 vec3 getLightDiffuseColor(int idx, vec3 normal, vec3 L, float att) {
 	vec3 diffuseColor = uLightSources[idx].color.rgb * ((dot(normal, L)));
 	return diffuseColor * att * att;
 }
 
-/*
-*	L - light's direction
-*/
 vec3 getLightSpecularColor(int idx, vec3 normal, vec3 L, vec3 E) {
 	vec3 R = reflect(-L, normal);
 	float cosAlpha = clamp(dot(E, R), 0, 1);
@@ -102,12 +100,10 @@ void main(void) {
 
 	diffuseColor = clamp(diffuseColor, 0.0, 1.0);
 	if (uMaterial.diffuseMapped) {
-		vec4 textureColor = texture2D(uMaterial.diffuseMap, vTexCoord) * vec4(diffuseColor, 1.0);
-		color = vec4(textureColor.rgb * diffuseColor.rgb * uMaterial.diffuseColor.rgb + specularColor, 1.0);
-	}
-	else {
-		color = vec4(diffuseColor.rgb * uMaterial.diffuseColor.rgb + specularColor, 1.0);
+		color = texture2D(uMaterial.diffuseMap, vTexCoord);
+	} else {
+		color = vec4(1, 1, 1, 1);
 	}
 
-	//color = vec4(normalize(vTangent)*0.5 + 0.5, 1.0);
+	color = vec4(color * diffuseColor * uMaterial.diffuseColor.rgb + specularColor, 1.0);
 }
