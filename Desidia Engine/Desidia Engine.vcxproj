@@ -153,9 +153,11 @@
   <ItemGroup>
     <ClCompile Include="src\engine\Camera.cpp" />
     <ClCompile Include="src\engine\gameobject\component\ComponentCamera.cpp" />
+    <ClCompile Include="src\engine\gameobject\component\ComponentLight.cpp" />
     <ClCompile Include="src\engine\gameobject\component\ComponentRigidbody.cpp" />
     <ClCompile Include="src\engine\gameobject\component\ComponentScript.cpp" />
     <ClCompile Include="src\engine\gameobject\Transform.cpp" />
+    <ClCompile Include="src\engine\lighting\LightSource.cpp" />
     <ClCompile Include="src\engine\physics\collider\Collider.cpp" />
     <ClCompile Include="src\engine\physics\collider\MeshCollider.cpp" />
     <ClCompile Include="src\engine\physics\collider\PolygonCollider.cpp" />
@@ -210,9 +212,11 @@
     <ClInclude Include="src\engine\Base.hpp" />
     <ClInclude Include="src\engine\Camera.hpp" />
     <ClInclude Include="src\engine\gameobject\component\ComponentCamera.hpp" />
+    <ClInclude Include="src\engine\gameobject\component\ComponentLight.hpp" />
     <ClInclude Include="src\engine\gameobject\component\ComponentRigidbody.hpp" />
     <ClInclude Include="src\engine\gameobject\component\ComponentScript.hpp" />
     <ClInclude Include="src\engine\gameobject\Transform.hpp" />
+    <ClInclude Include="src\engine\lighting\LightSource.hpp" />
     <ClInclude Include="src\engine\physics\collider\Collider.hpp" />
     <ClInclude Include="src\engine\physics\collider\MeshCollider.hpp" />
     <ClInclude Include="src\engine\physics\collider\PolygonCollider.hpp" />
@@ -272,6 +276,7 @@
     <None Include="res\materials\red.mat" />
     <None Include="res\materials\kamil.mat" />
     <None Include="res\materials\town.mat" />
+    <None Include="res\materials\walls.mat" />
     <None Include="res\resources.json" />
     <None Include="res\scenes\town.scene" />
     <None Include="res\scripts\ball.js" />

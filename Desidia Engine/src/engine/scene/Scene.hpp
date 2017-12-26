@@ -6,12 +6,14 @@
 using namespace std;
 
 class GameObject;
+class LightSource;
 
 class Scene {
 	protected:
 		string m_name;
 		map<string, GameObject*> m_gameObjects;
 		vector<GameObject*> m_updatable;
+		vector<LightSource*> m_lightSources;
 		PhysicsSpace m_physicsSpace;
 	public:
 		Scene();
@@ -25,6 +27,9 @@ class Scene {
 		void reload();
 		void onMouseMove();
 		void addGameObject(GameObject* _gameObject);
+		void addLightSource(LightSource* _lightSource);
+		void removeLightSource(LightSource* _lightSource);
+		void updateLighting();
 		GameObject* getGameObject(std::string name);
 		PhysicsSpace* getPhysicsSpace();
 

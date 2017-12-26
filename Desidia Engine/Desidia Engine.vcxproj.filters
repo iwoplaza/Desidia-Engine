@@ -180,6 +180,12 @@
     <ClCompile Include="src\engine\script\native\duk_Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\lighting\LightSource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\gameobject\component\ComponentLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\gameobject\component\Component.hpp">
@@ -350,6 +356,12 @@
     <ClInclude Include="src\engine\script\native\duk_Transform.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\engine\lighting\LightSource.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\gameobject\component\ComponentLight.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Release\Desidia Engine.exe" />
@@ -377,6 +389,7 @@
     <None Include="res\_native\materials\gizmo.mat" />
     <None Include="res\scripts\character.js" />
     <None Include="res\scripts\ball.js" />
+    <None Include="res\materials\walls.mat" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\fonts\impact.png">

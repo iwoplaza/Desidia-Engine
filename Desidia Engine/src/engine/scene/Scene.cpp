@@ -1,6 +1,12 @@
-#include "Scene.hpp"
+﻿#include "Scene.hpp"
 #include "../gameobject/GameObject.hpp"
+#include "../lighting/LightSource.hpp"
+#include "../rendering/shader/ShaderManager.hpp"
+#include "../rendering/shader/Shader.hpp"
+#include "../rendering/GLHelper.hpp"
 #include <iostream>
+#include <sstream>
+#include <glm/gtc/matrix_transform.hpp>
 
 Scene* Scene::current;
 
@@ -45,6 +51,8 @@ void Scene::update() {
 }
 
 void Scene::draw() {
+	updateLighting();
+
 	for (std::pair<string, GameObject*> pair : m_gameObjects) {
 		pair.second->draw();
 	}
@@ -77,6 +85,53 @@ void Scene::addGameObject(GameObject* _gameObject) {
 	if (_gameObject->doesNeedUpdates()) {
 		m_updatable.push_back(_gameObject);
 	}
+}
+
+void Scene::addLightSource(LightSource* _lightSource) {
+	std::vector<LightSource*>::iterator it = m_lightSources.begin();
+	while (it != m_lightSources.end())
+		if (*it == _lightSource)
+			return;
+		else
+			it++;
+
+	m_lightSources.push_back(_lightSource);
+}
+
+void Scene::updateLighting() {
+	vector<LightSource*> *lightSources = &m_lightSources;
+	ShaderManager::forEach([&lightSources] (Shader* shader) {
+		ShaderManager::use(shader);
+
+		int lightSourceCount = lightSources->size();
+		GLfloat* locationBuffer = new GLfloat[lightSourceCount * 3];
+		GLfloat* colorBuffer = new GLfloat[lightSourceCount * 4];
+		for (int i = 0; i < lightSourceCount; ++i) {
+			LightSource* lightSource = (*lightSources)[i];
+			Vector3 location = lightSource->getLocation();
+			Color color = lightSource->getColor();
+			glm::vec4 glmLoc(location.x, location.y, location.z, 1);
+			glmLoc = GLHelper::currentState.viewMatrix * glmLoc;
+			locationBuffer[i * 3]	  =	glmLoc.x;
+			locationBuffer[i * 3 + 1] = glmLoc.y;
+			locationBuffer[i * 3 + 2] = glmLoc.z;
+			colorBuffer[i * 4]	   = color.r;
+			colorBuffer[i * 4 + 1] = color.g;
+			colorBuffer[i * 4 + 2] = color.b;
+			colorBuffer[i * 4 + 3] = color.a;
+		}
+		glUniform3fv(ShaderManager::getUniform("uLightSources.location"), lightSourceCount, locationBuffer);
+		glUniform4fv(ShaderManager::getUniform("uLightSources.color"), lightSourceCount, colorBuffer);
+	});
+}
+
+void Scene::removeLightSource(LightSource* _lightSource) {
+	std::vector<LightSource*>::iterator it = m_lightSources.begin();
+	while (it != m_lightSources.end())
+		if (*it == _lightSource)
+			m_lightSources.erase(it);
+		else
+			it++;
 }
 
 GameObject* Scene::getGameObject(std::string name) {

@@ -3,27 +3,30 @@
 #include <string>
 #include <map>
 #include <GL/glew.h>
-using namespace std;
 
 class Shader {
 	private:
+		std::string m_name;
 		enum ShaderType { VERTEX_SHADER, FRAGMENT_SHADER, GEOMETRY_SHADER };
 		GLuint program;
 		int totalShaders;
 		GLuint shaders[3];
 
-		string vertexSource;
-		string fragmentSource;
+		std::string vertexSource;
+		std::string fragmentSource;
 	public:
-		Shader();
+		Shader(std::string _name);
 		~Shader();
-		void loadFromString(string src);
-		void loadFromFile(const string& filename);
-		void compile(string source);
+		void loadFromString(std::string src);
+		void loadFromFile(const std::string& filename);
+		void compile(std::string source);
 		void createAndLinkProgram();
 		void use();
 		void disable();
-		GLuint getAttribute(const string& attribute);
-		GLuint getUniform(const string& uniform);
+		void printActiveUniforms();
+		std::string getName();
+		GLuint getAttribute(const std::string& attribute);
+		GLuint getUniform(const std::string& uniform);
+		GLuint getUniformBlockIndex(const std::string& blockName);
 		void destroy();
 };
