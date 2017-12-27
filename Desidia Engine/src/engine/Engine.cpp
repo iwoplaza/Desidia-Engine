@@ -139,6 +139,7 @@ void Engine::update() {
 }
 
 void Engine::onRender() {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	testFramebuffer->bind();
 	glViewport(0, 0, testFramebuffer->getWidth(), testFramebuffer->getHeight());
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -163,6 +164,7 @@ void Engine::onRender() {
 	glBlitFramebuffer(0, 0, testFramebuffer->getWidth(), testFramebuffer->getHeight(), 0, 0, display->getWidth(), display->getHeight(), GL_COLOR_BUFFER_BIT, GL_NEAREST);
 	testFramebuffer->unbind();
 
+	glViewport(0, 0, display->getWidth(), display->getHeight());
 	GLHelper::ortho(0, display->getWidth(), 0, display->getHeight());
 	GLHelper::identityModel();
 	GLHelper::currentState.viewMatrix = glm::mat4();
