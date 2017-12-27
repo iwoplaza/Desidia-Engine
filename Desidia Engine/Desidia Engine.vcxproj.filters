@@ -186,6 +186,9 @@
     <ClCompile Include="src\engine\gameobject\component\ComponentLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\rendering\framebuffer\Framebuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\gameobject\component\Component.hpp">
@@ -360,6 +363,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\gameobject\component\ComponentLight.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\rendering\framebuffer\Framebuffer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

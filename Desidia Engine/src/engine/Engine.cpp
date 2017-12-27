@@ -9,6 +9,7 @@
 #include "rendering/texture/Texture.hpp"
 #include "rendering/geometry/Mesh.hpp"
 #include "rendering/font/FontRenderer.hpp"
+#include "rendering/framebuffer/Framebuffer.hpp"
 #include "physics/collider/Collider.hpp"
 #include "script/Scripts.hpp"
 #include "loader/OBJLoader.hpp"
@@ -27,6 +28,7 @@ using namespace std;
 
 Display* Engine::display;
 Camera* camera = new Camera();
+Framebuffer* testFramebuffer;
 
 void Engine::init(int argc, char** argv) {
 	ilInit();
@@ -77,6 +79,8 @@ void Engine::createDisplay(char* _title, int _width, int _height) {
 
 	ShaderManager::use("_native/shaders/default.shader");
 	DebugConsole::instance.init();
+
+	testFramebuffer = new Framebuffer(256, 256);
 
 	cout << "GL Error Code: " << glGetError() << " - " << gluErrorString(glGetError()) << endl;
 }
@@ -135,6 +139,8 @@ void Engine::update() {
 }
 
 void Engine::onRender() {
+	testFramebuffer->bind();
+	glViewport(0, 0, testFramebuffer->getWidth(), testFramebuffer->getHeight());
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	GLHelper::perspective(45.0f, (float)display->getWidth() / display->getHeight(), 0.001f, 100.0f);
@@ -152,15 +158,20 @@ void Engine::onRender() {
 	
 	Scene::current->draw();
 
+	glReadBuffer(GL_COLOR_ATTACHMENT0);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+	glBlitFramebuffer(0, 0, testFramebuffer->getWidth(), testFramebuffer->getHeight(), 0, 0, display->getWidth(), display->getHeight(), GL_COLOR_BUFFER_BIT, GL_NEAREST);
+	testFramebuffer->unbind();
+
 	GLHelper::ortho(0, display->getWidth(), 0, display->getHeight());
 	GLHelper::identityModel();
 	GLHelper::currentState.viewMatrix = glm::mat4();
 
 	GLHelper::saveState();
-		GLHelper::identityModel();
-		GLHelper::translate(display->getWidth()-62, display->getHeight()-20, 0);
-		FontRenderer::fontSize = 16;
-		FontRenderer::drawText("v0.1.0", DebugConsole::CODE_FONT, "_native/shaders/text-default.shader");
+	GLHelper::identityModel();
+	GLHelper::translate(display->getWidth() - 62, display->getHeight() - 20, 0);
+	FontRenderer::fontSize = 16;
+	FontRenderer::drawText("v0.1.0", DebugConsole::CODE_FONT, "_native/shaders/text-default.shader");
 	GLHelper::loadState();
 
 	DebugConsole::instance.draw();

@@ -165,6 +165,7 @@
     <ClCompile Include="src\engine\physics\PhysicsBody.cpp" />
     <ClCompile Include="src\engine\physics\PhysicsSpace.cpp" />
     <ClCompile Include="src\engine\physics\PolygonUtils.cpp" />
+    <ClCompile Include="src\engine\rendering\framebuffer\Framebuffer.cpp" />
     <ClCompile Include="src\engine\rendering\geometry\DynamicMesh.cpp" />
     <ClCompile Include="src\engine\rendering\geometry\Polygon.cpp" />
     <ClCompile Include="src\engine\rendering\material\Material.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="src\engine\physics\PhysicsBody.hpp" />
     <ClInclude Include="src\engine\physics\PhysicsSpace.hpp" />
     <ClInclude Include="src\engine\physics\PhysicsUtils.hpp" />
+    <ClInclude Include="src\engine\rendering\framebuffer\Framebuffer.hpp" />
     <ClInclude Include="src\engine\rendering\geometry\DynamicMesh.hpp" />
     <ClInclude Include="src\engine\rendering\geometry\MeshData.hpp" />
     <ClInclude Include="src\engine\rendering\geometry\Polygon.hpp" />
